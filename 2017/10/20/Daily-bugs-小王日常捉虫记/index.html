@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="">
+  <head>
+    
+<meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width,user-scalable=no,initial-scale=1,minimum-scale=1,maximum-scale=1">
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+  <meta name="description" content="Daily bugs-小王日常捉虫记"/>
+
+
+
+
+
+
+
+
+  <link rel="alternate" href="/default" title="Minus Wang">
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=1.1" />
+
+
+
+<link rel="canonical" href="http://minus.wang/2017/10/20/Daily-bugs-小王日常捉虫记/"/>
+
+
+<meta name="description" content="《Daily bugs-小王日常捉虫记》 BUG-0001.Error:Failed to resolve: annotationProcessor123repositories &amp;#123;    maven &amp;#123; url &amp;apos;https://jitpack.io&amp;apos; &amp;#125;&amp;#125; 原版本123456allprojects &amp;#123;    reposito">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Daily bugs-小王日常捉虫记">
+<meta property="og:url" content="http://minus.wang/2017/10/20/Daily-bugs-小王日常捉虫记/index.html">
+<meta property="og:site_name" content="Minus Wang">
+<meta property="og:description" content="《Daily bugs-小王日常捉虫记》 BUG-0001.Error:Failed to resolve: annotationProcessor123repositories &amp;#123;    maven &amp;#123; url &amp;apos;https://jitpack.io&amp;apos; &amp;#125;&amp;#125; 原版本123456allprojects &amp;#123;    reposito">
+<meta property="og:updated_time" content="2017-10-20T03:30:57.586Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Daily bugs-小王日常捉虫记">
+<meta name="twitter:description" content="《Daily bugs-小王日常捉虫记》 BUG-0001.Error:Failed to resolve: annotationProcessor123repositories &amp;#123;    maven &amp;#123; url &amp;apos;https://jitpack.io&amp;apos; &amp;#125;&amp;#125; 原版本123456allprojects &amp;#123;    reposito">
+
+
+<link rel="stylesheet" type="text/css" href="/css/style.css?v=1.1" />
+<link href='https://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet'>
+
+
+
+
+
+<script type="text/javascript">
+  var themeConfig = {
+    fancybox: {
+      enable: false
+    },
+  };
+</script>
+
+
+
+
+  
+
+
+
+    <title> Daily bugs-小王日常捉虫记 - Minus Wang </title>
+  </head>
+
+  <body>
+    <div id="page">
+      <header id="masthead"><div class="site-header-inner">
+    <h1 class="site-title">
+        <a href="/." class="logo">Minus Wang</a>
+    </h1>
+
+    <nav id="nav-top">
+        
+            <ul id="menu-top" class="nav-top-items">
+                
+                    <li class="menu-item">
+                        <a href="/about">
+                            
+                            
+                                About
+                            
+                        </a>
+                    </li>
+                
+                    <li class="menu-item">
+                        <a href="/search">
+                            
+                            
+                                Other
+                            
+                        </a>
+                    </li>
+                
+            </ul>
+        
+  </nav>
+</div>
+
+      </header>
+      <div id="content">
+        
+    <div id="primary">
+        
+  <article class="post">
+    <header class="post-header">
+      <h1 class="post-title">
+        
+          Daily bugs-小王日常捉虫记
+        
+      </h1>
+
+      <time class="post-time">
+          Oct 20 2017
+      </time>
+    </header>
+
+
+
+    
+            <div class="post-content">
+            <p>《Daily bugs-小王日常捉虫记》</p>
+<h2 id="BUG-0001-Error-Failed-to-resolve-annotationProcessor"><a href="#BUG-0001-Error-Failed-to-resolve-annotationProcessor" class="headerlink" title="BUG-0001.Error:Failed to resolve: annotationProcessor"></a>BUG-0001.Error:Failed to resolve: annotationProcessor</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">repositories &#123;</div><div class="line">    maven &#123; url &apos;https://jitpack.io&apos; &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>原版本<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">allprojects &#123;</div><div class="line">    repositories &#123;</div><div class="line">        jcenter()</div><div class="line">        maven &#123; url &apos;https://maven.google.com&apos; &#125;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p><a href="https://stackoverflow.com/questions/40703394/errorfailed-to-resolve-annotationprocessor" target="_blank" rel="external">0001参考链接</a></p>
+<h2 id="BUG0002"><a href="#BUG0002" class="headerlink" title="BUG0002."></a>BUG0002.</h2><h2 id="BUG0003"><a href="#BUG0003" class="headerlink" title="BUG0003."></a>BUG0003.</h2><h2 id="BUG0004"><a href="#BUG0004" class="headerlink" title="BUG0004."></a>BUG0004.</h2><h2 id="BUG0005"><a href="#BUG0005" class="headerlink" title="BUG0005."></a>BUG0005.</h2><h2 id="BUG0006"><a href="#BUG0006" class="headerlink" title="BUG0006."></a>BUG0006.</h2><h2 id="BUG0007"><a href="#BUG0007" class="headerlink" title="BUG0007."></a>BUG0007.</h2><h2 id="BUG0008"><a href="#BUG0008" class="headerlink" title="BUG0008."></a>BUG0008.</h2><h2 id="BUG0009"><a href="#BUG0009" class="headerlink" title="BUG0009."></a>BUG0009.</h2>
+            </div>
+          
+
+    
+  </article>
+
+    </div>
+
+      </div>
+
+      <footer id="colophon"><span class="copyright-year">
+    
+        &copy;
+    
+        2015 -
+    
+    2017
+    <span class="footer-author">MinusWang. All Rights Reserved. 砥砺前行-功不唐捐.</span>
+</span>
+
+      </footer>
+
+      <div class="back-to-top" id="back-to-top">
+        <i class="iconfont icon-up"></i>
+      </div>
+    </div>
+    
+
+
+    
+
+
+
+
+  
+    <script type="text/javascript" src="/lib/jquery/jquery-3.1.1.min.js"></script>
+  
+
+  
+
+    <script type="text/javascript" src="/js/src/theme.js?v=1.1"></script>
+<script type="text/javascript" src="/js/src/bootstrap.js?v=1.1"></script>
+
+  </body>
+</html>
