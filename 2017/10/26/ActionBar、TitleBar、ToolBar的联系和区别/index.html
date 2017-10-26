@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="">
+  <head>
+    
+<meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width,user-scalable=no,initial-scale=1,minimum-scale=1,maximum-scale=1">
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+  <meta name="description" content="ActionBar、TitleBar、ToolBar的联系和区别"/>
+
+
+
+
+
+
+
+
+  <link rel="alternate" href="/default" title="Minus Wang">
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=1.1" />
+
+
+
+<link rel="canonical" href="http://minus.wang/2017/10/26/ActionBar、TitleBar、ToolBar的联系和区别/"/>
+
+
+<meta name="description" content="android：ToolBar详解（手把手教程） ActionBar ActionBar 是android 3.0的推出的，当时Google 想要逐渐改善过去 android 纷乱的界面设计，希望让终端使用者尽可能在 android 手机有个一致的操作体验。ActionBar 过去最多人使用的两大套件就是 ActionBarSherlock 以及官方提供在 support library v 7">
+<meta property="og:type" content="article">
+<meta property="og:title" content="ActionBar、TitleBar、ToolBar的联系和区别">
+<meta property="og:url" content="http://minus.wang/2017/10/26/ActionBar、TitleBar、ToolBar的联系和区别/index.html">
+<meta property="og:site_name" content="Minus Wang">
+<meta property="og:description" content="android：ToolBar详解（手把手教程） ActionBar ActionBar 是android 3.0的推出的，当时Google 想要逐渐改善过去 android 纷乱的界面设计，希望让终端使用者尽可能在 android 手机有个一致的操作体验。ActionBar 过去最多人使用的两大套件就是 ActionBarSherlock 以及官方提供在 support library v 7">
+<meta property="og:image" content="http://minus.wang/ActionBar、TitleBar、ToolBar的联系和区别/tu1.png">
+<meta property="og:updated_time" content="2017-10-26T02:55:51.711Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="ActionBar、TitleBar、ToolBar的联系和区别">
+<meta name="twitter:description" content="android：ToolBar详解（手把手教程） ActionBar ActionBar 是android 3.0的推出的，当时Google 想要逐渐改善过去 android 纷乱的界面设计，希望让终端使用者尽可能在 android 手机有个一致的操作体验。ActionBar 过去最多人使用的两大套件就是 ActionBarSherlock 以及官方提供在 support library v 7">
+<meta name="twitter:image" content="http://minus.wang/ActionBar、TitleBar、ToolBar的联系和区别/tu1.png">
+
+
+<link rel="stylesheet" type="text/css" href="/css/style.css?v=1.1" />
+<link href='https://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet'>
+
+
+
+
+
+<script type="text/javascript">
+  var themeConfig = {
+    fancybox: {
+      enable: false
+    },
+  };
+</script>
+
+
+
+
+  
+
+
+
+    <title> ActionBar、TitleBar、ToolBar的联系和区别 - Minus Wang </title>
+  </head>
+
+  <body>
+    <div id="page">
+      <header id="masthead"><div class="site-header-inner">
+    <h1 class="site-title">
+        <a href="/." class="logo">Minus Wang</a>
+    </h1>
+
+    <nav id="nav-top">
+        
+            <ul id="menu-top" class="nav-top-items">
+                
+                    <li class="menu-item">
+                        <a href="/about">
+                            
+                            
+                                Me
+                            
+                        </a>
+                    </li>
+                
+                    <li class="menu-item">
+                        <a href="/daohang">
+                            
+                            
+                                Site
+                            
+                        </a>
+                    </li>
+                
+                    <li class="menu-item">
+                        <a href="/notes">
+                            
+                            
+                                Note
+                            
+                        </a>
+                    </li>
+                
+            </ul>
+        
+  </nav>
+</div>
+
+      </header>
+      <div id="content">
+        
+    <div id="primary">
+        
+  <article class="post">
+    <header class="post-header">
+      <h1 class="post-title">
+        
+          ActionBar、TitleBar、ToolBar的联系和区别
+        
+      </h1>
+
+      <time class="post-time">
+          Oct 26 2017
+      </time>
+    </header>
+
+
+
+    
+            <div class="post-content">
+            <p><img src="\ActionBar、TitleBar、ToolBar的联系和区别\tu1.png" alt=""></p>
+<h2 id="android：ToolBar详解（手把手教程）"><a href="#android：ToolBar详解（手把手教程）" class="headerlink" title="android：ToolBar详解（手把手教程）"></a><a href="http://www.jcodecraeer.com/a/anzhuokaifa/androidkaifa/2014/1118/2006.html" target="_blank" rel="external">android：ToolBar详解（手把手教程）</a></h2><blockquote>
+<h2 id="ActionBar"><a href="#ActionBar" class="headerlink" title="ActionBar"></a>ActionBar</h2></blockquote>
+<p>ActionBar 是android 3.0的推出的，当时Google 想要逐渐改善过去 android 纷乱的界面设计，希望让终端使用者尽可能在 android 手机有个一致的操作体验。ActionBar 过去最多人使用的两大套件就是 ActionBarSherlock 以及官方提供在 support library v 7 里的 AppCompat。</p>
+<p>Action bar被包含在所有的使用Theme.Hole主题的Activity（或者是这些Activity的子类）中。</p>
+<p>删除actionbar</p>
+<p>如果不想用ActionBar，那么只要在theme主题后面” .NoActionBar”, 就可以了。</p>
+<p>由于现在用的不多了，所以就一带而过了。</p>
+<blockquote>
+<h2 id="Toolbar"><a href="#Toolbar" class="headerlink" title="Toolbar"></a>Toolbar</h2></blockquote>
+<p>Toolbar 是android 5.0的推出的，放在了v7包中作为控件，它是为了取代actionbar而产生的，意味着官方在某些程度上认为 ActionBar 限制了 android app 的开发与设计的弹性，而在 material design 也对之做了名称的定义：App bar</p>
+<h2 id="一、ToolBar"><a href="#一、ToolBar" class="headerlink" title="一、ToolBar"></a>一、ToolBar</h2><ol>
+<li>概述<br>Google在2015的IO大会上发布了系列的Material Design风格的控件。其中ToolBar是替代ActionBar的控件。由于ActionBar在各个安卓版本和定制Rom中的效果表现不一，导致严重的碎片化问题，ToolBar应运而生。</li>
+</ol>
+<blockquote>
+<p>与ActionBar区别</p>
+</blockquote>
+<p>显示效果跟ActionBar并没有区别。<br>优点：自定义视图的操作更加简单，状态栏的颜色可以调（Android 4.4以上）。</p>
+<ol>
+<li>使用方法</li>
+</ol>
+<p>2.1 导包(配置Gradle)</p>
+<pre><code>`compile &apos;com.android.support:appcompat-v7:22.0.0&apos;`
+</code></pre><p>2.2 在<code>AndroidManifest.xml</code>设置此Activity的主题<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">item</span> <span class="attr">name</span>=<span class="string">"windowActionBar"</span>&gt;</span>false<span class="tag">&lt;/<span class="name">item</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">item</span> <span class="attr">name</span>=<span class="string">"windowNoTitle"</span>&gt;</span>true<span class="tag">&lt;/<span class="name">item</span>&gt;</span></div></pre></td></tr></table></figure></p>
+<p>注意：务必将ActionBar消除，否则Activity将会崩溃</p>
+<p>2.3 重定义主题(颜色等信息)</p>
+<p>Android 4.4及以上，在values文件夹中新建<code>values-v19.xml</code>，内容如下</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">resources</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">style</span> <span class="attr">name</span>=<span class="string">"AppTheme"</span> <span class="attr">parent</span>=<span class="string">"Theme.AppCompat.Light.NoActionBar"</span>&gt;</span><span class="undefined"></span></div><div class="line"><span class="xml">        <span class="tag">&lt;<span class="name">item</span> <span class="attr">name</span>=<span class="string">"windowActionBar"</span>&gt;</span>false<span class="tag">&lt;/<span class="name">item</span>&gt;</span></span></div><div class="line"><span class="xml">        <span class="tag">&lt;<span class="name">item</span> <span class="attr">name</span>=<span class="string">"android:windowNoTitle"</span>&gt;</span>true<span class="tag">&lt;/<span class="name">item</span>&gt;</span></span></div><div class="line"><span class="xml">        <span class="comment">&lt;!--Toolbar颜色--&gt;</span></span></div><div class="line"><span class="xml">        <span class="tag">&lt;<span class="name">item</span> <span class="attr">name</span>=<span class="string">"colorPrimary"</span>&gt;</span>@android:color/holo_blue_bright<span class="tag">&lt;/<span class="name">item</span>&gt;</span></span></div><div class="line"><span class="xml">        <span class="comment">&lt;!-- 状态栏颜色 --&gt;</span></span></div><div class="line"><span class="xml">        <span class="tag">&lt;<span class="name">item</span> <span class="attr">name</span>=<span class="string">"colorPrimaryDark"</span>&gt;</span>@android:color/holo_blue_bright<span class="tag">&lt;/<span class="name">item</span>&gt;</span></span></div><div class="line"><span class="xml">        <span class="tag">&lt;<span class="name">item</span> <span class="attr">name</span>=<span class="string">"android:windowTranslucentNavigation"</span>&gt;</span>true<span class="tag">&lt;/<span class="name">item</span>&gt;</span></span></div><div class="line"><span class="xml">        <span class="tag">&lt;<span class="name">item</span> <span class="attr">name</span>=<span class="string">"android:windowTranslucentStatus"</span>&gt;</span>true<span class="tag">&lt;/<span class="name">item</span>&gt;</span></span></div><div class="line"><span class="undefined">    </span><span class="tag">&lt;/<span class="name">style</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">resources</span>&gt;</span></div></pre></td></tr></table></figure>
+<p>Android 4.4以下：</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">resources</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">style</span> <span class="attr">name</span>=<span class="string">"AppTheme"</span> <span class="attr">parent</span>=<span class="string">"Theme.AppCompat.Light.NoActionBar"</span>&gt;</span><span class="undefined"></span></div><div class="line"><span class="xml">        <span class="tag">&lt;<span class="name">item</span> <span class="attr">name</span>=<span class="string">"windowActionBar"</span>&gt;</span>false<span class="tag">&lt;/<span class="name">item</span>&gt;</span></span></div><div class="line"><span class="xml">        <span class="tag">&lt;<span class="name">item</span> <span class="attr">name</span>=<span class="string">"android:windowNoTitle"</span>&gt;</span>true<span class="tag">&lt;/<span class="name">item</span>&gt;</span></span></div><div class="line"><span class="xml">        <span class="comment">&lt;!--Toolbar颜色--&gt;</span></span></div><div class="line"><span class="xml">        <span class="tag">&lt;<span class="name">item</span> <span class="attr">name</span>=<span class="string">"colorPrimary"</span>&gt;</span>@color/Indigo_colorPrimary<span class="tag">&lt;/<span class="name">item</span>&gt;</span></span></div><div class="line"><span class="undefined">    </span><span class="tag">&lt;/<span class="name">style</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">resources</span>&gt;</span></div></pre></td></tr></table></figure>
+<p>2.4 ToolBar.xml文件中定义</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">&lt;?xml version="1.0" encoding="utf-8"?&gt;  </div><div class="line"><span class="tag">&lt;<span class="name">android.support.v7.widget.Toolbar</span> <span class="attr">xmlns:android</span>=<span class="string">"http://schemas.android.com/apk/res/android"</span>  </span></div><div class="line"><span class="tag">    <span class="attr">android:id</span>=<span class="string">"@+id/toolbar"</span>  </span></div><div class="line"><span class="tag">    <span class="attr">android:layout_height</span>=<span class="string">"wrap_content"</span>  </span></div><div class="line"><span class="tag">    <span class="attr">android:layout_width</span>=<span class="string">"match_parent"</span>  </span></div><div class="line"><span class="tag">    <span class="attr">android:background</span>=<span class="string">"?attr/colorPrimary"</span>  //设置<span class="attr">toolbar</span>的背景颜色</span></div><div class="line"><span class="tag">    <span class="attr">android:minHeight</span>=<span class="string">"?android:attr/actionBarSize"</span>&gt;</span>  <span class="comment">&lt;!-- 最小高度 --&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">android.support.v7.widget.Toolbar</span>&gt;</span>  </div><div class="line">android:fitsSystemWindows="true" 防止ToolBar与StatusBar融合</div></pre></td></tr></table></figure>
+<p>2.5 java代码中实现</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">private</span> Toolbar mToolbar;  </div><div class="line">   <span class="keyword">private</span> WebFragment mWebFragment;  </div><div class="line">   <span class="keyword">private</span> <span class="keyword">long</span> mBeforeTime;  </div><div class="line">   <span class="meta">@Override</span>  </div><div class="line">   <span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">onCreate</span><span class="params">(Bundle savedInstanceState)</span> </span>&#123;  </div><div class="line">       <span class="keyword">super</span>.onCreate(savedInstanceState);  </div><div class="line">       setContentView(R.layout.activity_main);</div><div class="line">       <span class="keyword">if</span> (Build.VERSION.SDK_INT &gt;= Build.VERSION_CODES.KITKAT) &#123;  <span class="comment">//版本检测</span></div><div class="line">           SystemBarTintManager tintManager = <span class="keyword">new</span> SystemBarTintManager(<span class="keyword">this</span>);  </div><div class="line">           mToolbar = (Toolbar) findViewById(R.id.toolbar);  </div><div class="line">           tintManager.setStatusBarTintEnabled(<span class="keyword">true</span>);  <span class="comment">//更改状态栏设置</span></div><div class="line">           setSupportActionBar(mToolbar);  <span class="comment">//将ToolBar设置成ActionBar</span></div><div class="line">           tintManager.setStatusBarTintResource(android.R.color.holo_blue_bright);  </div><div class="line">       &#125;  </div><div class="line">       getSupportActionBar().setHomeButtonEnabled(<span class="keyword">true</span>); <span class="comment">//设置返回键可用  </span></div><div class="line">       getSupportActionBar().setDisplayHomeAsUpEnabled(<span class="keyword">true</span>);  </div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>2.6 参考文章</p>
+<p><a href="http://blog.csdn.net/qq284565035/article/details/47086439" target="_blank" rel="external">http://blog.csdn.net/qq284565035/article/details/47086439</a></p>
+<p><a href="http://www.itstrike.cn/Question/9ae75549-b316-4844-938e-c22c0f4e6692.html" target="_blank" rel="external">http://www.itstrike.cn/Question/9ae75549-b316-4844-938e-c22c0f4e6692.html</a></p>
+
+            </div>
+          
+
+    
+  </article>
+
+    </div>
+
+      </div>
+
+      <footer id="colophon"><span class="copyright-year">
+    
+        &copy;
+    
+        2015 -
+    
+    2017
+    <span class="footer-author">MinusWang. All Rights Reserved. 砥砺前行-功不唐捐.</span>
+</span>
+
+      </footer>
+
+      <div class="back-to-top" id="back-to-top">
+        <i class="iconfont icon-up"></i>
+      </div>
+    </div>
+    
+
+
+    
+
+
+
+
+  
+    <script type="text/javascript" src="/lib/jquery/jquery-3.1.1.min.js"></script>
+  
+
+  
+
+    <script type="text/javascript" src="/js/src/theme.js?v=1.1"></script>
+<script type="text/javascript" src="/js/src/bootstrap.js?v=1.1"></script>
+
+  </body>
+</html>
