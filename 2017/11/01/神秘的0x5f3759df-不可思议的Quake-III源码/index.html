@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="">
+  <head>
+    
+<meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width,user-scalable=no,initial-scale=1,minimum-scale=1,maximum-scale=1">
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+  <meta name="description" content="神秘的0x5f3759df 不可思议的Quake III源码"/>
+
+
+
+
+
+
+
+
+  <link rel="alternate" href="/default" title="Minus Wang">
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=1.1" />
+
+
+
+<link rel="canonical" href="http://minus.wang/2017/11/01/神秘的0x5f3759df-不可思议的Quake-III源码/"/>
+
+
+<meta name="description" content="原文链接 Quake III公开源码后，有人在game/code/q_math.c里发现了这样一段代码。它的作用是将一个数开平方并取倒，经测试这段代码比(float)(1.0/sqrt(x))快4倍： 123456789101112131415161718192021float Q_rsqrt( float number )&amp;#123;  long i;  float x2, y;  const">
+<meta property="og:type" content="article">
+<meta property="og:title" content="神秘的0x5f3759df 不可思议的Quake III源码">
+<meta property="og:url" content="http://minus.wang/2017/11/01/神秘的0x5f3759df-不可思议的Quake-III源码/index.html">
+<meta property="og:site_name" content="Minus Wang">
+<meta property="og:description" content="原文链接 Quake III公开源码后，有人在game/code/q_math.c里发现了这样一段代码。它的作用是将一个数开平方并取倒，经测试这段代码比(float)(1.0/sqrt(x))快4倍： 123456789101112131415161718192021float Q_rsqrt( float number )&amp;#123;  long i;  float x2, y;  const">
+<meta property="og:updated_time" content="2017-11-01T08:43:59.987Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="神秘的0x5f3759df 不可思议的Quake III源码">
+<meta name="twitter:description" content="原文链接 Quake III公开源码后，有人在game/code/q_math.c里发现了这样一段代码。它的作用是将一个数开平方并取倒，经测试这段代码比(float)(1.0/sqrt(x))快4倍： 123456789101112131415161718192021float Q_rsqrt( float number )&amp;#123;  long i;  float x2, y;  const">
+
+
+<link rel="stylesheet" type="text/css" href="/css/style.css?v=1.1" />
+<link href='https://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet'>
+
+
+
+
+
+<script type="text/javascript">
+  var themeConfig = {
+    fancybox: {
+      enable: false
+    },
+  };
+</script>
+
+
+
+
+  
+
+
+
+    <title> 神秘的0x5f3759df 不可思议的Quake III源码 - Minus Wang </title>
+  </head>
+
+  <body>
+    <div id="page">
+      <header id="masthead"><div class="site-header-inner">
+    <h1 class="site-title">
+        <a href="/." class="logo">Minus Wang</a>
+    </h1>
+
+    <nav id="nav-top">
+        
+            <ul id="menu-top" class="nav-top-items">
+                
+                    <li class="menu-item">
+                        <a href="/about">
+                            
+                            
+                                Me
+                            
+                        </a>
+                    </li>
+                
+                    <li class="menu-item">
+                        <a href="/daohang">
+                            
+                            
+                                Site
+                            
+                        </a>
+                    </li>
+                
+                    <li class="menu-item">
+                        <a href="/notes">
+                            
+                            
+                                Note
+                            
+                        </a>
+                    </li>
+                
+            </ul>
+        
+  </nav>
+</div>
+
+      </header>
+      <div id="content">
+        
+    <div id="primary">
+        
+  <article class="post">
+    <header class="post-header">
+      <h1 class="post-title">
+        
+          神秘的0x5f3759df 不可思议的Quake III源码
+        
+      </h1>
+
+      <time class="post-time">
+          Nov 1 2017
+      </time>
+    </header>
+
+
+
+    
+            <div class="post-content">
+            <p><a href="http://www.matrix67.com/blog/archives/362" target="_blank" rel="external">原文链接</a></p>
+<p>Quake III公开源码后，有人在<code>game/code/q_math.c</code>里发现了这样一段代码。它的作用是将一个数开平方并取倒，经测试这段代码比<code>(float)(1.0/sqrt(x))</code>快4倍：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">float</span> <span class="title">Q_rsqrt</span><span class="params">( <span class="keyword">float</span> number )</span></span></div><div class="line"><span class="function"></span>&#123;</div><div class="line">  <span class="keyword">long</span> i;</div><div class="line">  <span class="keyword">float</span> x2, y;</div><div class="line">  <span class="keyword">const</span> <span class="keyword">float</span> threehalfs = <span class="number">1.5F</span>;</div><div class="line"></div><div class="line">  x2 = number * <span class="number">0.5F</span>;</div><div class="line">  y  = number;</div><div class="line">  i  = * ( <span class="keyword">long</span> * ) &amp;y;  <span class="comment">// evil floating point bit level hacking</span></div><div class="line">  i  = <span class="number">0x5f3759df</span> - ( i &gt;&gt; <span class="number">1</span> ); <span class="comment">// what the fuck?</span></div><div class="line">  y  = * ( <span class="keyword">float</span> * ) &amp;i;</div><div class="line">  y  = y * ( threehalfs - ( x2 * y * y ) ); <span class="comment">// 1st iteration</span></div><div class="line">  <span class="comment">// y  = y * ( threehalfs - ( x2 * y * y ) ); // 2nd iteration, this can be removed</span></div><div class="line"></div><div class="line">  <span class="meta">#<span class="meta-keyword">ifndef</span> Q3_VM</span></div><div class="line">  <span class="meta">#<span class="meta-keyword">ifdef</span> __linux__</span></div><div class="line">    assert( !isnan(y) ); <span class="comment">// bk010122 - FPE?</span></div><div class="line">  <span class="meta">#<span class="meta-keyword">endif</span></span></div><div class="line">  <span class="meta">#<span class="meta-keyword">endif</span></span></div><div class="line">  <span class="keyword">return</span> y;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p><code>code/common/cm_trace.c</code>中也出现了这样一段解释<code>sqrt(x)</code>的函数，与上面的代码唯一不同的就是这个函数返回的是<code>number*y</code>：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/*</span></div><div class="line"><span class="comment">================</span></div><div class="line"><span class="comment">SquareRootFloat</span></div><div class="line"><span class="comment">================</span></div><div class="line"><span class="comment">*/</span></div><div class="line"><span class="function"><span class="keyword">float</span> <span class="title">SquareRootFloat</span><span class="params">(<span class="keyword">float</span> number)</span> </span>&#123;</div><div class="line">    <span class="keyword">long</span> i;</div><div class="line">    <span class="keyword">float</span> x, y;</div><div class="line">    <span class="keyword">const</span> <span class="keyword">float</span> f = <span class="number">1.5F</span>;</div><div class="line"></div><div class="line">    x = number * <span class="number">0.5F</span>;</div><div class="line">    y  = number;</div><div class="line">    i  = * ( <span class="keyword">long</span> * ) &amp;y;</div><div class="line">    i  = <span class="number">0x5f3759df</span> - ( i &gt;&gt; <span class="number">1</span> );</div><div class="line">    y  = * ( <span class="keyword">float</span> * ) &amp;i;</div><div class="line">    y  = y * ( f - ( x * y * y ) );</div><div class="line">    y  = y * ( f - ( x * y * y ) );</div><div class="line">    <span class="keyword">return</span> number * y;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>这样的代码速度肯定飞快，我就不用多说了；但算法的原理是什么呢？其实说穿了也不是很神，程序首先猜测了一个接近<code>1/sqrt(number)</code>的值，然后两次使用牛顿迭代法进行迭代。根号<code>a</code>的倒数实际上就是方程<code>1/x^2 – a = 0</code>的一个正实根，它的导数是<code>-2/x^3</code>。运用牛顿迭代公式<code>x&#39; = x – f(x)/f&#39;(x)</code>，式子化简为<code>x&#39; = x * (1.5 – 0.5a * x^2)</code>。迭代几次后，<code>x</code>的值将趋于<code>1/sqrt(a)</code>。</p>
+<p>但这段代码真正牛B的是那个神秘的<code>0x5f3759df</code>，因为<code>0x5f3759df – (i &gt;&gt; 1)</code>出人意料地接近根号<code>y</code>的倒数。人们都不知道这个神秘的常数是怎么来的，只能把它当作神来膜拜。这个富有传奇色彩的常数到底咋回事，很少有人说得清楚。这篇论文<a href="http://www.matrix67.com/data/InvSqrt.pdf" target="_blank" rel="external">FAST INVERSE SQUARE ROOT</a>比较科学地解释了这个常数。</p>
+<h2 id="quake3源码分析"><a href="#quake3源码分析" class="headerlink" title="quake3源码分析"></a>quake3源码分析</h2><p>quake3 游戏demo演示版，没有玩过quake3游戏的或想了解quake3画面的 ， 可到此处下载，<br><a href="http://ishare.iask.sina.com.cn/search.php?key=q3ademo&amp;from=index&amp;format=" target="_blank" rel="external">http://ishare.iask.sina.com.cn/search.php?key=q3ademo&amp;from=index&amp;format=</a><br>这两个任意都可直接下载，点击直接下载，50M，下载极快。</p>
+<p><a href="https://github.com/barrettcolin/quake3.gpl.old" target="_blank" rel="external">https://github.com/barrettcolin/quake3.gpl.old</a> quake3源码的一个下载地址</p>
+<p>quake3包含了渲染部分，人工智能，网络部分等</p>
+<p> 主要代码文件如下（我自己大致的分法）</p>
+<blockquote>
+<p>工具部分的代码</p>
+</blockquote>
+<p>lcc文件包是用来编译quake 代码里面的game,cgame,ui的代码，卡马克对开源的lcc进行了改写，再使用qasm来进行编译成为了qvm文件，在游戏时候调用</p>
+<p>qasm 文件夹将game.cgame.ui等等文件夹里的东西汇编为机器码，形成一个虚拟机，执行速度快，也可跨平台。 </p>
+<p>radiant生成这个地图map文件</p>
+<p>q3map场景处理部分，那是将.map文件经历bsp树分割，，pvs,光线追踪等等处理后生成bsp树这个地图</p>
+<blockquote>
+<p>引擎代码</p>
+</blockquote>
+<p>code内是雷神之锤3引擎主要的代码,</p>
+<p>我自己将之分为上层和下层，上层主要是游戏逻辑部分，下层音频，视频，渲染器，文件系统，网络系统</p>
+<p>上层主要调用下层的函数，分模块，这样有利于随意换掉任意一个渲染模块，或者任意换掉一个音频处理部分</p>
+<blockquote>
+<p>上层</p>
+</blockquote>
+<p>AAS是一种文件格式，保存的机器人行走的导航图，</p>
+<p>bspc主要生成aas地图的</p>
+<p>botlib是用于机器人部分，用于单人模式的一部分，其中包括加载BSP文件，加载模型,机器人AI部分等。</p>
+<p>q3ui是quake3的用户界面部分。  </p>
+<p>cgame 部分是用于客户端程序的逻辑部分,</p>
+<p>game 是用于服务器端的逻辑部分，分两部分，1单人时运行时的人工智能部分，模拟网络连线对战。2网络连线时，运行网络部分代码。</p>
+<blockquote>
+<p>下层 </p>
+</blockquote>
+<p> client主要键盘，有鼠标驱动的实现方式，以及键盘键值的绑定，输入输出 ，套接字以及控制台代码的使用等等</p>
+<p> sever 网络部分，一个游戏运行时1 单人时运行时仿照多人部分的服务器端 2,LAN或者Internet部分这个服务器部分实现 </p>
+<p> Render渲染器主要是 先用q3关卡编辑器quake radiant ，将编辑者在电脑上画出的关卡部分，存为.map文件，</p>
+<p>再将.map文件格式用q3map部分编译成以.bsp为后缀名的文件。  再将.bsp文件加载到内存中，</p>
+<p>用quake3 code文件夹中render部分进行渲染。根据玩家所站的的位置进行pvs选择，筛选玩家所能看到的部分进行渲染。</p>
+<p>sound加载wav部分代码，解码进行播放</p>
+<p><a href="http://blog.csdn.net/tailiangliang/article/details/6953533" target="_blank" rel="external"> quake3（雷神之锤3） 是一个血腥暴力，疯狂发泄射击游戏！</a></p>
+<p><a href="https://github.com/barrettcolin/quake3.gpl.old/blob/master/code/game/q_math.c" target="_blank" rel="external">quake3.gpl.old/code/game/q_math.c</a></p>
+
+            </div>
+          
+
+    
+  </article>
+
+    </div>
+
+      </div>
+
+      <footer id="colophon"><span class="copyright-year">
+    
+        &copy;
+    
+        2015 -
+    
+    2017
+    <span class="footer-author">MinusWang. All Rights Reserved. 砥砺前行-功不唐捐.</span>
+</span>
+
+      </footer>
+
+      <div class="back-to-top" id="back-to-top">
+        <i class="iconfont icon-up"></i>
+      </div>
+    </div>
+    
+
+
+    
+
+
+
+
+  
+    <script type="text/javascript" src="/lib/jquery/jquery-3.1.1.min.js"></script>
+  
+
+  
+
+    <script type="text/javascript" src="/js/src/theme.js?v=1.1"></script>
+<script type="text/javascript" src="/js/src/bootstrap.js?v=1.1"></script>
+
+  </body>
+</html>
