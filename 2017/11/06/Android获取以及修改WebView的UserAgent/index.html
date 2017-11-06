@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="">
+  <head>
+    
+<meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width,user-scalable=no,initial-scale=1,minimum-scale=1,maximum-scale=1">
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+  <meta name="description" content="Android获取以及修改WebView的UserAgent"/>
+
+
+
+
+
+
+
+
+  <link rel="alternate" href="/default" title="Minus Wang">
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=1.1" />
+
+
+
+<link rel="canonical" href="http://minus.wang/2017/11/06/Android获取以及修改WebView的UserAgent/"/>
+
+
+<meta name="description" content="User Agent中文名为用户代理，是Http协议中的一部分，属于头域的组成部分，User Agent也简称UA。  是什么：它是一个特殊字符串头，是一种向访问网站提供你所使用的浏览器类型及版本、操作系统及版本、浏览器内核、等信息的标识。什么用：通过这个标识，用户所访问的网站可以显示不同的排版从而为用户提供更好的体验或者进行信息统计；例如用手机访问谷歌和电脑访问是不一样的，这些是谷歌根据访问者的">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Android获取以及修改WebView的UserAgent">
+<meta property="og:url" content="http://minus.wang/2017/11/06/Android获取以及修改WebView的UserAgent/index.html">
+<meta property="og:site_name" content="Minus Wang">
+<meta property="og:description" content="User Agent中文名为用户代理，是Http协议中的一部分，属于头域的组成部分，User Agent也简称UA。  是什么：它是一个特殊字符串头，是一种向访问网站提供你所使用的浏览器类型及版本、操作系统及版本、浏览器内核、等信息的标识。什么用：通过这个标识，用户所访问的网站可以显示不同的排版从而为用户提供更好的体验或者进行信息统计；例如用手机访问谷歌和电脑访问是不一样的，这些是谷歌根据访问者的">
+<meta property="og:updated_time" content="2017-11-06T11:03:34.534Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Android获取以及修改WebView的UserAgent">
+<meta name="twitter:description" content="User Agent中文名为用户代理，是Http协议中的一部分，属于头域的组成部分，User Agent也简称UA。  是什么：它是一个特殊字符串头，是一种向访问网站提供你所使用的浏览器类型及版本、操作系统及版本、浏览器内核、等信息的标识。什么用：通过这个标识，用户所访问的网站可以显示不同的排版从而为用户提供更好的体验或者进行信息统计；例如用手机访问谷歌和电脑访问是不一样的，这些是谷歌根据访问者的">
+
+
+<link rel="stylesheet" type="text/css" href="/css/style.css?v=1.1" />
+<link href='https://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet'>
+
+
+
+
+
+<script type="text/javascript">
+  var themeConfig = {
+    fancybox: {
+      enable: false
+    },
+  };
+</script>
+
+
+
+
+  
+
+
+
+    <title> Android获取以及修改WebView的UserAgent - Minus Wang </title>
+  </head>
+
+  <body>
+    <div id="page">
+      <header id="masthead"><div class="site-header-inner">
+    <h1 class="site-title">
+        <a href="/." class="logo">Minus Wang</a>
+    </h1>
+
+    <nav id="nav-top">
+        
+            <ul id="menu-top" class="nav-top-items">
+                
+                    <li class="menu-item">
+                        <a href="/about">
+                            
+                            
+                                Me
+                            
+                        </a>
+                    </li>
+                
+                    <li class="menu-item">
+                        <a href="/daohang">
+                            
+                            
+                                Site
+                            
+                        </a>
+                    </li>
+                
+                    <li class="menu-item">
+                        <a href="/notes">
+                            
+                            
+                                Note
+                            
+                        </a>
+                    </li>
+                
+            </ul>
+        
+  </nav>
+</div>
+
+      </header>
+      <div id="content">
+        
+    <div id="primary">
+        
+  <article class="post">
+    <header class="post-header">
+      <h1 class="post-title">
+        
+          Android获取以及修改WebView的UserAgent
+        
+      </h1>
+
+      <time class="post-time">
+          Nov 6 2017
+      </time>
+    </header>
+
+
+
+    
+            <div class="post-content">
+            <p>User Agent中文名为<code>用户代理</code>，是Http协议中的一部分，属于头域的组成部分，User Agent也简称UA。</p>
+<blockquote>
+<p>是什么：它是一个特殊字符串头，是一种向访问网站提供你所使用的浏览器类型及版本、操作系统及版本、浏览器内核、等信息的标识。<br>什么用：通过这个标识，用户所访问的网站可以显示不同的排版从而为用户提供更好的体验或者进行信息统计；例如用手机访问谷歌和电脑访问是不一样的，这些是谷歌根据访问者的UA来判断的。</p>
+</blockquote>
+<p>对于Android开发者，如何获取UserAgent:<br>1.首先在你的Activity对应的xml布局文件中加入WebView控件：<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">WebView</span>  </span></div><div class="line"><span class="tag">       <span class="attr">android:id</span>=<span class="string">"@+id/id_wv_ua"</span>  </span></div><div class="line"><span class="tag">       <span class="attr">android:layout_width</span>=<span class="string">"match_parent"</span>  </span></div><div class="line"><span class="tag">       <span class="attr">android:layout_height</span>=<span class="string">"match_parent"</span>&gt;</span><span class="tag">&lt;/<span class="name">WebView</span>&gt;</span></div></pre></td></tr></table></figure></p>
+<p>2.在Activity中加如下代码：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Ano</span> <span class="keyword">extends</span> <span class="title">Activity</span> </span>&#123;  </div><div class="line">  </div><div class="line">    <span class="keyword">private</span> WebView webview;  </div><div class="line">  </div><div class="line">    <span class="meta">@Override</span>  </div><div class="line">    <span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">onCreate</span><span class="params">(Bundle savedInstanceState)</span> </span>&#123;  </div><div class="line">  </div><div class="line">        <span class="keyword">super</span>.onCreate(savedInstanceState);  </div><div class="line">        setContentView(R.layout.activity_ano);  </div><div class="line">  </div><div class="line">        webview = (WebView) <span class="keyword">this</span>.findViewById(R.id.id_wv_ua);  </div><div class="line">        <span class="comment">// 得到WebSettings对象  </span></div><div class="line">        WebSettings settings = webview.getSettings();  </div><div class="line">        <span class="comment">// 如果访问的页面中有JavaScript，则WebView必须设置支持JavaScript，否则显示空白页面  </span></div><div class="line">        webview.getSettings().setJavaScriptEnabled(<span class="keyword">true</span>);  </div><div class="line">        <span class="comment">// 获取到UserAgentString  </span></div><div class="line">        String userAgent = settings.getUserAgentString();  </div><div class="line">        <span class="comment">// 打印结果  </span></div><div class="line">        Log.i(<span class="string">"TAG"</span>, <span class="string">"User Agent:"</span> + userAgent);  </div><div class="line">    &#125;  </div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>最后，如果你想让WebView能够加载来自网络的页面，别忘了在AndroidManifest.xml文件中加入INTERNET权限。<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">uses-permission</span> <span class="attr">android:name</span>=<span class="string">"android.permission.INTERNET"</span> /&gt;</span></div></pre></td></tr></table></figure></p>
+<p>输出结果，以下就是userAgent的内容：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">I/TAG: User Agent:Mozilla/5.0 (Linux; Android 4.4.4; SAMSUNG-SM-N900A Build/tt) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/33.0.0.0 Mobile Safari/537.36</div></pre></td></tr></table></figure></p>
+<p>修改：<br>为了便于WEB端统计分析，需要将APP的 user-agent 作特征标记，所以搜索了一下Android对webview的User-Agent设置方法，具体如下：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// 修改ua使得web端正确判断    </span></div><div class="line">String ua = webview.getSettings().getUserAgentString();    </div><div class="line">webview.getSettings().setUserAgentString(ua+<span class="string">"; 自定义标记"</span>);</div></pre></td></tr></table></figure></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">WebSettings settings = webview.getSettings();    </div><div class="line">        settings.setUserAgentString(<span class="string">"app/XXX"</span>);<span class="comment">//添加UA,  “app/XXX”：是与h5商量好的标识，h5确认UA为app/XXX就认为该请求的终端为App    </span></div><div class="line">        settings.setJavaScriptEnabled(<span class="keyword">true</span>);    </div><div class="line">    </div><div class="line">        <span class="comment">//设置参数    </span></div><div class="line">        settings.setBuiltInZoomControls(<span class="keyword">true</span>);    </div><div class="line">        settings.setAppCacheEnabled(<span class="keyword">true</span>);<span class="comment">// 设置缓存    </span></div><div class="line">    </div><div class="line">        webview.setWebChromeClient(<span class="keyword">new</span> WebChromeClient());    </div><div class="line">    </div><div class="line">        webview.loadUrl(loadurl);</div></pre></td></tr></table></figure>
+<p>User Agent是Http协议中的一部分，属于头域的组成部分，User Agent也简称UA。是一种向访问网站提供你所使用的浏览器类型、操作系统、浏览器内核等信息的标识。通过这个标识，用户所访问的网站可以显示不同的排版从而为用户提供更好的体验或者进行信息统计；例如用手机访问谷歌和电脑访问是不一样的，这些是谷歌根据访问者的UA来判断的。<br>android 设置UA:<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">WebSettings s = mSettings;  </div><div class="line">s.setUserAgentString(ua);</div></pre></td></tr></table></figure></p>
+<p>ua 信息如下：</p>
+<blockquote>
+<ol>
+<li>windows</li>
+</ol>
+</blockquote>
+<p><code>Mozilla/5.0 (Windows NT 5.1) AppleWebKit/537.36 (KHTML, like Gecko) Maxthon/%s Chrome/30.0.1551.0 Safari/537.36</code></p>
+<blockquote>
+<ol>
+<li>iphone</li>
+</ol>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">Mozilla/5.0 (iPhone; CPU iPhone OS 5_1 like Mac OS X) AppleWebKit/534.46 (KHTML, like Gecko) Version/5.1 Mobile/9B179 Safari/537.4 Maxthon/%s</div></pre></td></tr></table></figure>
+<blockquote>
+<ol>
+<li>iPad</li>
+</ol>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">Mozilla/5.0 (iPad; CPU OS 5_1 like Mac OS X) AppleWebKit/534.46 (KHTML, like Gecko) Version/5.1 Mobile/9B176 Safari/537.4 Maxthon/%s</div></pre></td></tr></table></figure>
+<blockquote>
+<p>4.</p>
+</blockquote>
+<p><code>//如果ua为null或者为空字符串，系统会自动生成androidUA</code></p>
+
+            </div>
+          
+
+    
+  </article>
+
+    </div>
+
+      </div>
+
+      <footer id="colophon"><span class="copyright-year">
+    
+        &copy;
+    
+        2015 -
+    
+    2017
+    <span class="footer-author">MinusWang. All Rights Reserved. 砥砺前行-功不唐捐.</span>
+</span>
+
+      </footer>
+
+      <div class="back-to-top" id="back-to-top">
+        <i class="iconfont icon-up"></i>
+      </div>
+    </div>
+    
+
+
+    
+
+
+
+
+  
+    <script type="text/javascript" src="/lib/jquery/jquery-3.1.1.min.js"></script>
+  
+
+  
+
+    <script type="text/javascript" src="/js/src/theme.js?v=1.1"></script>
+<script type="text/javascript" src="/js/src/bootstrap.js?v=1.1"></script>
+
+  </body>
+</html>
