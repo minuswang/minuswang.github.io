@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="">
+  <head>
+    
+<meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width,user-scalable=no,initial-scale=1,minimum-scale=1,maximum-scale=1">
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+  <meta name="description" content="Android APP启动时间统计(阿里巴巴)"/>
+
+
+
+
+
+
+
+
+  <link rel="alternate" href="/default" title="Minus Wang">
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=1.1" />
+
+
+
+<link rel="canonical" href="http://minus.wang/2017/11/08/Android-APP启动时间统计-阿里巴巴/"/>
+
+
+<meta name="description" content="CSDN原理系列-yangxi_001作为 Android 开发者，想必多多少少要接触启动速度优化相关的事情，当用户越来越多，产品的功能也随着迭代越来越多，App 逐渐变得臃肿是一件很常见的现象，甚至可以说是不可避免的现象，随之而来的工作就是优化 App 性能，其中最主要的一项就是启动速度优化。但本文的主角并不是启动速度优化，而是启动时间统计。 一 启动类型工欲善其事，必先利其器。想要优化 App">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Android APP启动时间统计(阿里巴巴)">
+<meta property="og:url" content="http://minus.wang/2017/11/08/Android-APP启动时间统计-阿里巴巴/index.html">
+<meta property="og:site_name" content="Minus Wang">
+<meta property="og:description" content="CSDN原理系列-yangxi_001作为 Android 开发者，想必多多少少要接触启动速度优化相关的事情，当用户越来越多，产品的功能也随着迭代越来越多，App 逐渐变得臃肿是一件很常见的现象，甚至可以说是不可避免的现象，随之而来的工作就是优化 App 性能，其中最主要的一项就是启动速度优化。但本文的主角并不是启动速度优化，而是启动时间统计。 一 启动类型工欲善其事，必先利其器。想要优化 App">
+<meta property="og:updated_time" content="2017-11-08T05:42:13.073Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Android APP启动时间统计(阿里巴巴)">
+<meta name="twitter:description" content="CSDN原理系列-yangxi_001作为 Android 开发者，想必多多少少要接触启动速度优化相关的事情，当用户越来越多，产品的功能也随着迭代越来越多，App 逐渐变得臃肿是一件很常见的现象，甚至可以说是不可避免的现象，随之而来的工作就是优化 App 性能，其中最主要的一项就是启动速度优化。但本文的主角并不是启动速度优化，而是启动时间统计。 一 启动类型工欲善其事，必先利其器。想要优化 App">
+
+
+<link rel="stylesheet" type="text/css" href="/css/style.css?v=1.1" />
+<link href='https://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet'>
+
+
+
+
+
+<script type="text/javascript">
+  var themeConfig = {
+    fancybox: {
+      enable: false
+    },
+  };
+</script>
+
+
+
+
+  
+
+
+
+    <title> Android APP启动时间统计(阿里巴巴) - Minus Wang </title>
+  </head>
+
+  <body>
+    <div id="page">
+      <header id="masthead"><div class="site-header-inner">
+    <h1 class="site-title">
+        <a href="/." class="logo">Minus Wang</a>
+    </h1>
+
+    <nav id="nav-top">
+        
+            <ul id="menu-top" class="nav-top-items">
+                
+                    <li class="menu-item">
+                        <a href="/about">
+                            
+                            
+                                Me
+                            
+                        </a>
+                    </li>
+                
+                    <li class="menu-item">
+                        <a href="/daohang">
+                            
+                            
+                                Site
+                            
+                        </a>
+                    </li>
+                
+                    <li class="menu-item">
+                        <a href="/notes">
+                            
+                            
+                                Note
+                            
+                        </a>
+                    </li>
+                
+            </ul>
+        
+  </nav>
+</div>
+
+      </header>
+      <div id="content">
+        
+    <div id="primary">
+        
+  <article class="post">
+    <header class="post-header">
+      <h1 class="post-title">
+        
+          Android APP启动时间统计(阿里巴巴)
+        
+      </h1>
+
+      <time class="post-time">
+          Nov 8 2017
+      </time>
+    </header>
+
+
+
+    
+            <div class="post-content">
+            <h2 id="CSDN原理系列-yangxi-001"><a href="#CSDN原理系列-yangxi-001" class="headerlink" title="CSDN原理系列-yangxi_001"></a><a href="http://blog.csdn.net/yangxi_pekin" target="_blank" rel="external">CSDN原理系列-yangxi_001</a></h2><p>作为 Android 开发者，想必多多少少要接触启动速度优化相关的事情，当用户越来越多，产品的功能也随着迭代越来越多，App 逐渐变得臃肿是一件很常见的现象，甚至可以说是不可避免的现象，随之而来的工作就是优化 App 性能，其中最主要的一项就是启动速度优化。但本文的主角并不是启动速度优化，而是启动时间统计。</p>
+<h2 id="一-启动类型"><a href="#一-启动类型" class="headerlink" title="一 启动类型"></a>一 启动类型</h2><p>工欲善其事，必先利其器。想要优化 App 的启动速度，必须有准确衡量启动时间的方法，否则优化完之后效果怎样，自己都不知道，说出去别人也不信服不是。在做 App 启动时间统计之前，当然必须弄明白有哪些启动类型，每种启动类型的特点。通常来说，在安卓中应用的启动方式分为以下几种：</p>
+<blockquote>
+<p>冷启动：</p>
+</blockquote>
+<p>当启动应用时，后台没有该应用的进程，这时系统会重新创建一个新的进程分配给该应用，这个启动方式就是冷启动。冷启动因为系统会重新创建一个新的进程分配给它，所以会先创建和初始化 <code>Application 类</code>，再创建和初始化 <code>MainActivity</code>类，最后显示在界面上。</p>
+<blockquote>
+<p>热启动：</p>
+</blockquote>
+<p>当启动应用时，后台已有该应用的进程（例：按back键、home键，应用虽然会退出，但是该应用的进程是依然会保留在后台，可进入任务列表查看），所以在已有进程的情况下，这种启动会从已有的进程中来启动应用，这个方式叫热启动。热启动因为会从已有的进程中来启动，所以热启动就不会走 <code>Application</code> 这步了，而是直接走 <code>MainActivity</code>，所以热启动的过程不必创建和初始化 <code>Application</code>，因为一个应用从新进程的创建到进程的销毁，<code>Application</code> 只会初始化一次。</p>
+<blockquote>
+<p>首次启动：</p>
+</blockquote>
+<p>首次启动严格来说也是冷启动，之所以把首次启动单独列出来，一般来说，首次启动时间会比非首次启动要久，首次启动会做一些系统初始化工作，如缓存目录的生产，数据库的建立，SharedPreference的初始化，如果存在多 <code>dex</code> 和插件的情况下，首次启动会有一些特殊需要处理的逻辑，而且对启动速度有很大的影响，所以首次启动的速度非常重要，毕竟影响用户对 App 的第一映像。</p>
+<h2 id="二-本地启动时间的统计方式"><a href="#二-本地启动时间的统计方式" class="headerlink" title="二 本地启动时间的统计方式"></a>二 本地启动时间的统计方式</h2><p>如果是本地调试的话，统计启动时间还是很简单的，通过命令行方式即可：</p>
+<p><code>adb shell am start -w packagename/activity</code><br>输出的结果类似于：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">$ adb shell am start -W com.speed.test/com.speed.test.HomeActivity</div><div class="line">Starting: Intent &#123; act=android.intent.action.MAIN cat=[android.intent.category.LAUNCHER] cmp=com.speed.test/.HomeActivity &#125;</div><div class="line">Status: ok</div><div class="line">Activity: com.speed.test/.HomeActivity</div><div class="line">ThisTime: 496</div><div class="line">TotalTime: 496</div><div class="line">WaitTime: 503</div><div class="line">Complete</div></pre></td></tr></table></figure>
+<p><code>WaitTime</code> 返回从 <code>startActivity</code> 到应用第一帧完全显示这段时间. 就是总的耗时，包括前一个应用 <code>Activity pause</code> 的时间和新应用启动的时间；<br><code>ThisTime</code>表示一连串启动 <code>Activity</code> 的最后一个 <code>Activity</code> 的启动耗时；<br><code>TotalTime</code> 表示新应用启动的耗时，包括新进程的启动和 <code>Activity</code>的启动，但不包括前一个应用<code>Activity pause</code>的耗时。<br>开发者一般只要关心 <code>TotalTime</code> 即可，这个时间才是自己应用真正启动的耗时。</p>
+<h2 id="三-线上启动时间的统计方式"><a href="#三-线上启动时间的统计方式" class="headerlink" title="三 线上启动时间的统计方式"></a>三 线上启动时间的统计方式</h2><p>当 App 发到线上之后，想要统计 App 在用户手机上的启动速度，就不能通过命令行的方式进行统计了，基本上都是通过打 Log 的方式将启动时间发送上来。那么在什么位置加启动时间统计的 Log 就尤为重要，Log 添加的位置直接决定启动时间统计的是否准确，同样也会影响启动速度优化效果的判断。要想找到合适准确的位置记录启动时间的 Log，就需要了解应用的启动流程，和各个生命周期函数的调用顺序。下面来分析下到底在什么位置打 Log 记录启动时间比较合适。</p>
+<blockquote>
+<p>应用的主要启动流程</p>
+</blockquote>
+<p>关于 App 启动流程的文章很多，文章底部有一些启动流程相关的参考文章，这里只列出大致流程如下：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">通过 `Launcher` 启动应用时，点击应用图标后，`Launcher` 调用 `startActivity `启动应用。</div><div class="line">`Launcher Activity` 最终调用 `Instrumentation` 的 `execStartActivity` 来启动应用。</div><div class="line">`Instrumentation` 调用 `ActivityManagerProxy` (`ActivityManagerService `在应用进程的一个代理对象) 对象的 `startActivity` 方法启动 `Activity`。</div><div class="line">到目前为止所有过程都在` Launcher `进程里面执行，接下来` ActivityManagerProxy` 对象跨进程调用` ActivityManagerService `(运行在 `system_server` 进程)的 startActivity方法启动应用。</div><div class="line">`ActivityManagerService` 的 `startActivity` 方法经过一系列调用，最后调用`zygoteSendArgsAndGetResult` 通过 socket 发送给 zygote 进程，zygote 进程会孵化出新的应用进程。</div><div class="line">zygote 进程孵化出新的应用进程后，会执行 ActivityThread 类的 main 方法。在该方法里会先准备好 Looper 和消息队列，然后调用 attach 方法将应用进程绑定到 ActivityManagerService，然后进入 loop 循环，不断地读取消息队列里的消息，并分发消息。</div><div class="line">ActivityManagerService 保存应用进程的一个代理对象，然后 ActivityManagerService 通过代理对象通知应用进程创建入口 Activity 的实例，并执行它的生命周期函数。</div><div class="line">总结过程就是：用户在 Launcher 程序里点击应用图标时，会通知 ActivityManagerService 启动应用的入口 Activity， ActivityManagerService 发现这个应用还未启动，则会通知 Zygote 进程孵化出应用进程，然后在这个应用进程里执行 ActivityThread 的 main 方法。应用进程接下来通知 ActivityManagerService 应用进程已启动，ActivityManagerService 保存应用进程的一个代理对象，这样 ActivityManagerService 可以通过这个代理对象控制应用进程，然后 ActivityManagerService 通知应用进程创建入口 Activity 的实例，并执行它的生命周期函数。</div></pre></td></tr></table></figure>
+<blockquote>
+<p>生命周期函数执行流程</p>
+</blockquote>
+<p>上面的启动流程是 Android 提供的机制，作为开发者我们需要清楚或者至少了解其中的过程和原理，但我们并不能在这过程中做什么文章，我们能做的恰恰是从上述过程中最后一步开始，即 ActivityManagerService 通过代理对象通知应用进程创建入口 Activity的实例，并执行它的生命周期函数开始，我们的启动时间统计以及启动速度优化也是从这里开始。下面是 Main Activity 的启动流程：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">-&gt; Application 构造函数</div><div class="line">-&gt; Application.attachBaseContext()</div><div class="line">-&gt; Application.onCreate()</div><div class="line">-&gt; Activity 构造函数</div><div class="line">-&gt; Activity.setTheme()</div><div class="line">-&gt; Activity.onCreate()</div><div class="line">-&gt; Activity.onStart</div><div class="line">-&gt; Activity.onResume</div><div class="line">-&gt; Activity.onAttachedToWindow</div><div class="line">-&gt; Activity.onWindowFocusChanged</div></pre></td></tr></table></figure>
+<p>如果打 Log 记录 App 的启动时间，那么至少要记录两个点，一个起始时间点，一个结束时间点。</p>
+<blockquote>
+<p>起始时间点</p>
+</blockquote>
+<p>起始时间点比较容易记录：如果记录冷启动启动时间一般可以在 <code>Application.attachBaseContext()</code> 开始的位置记录起始时间点，因为在这之前 <code>Context</code>还没有初始化，一般也干不了什么事情，当然这个是要视具体情况来定，其实只要保证在 App 的具体业务逻辑开始执行之前记录起始时间点即可。如果记录热启动启动时间点可以在 <code>Activity.onRestart()</code> 中记录起始时间点。</p>
+<blockquote>
+<p>结束时间点</p>
+</blockquote>
+<p>结束时间点理论上要选在 App 显示出第一屏界面的时候，但是在什么位置 App 显示出第一屏界面呢？网上很多文章说在 Activity 的 onResume 方法执行完成之后，Activity 就对用户可见了，实际上并不是，一个<code>Activity</code>走完<code>onCreate onStart onResume</code>这几个生命周期之后，只是完成了应用自身的一些配置,比如 <code>Activity</code>主题设置 <code>window</code> 属性的设置 <code>View</code> 树的建立，但是其实后面还需要各个<code>View</code> 执行 <code>measure layout draw</code>等。所以在 OnResume 中记录结束时间点的 Log 并不准确，大家可以注意一下上面流程中最后一个函数 <code>Activity.onWindowFocusChanged</code>，下面是它的注释：</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">`Activity.onWindowFocusChanged`</div><div class="line"></div><div class="line">/**</div><div class="line">*Called when the current &#123;@link Window&#125; of the activity gains or loses</div><div class="line">* focus.  This is the best indicator of whether this activity is visible</div><div class="line">* to the user.  The default implementation clears the key tracking</div><div class="line">* state, so should always be called.</div><div class="line">...</div><div class="line">*/</div></pre></td></tr></table></figure>
+<p>通过注释我们可以看到，这个函数是判断 activity 是否可见的最佳位置，所以我们可以在 <code>Activity.onWindowFocusChanged</code> 记录应用启动的结束时间点，不过需要注意的是该函数，在 <code>Activity</code> 焦点发生变化时就会触发，所以要做好判断，去掉不需要的情况。</p>
+<p>总结</p>
+<p>花了很多篇幅介绍启动时间统计，我觉得还是有必要的，还是那句话：工欲善其事，必先利其器，准备工作做的充分，做事自然有理有据。</p>
+<p>参考：<br><a href="https://www.zhihu.com/question/35487841" target="_blank" rel="external">https://www.zhihu.com/question/35487841</a><br><a href="http://blog.adisonhyh.com/blog/2015/03/27/androidxiang-mu-xing-neng-you-hua-zhi-qi-dong-shi-jian/" target="_blank" rel="external">http://blog.adisonhyh.com/blog/2015/03/27/androidxiang-mu-xing-neng-you-hua-zhi-qi-dong-shi-jian/</a><br><a href="http://www.woaitqs.cc/android/2016/06/21/activity-service.html" target="_blank" rel="external">http://www.woaitqs.cc/android/2016/06/21/activity-service.html</a><br><a href="http://blog.csdn.net/zhaokaiqiang1992/article/details/49428287" target="_blank" rel="external">http://blog.csdn.net/zhaokaiqiang1992/article/details/49428287</a><br><a href="http://www.cloudchou.com/android/post-805.html" target="_blank" rel="external">http://www.cloudchou.com/android/post-805.html</a><br><a href="http://www.jianshu.com/p/72059201b10a" target="_blank" rel="external">http://www.jianshu.com/p/72059201b10a</a></p>
+
+            </div>
+          
+
+    
+  </article>
+
+    </div>
+
+      </div>
+
+      <footer id="colophon"><span class="copyright-year">
+    
+        &copy;
+    
+        2015 -
+    
+    2017
+    <span class="footer-author">MinusWang. All Rights Reserved. 砥砺前行-功不唐捐.</span>
+</span>
+
+      </footer>
+
+      <div class="back-to-top" id="back-to-top">
+        <i class="iconfont icon-up"></i>
+      </div>
+    </div>
+    
+
+
+    
+
+
+
+
+  
+    <script type="text/javascript" src="/lib/jquery/jquery-3.1.1.min.js"></script>
+  
+
+  
+
+    <script type="text/javascript" src="/js/src/theme.js?v=1.1"></script>
+<script type="text/javascript" src="/js/src/bootstrap.js?v=1.1"></script>
+
+  </body>
+</html>

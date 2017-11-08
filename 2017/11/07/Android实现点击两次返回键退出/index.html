@@ -39,7 +39,7 @@
 <meta property="og:url" content="http://minus.wang/2017/11/07/Android实现点击两次返回键退出/index.html">
 <meta property="og:site_name" content="Minus Wang">
 <meta property="og:description" content="第一步，定义一个变量，用于标识是否退出  boolean isExit;  第二步，重写Activity中onKeyDown方法  123456789@Override      public boolean onKeyDown(int keyCode, KeyEvent event) &amp;#123;          if (keyCode == KeyEvent.KEYCODE_BACK) &amp;">
-<meta property="og:updated_time" content="2017-11-07T09:07:46.385Z">
+<meta property="og:updated_time" content="2017-11-07T09:11:56.034Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Android实现点击两次返回键退出">
 <meta name="twitter:description" content="第一步，定义一个变量，用于标识是否退出  boolean isExit;  第二步，重写Activity中onKeyDown方法  123456789@Override      public boolean onKeyDown(int keyCode, KeyEvent event) &amp;#123;          if (keyCode == KeyEvent.KEYCODE_BACK) &amp;">
@@ -152,7 +152,7 @@
 </blockquote>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">Handler mHandler = <span class="keyword">new</span> Handler() &#123;  </div><div class="line">  </div><div class="line">        <span class="meta">@Override</span>  </div><div class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">handleMessage</span><span class="params">(Message msg)</span> </span>&#123;  </div><div class="line">            <span class="comment">// TODO Auto-generated method stub  </span></div><div class="line">            <span class="keyword">super</span>.handleMessage(msg);  </div><div class="line">            isExit = <span class="keyword">false</span>;  </div><div class="line">        &#125;  </div><div class="line">  </div><div class="line">    &#125;;</div></pre></td></tr></table></figure>
 <blockquote>
-<p>实现的基本原理就是，当按下BACK键时，会被onKeyDown捕获，判断是BACK键，则执行exit方法。在exit方法中，会首先判断isExit的值，如果为false的话，则置为true，同时会弹出提示，并在2000毫秒（2秒）后发出一个消息，在Handler中将此值还原成false。<br>如果在发送消息间隔的2秒内，再次按了BACK键，则再次执行exit方法，此时isExit的值已为true，则会执行退出的方法。</p>
+<p>实现的基本原理就是，当按下BACK键时，会被onKeyDown捕获，判断是BACK键，则执行exit方法。在exit方法中，会首先判断isExit的值，如果为false的话，则置为true，同时会弹出提示，并在2000毫秒（2秒）后发出一个消息，在Handler中将此值还原成false。如果在发送消息间隔的2秒内，再次按了BACK键，则再次执行exit方法，此时isExit的值已为true，则会执行退出的方法。</p>
 </blockquote>
 
             </div>
