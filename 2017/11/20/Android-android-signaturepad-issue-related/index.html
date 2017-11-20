@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="">
+  <head>
+    
+<meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width,user-scalable=no,initial-scale=1,minimum-scale=1,maximum-scale=1">
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+  <meta name="description" content="Android android-signaturepad issue related"/>
+
+
+
+
+
+
+
+
+  <link rel="alternate" href="/default" title="Minus Wang">
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=1.1" />
+
+
+
+<link rel="canonical" href="http://minus.wang/2017/11/20/Android-android-signaturepad-issue-related/"/>
+
+
+<meta name="description" content="Android手写开源项目和资料搜集-张明云 Android手写优化-平滑的签名效果实现 Android手写优化-更为平滑的签名效果实现 android-signaturepad Github源码 p.codekk.com—android-signaturepad getHistorySize) 安卓自定义View进阶-MotionEvent详解  public final int getHist">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Android android-signaturepad issue related">
+<meta property="og:url" content="http://minus.wang/2017/11/20/Android-android-signaturepad-issue-related/index.html">
+<meta property="og:site_name" content="Minus Wang">
+<meta property="og:description" content="Android手写开源项目和资料搜集-张明云 Android手写优化-平滑的签名效果实现 Android手写优化-更为平滑的签名效果实现 android-signaturepad Github源码 p.codekk.com—android-signaturepad getHistorySize) 安卓自定义View进阶-MotionEvent详解  public final int getHist">
+<meta property="og:updated_time" content="2017-11-20T09:38:02.055Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Android android-signaturepad issue related">
+<meta name="twitter:description" content="Android手写开源项目和资料搜集-张明云 Android手写优化-平滑的签名效果实现 Android手写优化-更为平滑的签名效果实现 android-signaturepad Github源码 p.codekk.com—android-signaturepad getHistorySize) 安卓自定义View进阶-MotionEvent详解  public final int getHist">
+
+
+<link rel="stylesheet" type="text/css" href="/css/style.css?v=1.1" />
+<link href='https://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet'>
+
+
+
+
+
+<script type="text/javascript">
+  var themeConfig = {
+    fancybox: {
+      enable: false
+    },
+  };
+</script>
+
+
+
+
+  
+
+
+
+    <title> Android android-signaturepad issue related - Minus Wang </title>
+  </head>
+
+  <body>
+    <div id="page">
+      <header id="masthead"><div class="site-header-inner">
+    <h1 class="site-title">
+        <a href="/." class="logo">Minus Wang</a>
+    </h1>
+
+    <nav id="nav-top">
+        
+            <ul id="menu-top" class="nav-top-items">
+                
+                    <li class="menu-item">
+                        <a href="/about">
+                            
+                            
+                                Me
+                            
+                        </a>
+                    </li>
+                
+                    <li class="menu-item">
+                        <a href="/daohang">
+                            
+                            
+                                Site
+                            
+                        </a>
+                    </li>
+                
+                    <li class="menu-item">
+                        <a href="/notes">
+                            
+                            
+                                Note
+                            
+                        </a>
+                    </li>
+                
+            </ul>
+        
+  </nav>
+</div>
+
+      </header>
+      <div id="content">
+        
+    <div id="primary">
+        
+  <article class="post">
+    <header class="post-header">
+      <h1 class="post-title">
+        
+          Android android-signaturepad issue related
+        
+      </h1>
+
+      <time class="post-time">
+          Nov 20 2017
+      </time>
+    </header>
+
+
+
+    
+            <div class="post-content">
+            <p><a href="http://www.jianshu.com/p/610f774b2365" target="_blank" rel="external">Android手写开源项目和资料搜集-张明云</a></p>
+<p><a href="http://zmywly8866.github.io/2014/12/29/android-smooth-signatures.html" target="_blank" rel="external">Android手写优化-平滑的签名效果实现</a></p>
+<p><a href="http://www.jianshu.com/p/49e7292a2911" target="_blank" rel="external">Android手写优化-更为平滑的签名效果实现</a></p>
+<p><a href="https://github.com/gcacace/android-signaturepad" target="_blank" rel="external">android-signaturepad Github源码</a></p>
+<p><a href="http://p.codekk.com/detail/Android/gcacace/android-signaturepad" target="_blank" rel="external">p.codekk.com—android-signaturepad</a></p>
+<p><a href="http://docs.huihoo.com/android/4.2/reference/android/view/MotionEvent.html#getHistorySize(" target="_blank" rel="external">getHistorySize</a>)</p>
+<p><a href="http://www.gcssloop.com/customview/motionevent" target="_blank" rel="external">安卓自定义View进阶-MotionEvent详解</a></p>
+<blockquote>
+<p>public final int getHistorySize ()</p>
+</blockquote>
+<p>Added in API level 1<br>Returns the number of historical points in this event. These are movements that have occurred between this event and the previous event. This only applies to ACTION_MOVE events – all other actions will have a size of 0.</p>
+<p>Returns<br>Returns the number of historical points in the event.</p>
+<p>可以通过调用getHistorySize来获得历史的大小值，它可以返回当前事件可用的运动位置的数目。然后你可以通过使用一系列getHistorical*方法，并传递给它位置索引，来获得每一个历史事件的时间、压力、大小和位置，如下面的代码段所示：</p>
+<p>java代码：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">int</span> historySize = event.getHistorySize(); </div><div class="line"></div><div class="line"><span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; historySize; i++) &#123; </div><div class="line"></div><div class="line"><span class="keyword">long</span> time = event.getHistoricalEventTime(i); </div><div class="line"></div><div class="line"><span class="keyword">float</span> pressure = event.getHistoricalPressure(i); </div><div class="line"></div><div class="line"><span class="keyword">float</span> x = event.getHistoricalX(i); </div><div class="line"></div><div class="line"><span class="keyword">float</span> y = event.getHistoricalY(i); </div><div class="line"></div><div class="line"><span class="keyword">float</span> size = event.getHistoricalSize(i); </div><div class="line"></div><div class="line"><span class="comment">//待实现：使用每一个点 </span></div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p> 用来处理运动事件的一般模式是首先处理每一个历史事件，并在其后跟随当前的MotionEvent值，如下面的代码所示：</p>
+<p>java代码:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div></pre></td><td class="code"><pre><div class="line"> <span class="meta">@Override</span> </div><div class="line"></div><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">onTouchEvent</span><span class="params">(MotionEvent event)</span> </span>&#123; </div><div class="line"></div><div class="line"><span class="keyword">int</span> action = event.getAction(); </div><div class="line"></div><div class="line"><span class="keyword">switch</span> (action) &#123; </div><div class="line"></div><div class="line"><span class="keyword">case</span> (MotionEvent.ACTION_MOVE) &#123; </div><div class="line"></div><div class="line"><span class="keyword">int</span> historySize = event.getHistorySize(); </div><div class="line"></div><div class="line"><span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; historySize; i++) &#123; </div><div class="line"></div><div class="line"><span class="keyword">float</span> x = event.getHistoricalX(i); </div><div class="line"></div><div class="line"><span class="keyword">float</span> y = event.getHistoricalY(i); </div><div class="line"></div><div class="line">processMovement(x, y); </div><div class="line"></div><div class="line">&#125; </div><div class="line"></div><div class="line"><span class="keyword">float</span> x = event.getX(); </div><div class="line"></div><div class="line"><span class="keyword">float</span> y = event.getY(); </div><div class="line"></div><div class="line">processMovement(x, y); </div><div class="line"></div><div class="line"><span class="keyword">return</span> <span class="keyword">true</span>; </div><div class="line"></div><div class="line">&#125; </div><div class="line"></div><div class="line">&#125; </div><div class="line"></div><div class="line"><span class="keyword">return</span> <span class="keyword">super</span>.onTouchEvent(event); </div><div class="line"></div><div class="line">&#125; </div><div class="line"></div><div class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">processMovement</span><span class="params">(<span class="keyword">float</span> _x, <span class="keyword">float</span> _y)</span> </span>&#123; </div><div class="line"></div><div class="line"><span class="comment">// 待实现：对移动作出反应 </span></div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+
+            </div>
+          
+
+    
+  </article>
+
+    </div>
+
+      </div>
+
+      <footer id="colophon"><span class="copyright-year">
+    
+        &copy;
+    
+        2015 -
+    
+    2017
+    <span class="footer-author">MinusWang. All Rights Reserved. 砥砺前行-功不唐捐.</span>
+</span>
+
+      </footer>
+
+      <div class="back-to-top" id="back-to-top">
+        <i class="iconfont icon-up"></i>
+      </div>
+    </div>
+    
+
+
+    
+
+
+
+
+  
+    <script type="text/javascript" src="/lib/jquery/jquery-3.1.1.min.js"></script>
+  
+
+  
+
+    <script type="text/javascript" src="/js/src/theme.js?v=1.1"></script>
+<script type="text/javascript" src="/js/src/bootstrap.js?v=1.1"></script>
+
+  </body>
+</html>

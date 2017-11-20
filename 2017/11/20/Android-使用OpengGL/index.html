@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="">
+  <head>
+    
+<meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width,user-scalable=no,initial-scale=1,minimum-scale=1,maximum-scale=1">
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+  <meta name="description" content="Android-使用OpengGL"/>
+
+
+
+
+
+
+
+
+  <link rel="alternate" href="/default" title="Minus Wang">
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=1.1" />
+
+
+
+<link rel="canonical" href="http://minus.wang/2017/11/20/Android-使用OpengGL/"/>
+
+
+<meta name="description" content="OpenGL ES 是一套专为嵌入式设备设计的三维图形开发接口标准, 脱胎于 OpenGL. OpenGL 家族以及他的主要竞争对手 Direct3D 都只是一套 API(说白了就是N个函数)标准, 显卡厂商根据标准开发出驱动,有了驱动 (当然还有SDK) 我们程序员就可以开始对显卡编程制作出绚丽的3D游戏.程序员在开发游戏过程中发现不同游戏都要实现相同功能, 比如资源管理, 声音播放, 渲染.">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Android-使用OpengGL">
+<meta property="og:url" content="http://minus.wang/2017/11/20/Android-使用OpengGL/index.html">
+<meta property="og:site_name" content="Minus Wang">
+<meta property="og:description" content="OpenGL ES 是一套专为嵌入式设备设计的三维图形开发接口标准, 脱胎于 OpenGL. OpenGL 家族以及他的主要竞争对手 Direct3D 都只是一套 API(说白了就是N个函数)标准, 显卡厂商根据标准开发出驱动,有了驱动 (当然还有SDK) 我们程序员就可以开始对显卡编程制作出绚丽的3D游戏.程序员在开发游戏过程中发现不同游戏都要实现相同功能, 比如资源管理, 声音播放, 渲染.">
+<meta property="og:image" content="https://camo.githubusercontent.com/5d619b8e479e2c618150278cad3eb1c8e6a1d36d/68747470733a2f2f7261772e6769746875622e636f6d2f637469616f2f637469616f2e6769746875622e696f2f6d61737465722f696d616765732f617070732f62696c692e706e673f7261773d74727565">
+<meta property="og:updated_time" content="2017-11-20T09:42:36.579Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Android-使用OpengGL">
+<meta name="twitter:description" content="OpenGL ES 是一套专为嵌入式设备设计的三维图形开发接口标准, 脱胎于 OpenGL. OpenGL 家族以及他的主要竞争对手 Direct3D 都只是一套 API(说白了就是N个函数)标准, 显卡厂商根据标准开发出驱动,有了驱动 (当然还有SDK) 我们程序员就可以开始对显卡编程制作出绚丽的3D游戏.程序员在开发游戏过程中发现不同游戏都要实现相同功能, 比如资源管理, 声音播放, 渲染.">
+<meta name="twitter:image" content="https://camo.githubusercontent.com/5d619b8e479e2c618150278cad3eb1c8e6a1d36d/68747470733a2f2f7261772e6769746875622e636f6d2f637469616f2f637469616f2e6769746875622e696f2f6d61737465722f696d616765732f617070732f62696c692e706e673f7261773d74727565">
+
+
+<link rel="stylesheet" type="text/css" href="/css/style.css?v=1.1" />
+<link href='https://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet'>
+
+
+
+
+
+<script type="text/javascript">
+  var themeConfig = {
+    fancybox: {
+      enable: false
+    },
+  };
+</script>
+
+
+
+
+  
+
+
+
+    <title> Android-使用OpengGL - Minus Wang </title>
+  </head>
+
+  <body>
+    <div id="page">
+      <header id="masthead"><div class="site-header-inner">
+    <h1 class="site-title">
+        <a href="/." class="logo">Minus Wang</a>
+    </h1>
+
+    <nav id="nav-top">
+        
+            <ul id="menu-top" class="nav-top-items">
+                
+                    <li class="menu-item">
+                        <a href="/about">
+                            
+                            
+                                Me
+                            
+                        </a>
+                    </li>
+                
+                    <li class="menu-item">
+                        <a href="/daohang">
+                            
+                            
+                                Site
+                            
+                        </a>
+                    </li>
+                
+                    <li class="menu-item">
+                        <a href="/notes">
+                            
+                            
+                                Note
+                            
+                        </a>
+                    </li>
+                
+            </ul>
+        
+  </nav>
+</div>
+
+      </header>
+      <div id="content">
+        
+    <div id="primary">
+        
+  <article class="post">
+    <header class="post-header">
+      <h1 class="post-title">
+        
+          Android-使用OpengGL
+        
+      </h1>
+
+      <time class="post-time">
+          Nov 20 2017
+      </time>
+    </header>
+
+
+
+    
+            <div class="post-content">
+            <p>OpenGL ES 是一套专为嵌入式设备设计的三维图形开发接口标准, 脱胎于 OpenGL. OpenGL 家族以及他的主要竞争对手 Direct3D 都只是一套 API(说白了就是N个函数)标准, 显卡厂商根据标准开发出驱动,有了驱动 (当然还有SDK) 我们程序员就可以开始对显卡编程制作出绚丽的3D游戏.程序员在开发游戏过程中发现不同游戏都要实现相同功能, 比如资源管理, 声音播放, 渲染. 于是很自然程序员就开始制作自己的工具完成这些重复工作, 游戏引擎就诞生了. 其中游戏引擎的一个工作就是抽象 OpenGL , D3D 这些底层API, 你再也不需要分别为OpenGL, D3D 编码, 只要调用引擎的抽象接口, 剩下的就交给引擎了.你用 Unity 发布 Android, iOS 的游戏, 那他就绑定和调用 OpenGL ES发布 PC 游戏, 就是D3D 或者 OpenGL</p>
+<p>OpenGL ES可以认为是OpenGL的子集，主要用于移动端的设备。从中衍生出来的还有webGL,主要用于浏览器端的渲染。OpenGL和DirectX是目前比较通用的底层库，各大显卡厂商也会为此在不同的显卡上编写对应的driver，这些driver负责做最终的机器specific的实现。Unity是一个引擎，引擎里面包含很多模块，比如渲染模块，声音模块，物理模块等等。这里的渲染模块在上层会有个通用的API层供调用，而无需管底层到底是跑了gl的实现还是dx的实现。</p>
+<p><a href="http://www.jianshu.com/p/df1499d19cea" target="_blank" rel="external">Android-使用OpengGL实现的Canvas进行绘制(简单介绍)</a></p>
+<p><a href="http://blog.csdn.net/fzl562410663/article/details/53156210" target="_blank" rel="external">如何封装 opengl 流程 – 以为android-opengl-canvas例</a></p>
+<p><a href="http://blog.csdn.net/huachao1001/article/details/51545450" target="_blank" rel="external">Android OpenGL入门</a></p>
+<p><a href="http://www.jianshu.com/p/5a0c61c286e6" target="_blank" rel="external">为什么你的canvas那么慢？浅析Android的canvas性能</a></p>
+<p><img src="https://camo.githubusercontent.com/5d619b8e479e2c618150278cad3eb1c8e6a1d36d/68747470733a2f2f7261772e6769746875622e636f6d2f637469616f2f637469616f2e6769746875622e696f2f6d61737465722f696d616765732f617070732f62696c692e706e673f7261773d74727565" alt=""></p>
+<p><a href="https://github.com/Bilibili/DanmakuFlameMaster" target="_blank" rel="external">Bilibili–DanmakuFlameMaster–android上开源弹幕解析绘制引擎项目</a></p>
+
+            </div>
+          
+
+    
+  </article>
+
+    </div>
+
+      </div>
+
+      <footer id="colophon"><span class="copyright-year">
+    
+        &copy;
+    
+        2015 -
+    
+    2017
+    <span class="footer-author">MinusWang. All Rights Reserved. 砥砺前行-功不唐捐.</span>
+</span>
+
+      </footer>
+
+      <div class="back-to-top" id="back-to-top">
+        <i class="iconfont icon-up"></i>
+      </div>
+    </div>
+    
+
+
+    
+
+
+
+
+  
+    <script type="text/javascript" src="/lib/jquery/jquery-3.1.1.min.js"></script>
+  
+
+  
+
+    <script type="text/javascript" src="/js/src/theme.js?v=1.1"></script>
+<script type="text/javascript" src="/js/src/bootstrap.js?v=1.1"></script>
+
+  </body>
+</html>
