@@ -118,3 +118,16 @@ git push origin hexo
 2. [利用Hexo在多台电脑上提交和更新github pages博客]{https://www.jianshu.com/p/0b1fccce74e0}
 
 3. [hexo博客分支教训]{https://www.jianshu.com/p/a27e9761ecf3}
+
+
+run npm config get proxy看看拿到什么
+
+如果上面的返回不为空，npm config set proxy null或者npm config delete proxy ,顺便把https的代理也关掉npm config set https-proxy null, 证书问题，把证书的校验关掉npm config set strict-ssl false, 当然上面的命令你不用全敲一遍，根据报错信息提示，选择对应的解决方式， 然后再试试
+
+如果1的命令为空，检查你的环境变量里面是不是有HTTP_PROXY
+
+是不是开了全局的代理
+
+电脑是不是开了代理，导致证书不被npm信任。建议你关掉代理，使用淘宝镜像源试下
+
+npm install -g express --registry=https://registry.npm.taobao.org
