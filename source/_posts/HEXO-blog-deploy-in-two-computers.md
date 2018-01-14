@@ -74,6 +74,8 @@ git init
 
 `npm install hexo-deployer-git`（重要 在hexo分支）
 
+error   fan qiang 
+
 8. 执行
 hexo g
 生成博客的静态文件（即 public 目录）
@@ -119,6 +121,7 @@ git push origin hexo
 
 3. [hexo博客分支教训]{https://www.jianshu.com/p/a27e9761ecf3}
 
+4. [hexo本地测试运行重启后页面空白,提示 : WARN No layout: index.html?](https://www.zhihu.com/question/38781463?sort=created)   theme文件夹出错，不显示layout
 
 run npm config get proxy看看拿到什么
 
@@ -131,3 +134,12 @@ run npm config get proxy看看拿到什么
 电脑是不是开了代理，导致证书不被npm信任。建议你关掉代理，使用淘宝镜像源试下
 
 npm install -g express --registry=https://registry.npm.taobao.org
+
+
+
+在Windows平台上，使用Git。当输入添加命令（例如：git add .）时，会出现warning: LF will be replaced by CRLF in……这样的警告。虽然对于后期编程没有影响，但毕竟是warning，还是需要了解一下是啥原因吧！经过查阅相关资料，才知道原来是换行符的问题。
+
+原因分析：
+CRLF -- Carriage-Return Line-Feed 回车换行。也就是回车（CR, ASCII 13, \r），换行（LF, ASCII 10,\n）。这两个ACSII字符不会在屏幕有任何显示，是Windows平台上用来标识一行的结束。而在Linux/UNIX系统中只有换行符LF，没有回车符CR。也就是说在Windows中的换行符为 CRLF，而在Linux下的换行符为：LF。使用Git来生成一个工程后，文件中的换行符为LF，当执行添加命令（例如：git add .）时，系统就会发出警告。解决方法：在Git Bash中输入以下命令：
+
+## `git config --global core.autocrlf false`
