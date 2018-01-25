@@ -37,7 +37,7 @@ tags:
 
 0013.[gcssloop-android 个人站点](http://www.gcssloop.com/info/about/)
 
-0014.[]()
+0014.[小米工程师 - LooperJing](https://www.jianshu.com/u/ce54e5c21032)
 
 ## 张明云 专题
 

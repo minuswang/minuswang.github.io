@@ -54,4 +54,12 @@ tags:
 
 23. [sebastianhaeni/RemoteControlServer](https://github.com/sebastianhaeni/RemoteControlServer)
 
-24. 
+24. [Android MotionEvent详解](https://www.jianshu.com/p/0c863bbde8eb)
+
+25. [Android探索之旅 | StrictMode严苛模式](https://www.jianshu.com/p/113b9c54b5d1)
+
+26. [Android app应用多语言切换功能实现](https://www.cnblogs.com/popqq520/p/5498990.html)
+
+27. [Android studio中应用多语言支持及应用内语言切换的实现](http://blog.csdn.net/liyuchong2537631/article/details/48292385)
+
+28. [Android UI Libs之ExplosionField](https://www.jianshu.com/p/23794f276d9d)
