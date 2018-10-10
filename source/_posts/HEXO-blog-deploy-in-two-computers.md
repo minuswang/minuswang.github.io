@@ -143,3 +143,6 @@ npm install -g express --registry=https://registry.npm.taobao.org
 CRLF -- Carriage-Return Line-Feed 回车换行。也就是回车（CR, ASCII 13, \r），换行（LF, ASCII 10,\n）。这两个ACSII字符不会在屏幕有任何显示，是Windows平台上用来标识一行的结束。而在Linux/UNIX系统中只有换行符LF，没有回车符CR。也就是说在Windows中的换行符为 CRLF，而在Linux下的换行符为：LF。使用Git来生成一个工程后，文件中的换行符为LF，当执行添加命令（例如：git add .）时，系统就会发出警告。解决方法：在Git Bash中输入以下命令：
 
 ## `git config --global core.autocrlf false`
+
+
+git clone -b 分支名字 git@github.com:账号/账号.github.io.git
