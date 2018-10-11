@@ -57,7 +57,8 @@ ssh-keygen -t rsa -C "youremail@example.com"
 
 3. 登录 github，在 settings 里找到 SSH and GPG keys，创建新的 SSH key，title 可以是任意值，key 文本框里粘贴 id_rsa.pub 里的内容，最后保存。
 
-4. 安装 Node.js。在 git bash 里输入以下命令安装 hexo：
+4. 安装 Node.js。
+在 git bash 里输入以下命令安装 hexo：
 npm install hexo-cli -g
 
 5. 新建博客目录，在该目录打开 git bash，执行：
