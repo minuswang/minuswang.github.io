@@ -86,5 +86,5 @@ archive_generator:
 ## Docs: https://hexo.io/docs/deployment.html
 deploy:
   type: git
-  repo: https://github.com/minuswang/minuswang.github.io.git
+  repo: ssh://git@github.com/minuswang/minuswang.github.io.git
   branch: master
