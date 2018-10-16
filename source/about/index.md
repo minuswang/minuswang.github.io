@@ -14,7 +14,7 @@ comments: true
 ## --------------------------------------------------
 Night gathers, and now my watch begins.
 It shall not end until my death.
-I shall take no wife, hold no lands, father no children.
+~~I shall take no wife, hold no lands, father no children.~~
 I shall wear no crowns and win no glory.
 I shall live and die at my post.
 I am the sword in the darkness.
@@ -28,7 +28,7 @@ for this night and all the nights to come.
 ## --------------------------------------------------
 
 长夜将至，我从今开始守望，至死方休。
-我将不娶妻，不封地，不生子。
+~~我将不娶妻，不封地，不生子。~~
 我将不戴宝冠，不争荣宠。
 我将尽忠职守，生死于斯。
 我是黑暗中的利剑，长城上的守卫，
@@ -39,5 +39,3 @@ for this night and all the nights to come.
 >人多不足以依赖，要生存只有靠自己。
       深窥自己的心，而后发觉一切的奇迹在你自己。
           凡事皆有终结,因此,耐心是赢得成功的一种手段。 
-
-<iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=330 height=86 src="//music.163.com/outchain/player?type=2&id=147030&auto=1&height=66"></iframe>
