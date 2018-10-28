@@ -199,3 +199,23 @@ npm install https://github.com/CodeFalling/hexo-asset-image -- save
 \. 英文句号
 \! 感叹号
 ```
+
+2018.10.28 Linux OS   Ubuntu18.04 复盘，新流程问题
+
+npm install 报警告npm WARN optional SKIPPING OPTIONAL DEPENDENCY: fsevents@1.2.0 (node_modules\fsevents
+
+原因：
+fsevents不在package.json里，但是仍然安装了，是因为你的系统不是Windows系统，fsevents是苹果系统的可选依赖,你的项目有可能是团队项目，别人在他的mac上安装了fsevents相关依赖库，所以到这边你也就安装到你的windows上边了。你可以检查你的package.json 文件中是不是有fsevents相关依赖，删除即好！如果没有，删除node_modules文件夹，重新安装各项依赖就好了
+
+怎样查看Ubuntu 各分区大小
+`du -h`  
+将以熟悉的GMK为单位显示大小。它显示的是各个子文件及总文件的实际所占空间。
+
+`sudo fdisk -l`
+显示的是各个分区的大小
+
+Hexo 3.0 把服务器独立成了个别模块，您必须先安装 hexo-server 才能使用
+`npm install hexo-server --save`
+
+安装完成后，输入以下命令以启动服务器，您的网站会在 http://localhost:4000 下启动。在服务器启动期间，Hexo 会监视文件变动并自动更新，您无须重启服务器
+

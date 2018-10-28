@@ -11,6 +11,8 @@ comments: true
 
 >2018年10月12日（10月10开始筹备重新装修该小站） 重整旗鼓，再出发！
 
+>2018年10月27/28日，周六周天，YOGA510部署`win10-ubuntu18.04`双系统，并在ubuntu上配置本博客所需要所有配置信息。
+
 ## --------------------------------------------------
 Night gathers, and now my watch begins.
 It shall not end until my death.
