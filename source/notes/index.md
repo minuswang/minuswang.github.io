@@ -1,9 +1,21 @@
 ---
 title: Notes
 date: 2017-10-19 17:11:22
-description: "MinusWangの随手备忘摘抄录"
+description: "无钱莫入众，言轻莫劝人，待到成功后，把酒问初心"
 tags: 
 ---
+
+2018年12月12日15:39:28
+
+无钱莫入众，言轻莫劝人，待到成功后，把酒问初心，穷在闹市无人问，富在深山有远亲，不信但看筵中酒，杯杯先敬富贵人，门前拴着高头马，不是亲来也是亲，门前放着讨饭棍，亲朋好友不上门，世上结交需黄金，黄金不多交不深，有钱有酒多兄弟，急难何曾见一人
+
+Chrome 关闭当前标签页   Ctrl+W    打开历史记录 Ctrl + H
+
+Windows 回到桌面 Windows + D 再按一次返回“回到桌面”之前状态
+
+Windows 切换窗口  Alt+tab  或者   Windows + tab 3d效果
+
+=============================================================================
 
 0. [向您的项目添加 C 和 C++ 代码](https://developer.android.google.cn/studio/projects/add-native-code.html#existing-project)
 

@@ -5,6 +5,13 @@ description: "身不宜忙，而忙于闲暇之时，亦可儆惕惰；心不可
 header-img: "img/about-bg.jpg"
 comments: true
 ---
+
+## 新思想-新学习
+
+[誰人先生](https://darekasan.weebly.com/326542228320154)
+
+[This American Life](https://life_www.thisamericanlife.org)
+
 ## 个人站点 Personal Sites
 
 0000.[Jake Wharton](https://github.com/JakeWharton)
