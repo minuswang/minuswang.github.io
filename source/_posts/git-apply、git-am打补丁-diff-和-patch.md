@@ -212,3 +212,49 @@ diff a/test b/test    (rejected hunks)
 链接：http://www.jianshu.com/p/e5d801b936b6
 來源：简书
 著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。
+
+
+有这样的 目录层次 x/xx/xxx/xxx/ttt.c
+而 我的 当前位置 是在 x/下 ，执行git diff> test.patch
+
+在test.patch补丁文件里的路径信息是这样的：
+---a/xx/xxx/xxx   
++++b/xx/xxx/xxx  
+
+如果 应用 test.patch 的时候的 位置 是在 x/ 下，
+那么 执行 patch -p1 < test.patch 
+--------------------------------------
+
+git diff> test.patch，这是产生patch的方式。
+注意，使用git diff产生的patch都应该在执行patch 命令时,指定-p1，当 位置是 【在哪里制作的patch，就在哪里 执行】
+或者直接使用git apply test.patch 打补丁,执行 这个 命令的位置 也是<在哪里制作的patch，就在哪里执行此命令>。
+
+```
+生成patch
+git diff > file.patch
+
+打patch
+patch -p1 < file.patch
+git apply file.patch
+```
+
+Git如何撤销所有本地修改
+
+git checkout . #本地所有修改的。没有的提交的，都返回到原来的状态
+git stash  #把所有没有提交的修改暂存到stash里面。可用git stash pop回复。
+git reset --hard HASH #返回到某个节点，不保留修改。
+git reset --soft HASH#返回到某个节点。保留修改 
+--------------------- 
+
+git log --author=“author” 可以查找某一个作者所有的提交
+
+【Android】adb 查看所有程序包名
+1. 列出所有的包名
+$ adb shell pm list packages
+
+2. 可以加上grep查询词
+$ adb shell pm list packages | grep 'miui'
+
+adb常用命令总结
+https://blog.csdn.net/wangjiang_qianmo/article/details/84104934
+

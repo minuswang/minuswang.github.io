@@ -6,6 +6,7 @@ header-img: "img/about-bg.jpg"
 comments: true
 ---
 
+[下载AOSP android源码（最小最快下载方式，跳过编译直接导入Android Studio） Ubuntu 16.04](https://www.jianshu.com/p/3922ec229077)
 ## 新思想-新学习
 
 [誰人先生](https://darekasan.weebly.com/326542228320154)
