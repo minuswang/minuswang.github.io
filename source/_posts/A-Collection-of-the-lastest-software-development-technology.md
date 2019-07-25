@@ -22,3 +22,5 @@ tags:
 [Android多渠道包生成最佳实践（二）](https://www.jianshu.com/p/3ba40dd91118)
 [Walle（瓦力）：Android Signature V2 Scheme签名下的新一代渠道包打包神器](https://github.com/Meituan-Dianping/walle)
 
+5. JVM
+[学习JVM是如何从入门到放弃的？](https://www.jianshu.com/p/904b15a8281f)

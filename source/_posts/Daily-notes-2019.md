@@ -1,6 +1,6 @@
 ---
 title: Daily notes 2019
-date: 2019-01-08 16:40:34
+date: 2019-07-10
 tags:
 ---
 1. Linux beyond compare 免试用
@@ -55,4 +55,54 @@ I think capturing more of the log (perhaps filtering it by your app's PID if nec
 
 10. 如果想获取手机的当前系统语言，可以通过Locale类获取，主要方法：Locale.getDefault().getLanguage()，返回的是es或者zh；通过Locale.getDefault().getCountry()获取当前国家或地区，返回为CN或US；如果当前手机设置为中文-中国，则使用此方法返回zh-CN，同理可得到其他语言与地区的信息
 
-11. 
+// BEGIN 2019-07-10
+11. Java正确URL解码方式：URLDecoder.decode
+Java调用 URLDecoder.decode(str, "UTF-8"); 抛出以上的异常，其主要原因是% 在URL中是特殊字符，需要特殊转义一下，
+解决办法：使用%25替换字符串中的%号
+url = url.replaceAll("%(?![0-9a-fA-F]{2})", "%25");
+String urlStr = URLDecoder.decode(url, "UTF-8");
+
+12. [对于httpclient在android5.0及以下的系统中，访问多证书的服务器时出现hostname验证不过](https://blog.csdn.net/happy668ha/article/details/79227980)
+
+13. Android设置屏幕亮度的两种方式
+最近项目需要设置Android设备的亮度，本来以为很简单的功能，结果搞了好久才搞定，Android在这里埋了一个坑。下面具体说下：
+Android系统的亮度值是0~255，数据类型为int型。设置屏幕亮度有两种方式，一种是通过WindowManager去设置当前界面的亮度——注意，是当前界面，不是系统的亮度。这种方式代码如下
+
+private void setLight(Activity context, int brightness) {
+        WindowManager.LayoutParams lp = context.getWindow().getAttributes();
+        lp.screenBrightness = Float.valueOf(brightness) * (1f / 255f);
+        context.getWindow().setAttributes(lp);
+}
+
+需要注意其中的context的类型是Activity，不能是Context。这种方式的特点，是**只在当前设置的界面生效**，离开此界面后，屏幕亮度受亮度自动调节的开关控制。换句话说，用这种方式设置当前界面的亮度时，会使亮度自动调节失效。只有离开此界面，亮度自动调节继续生效。这种方式适用某些特殊的，需要高亮显示界面。
+ 
+第二种方式时通过修改系统数据库来设置亮度。代码如下
+public void saveBrightness(Activity activity, int brightness) {
+        Uri uri = Settings.System.getUriFor(Settings.System.SCREEN_BRIGHTNESS);
+        Settings.System.putInt(contentResolver, Settings.System.SCREEN_BRIGHTNESS, brightness);
+        activity.getContentResolver().notifyChange(uri, null);
+}
+这种方式的特点是可以修改系统亮度，即使退出当前界面，设置的亮度值依然生效。这种方式设置的亮度值受亮度自动调节开关的影响。即开关关闭时，此值生效；开关关闭时，此值其实并没有什么卵用。需要注意的时，设置时需要向系统数据库写入数据，因此需要相应的权限才行。这两种方式各有各的作用与使用场景，使用的时候需要千万注意，不要混淆。功能虽小，坑却不小，特作文以记之
+[Android 屏幕亮度调节](https://www.jianshu.com/p/70c1ddf87df4)
+[Android之调节屏幕亮度（文末附源码）Kotlin](https://www.jianshu.com/p/0984f450dc0b)
+
+14. [Android安全开发之安全使用HTTPS](https://www.cnblogs.com/alisecurity/p/5939336.html)
+
+15. 支持和禁止分屏功能
+android:resizeableActivity="true|false" 通过AndroidManifest中进行配置，来支持或者禁止分屏功能
+
+16. Activity 配置项里的 android:configChanges。
+列出 Activity 将自行处理的配置更改。在运行时发生配置更改时，默认情况下会关闭 Activity 然后将其重新启动，但使用该属性声明配置将阻止 Activity 重新启动。 Activity 反而会保持运行状态，并且系统会调用其 onConfigurationChanged() 方法 
+
+17. 查看Android中的AlarmManager事件
+
+adb中提供了查看alarmmanager的命令
+adb shell dumpsys alarm
+
+通过这命令可以查看被放到定时队列里面的事件
+
+    RTC_WAKEUP #1: Alarm{52c2ad84 type 0 com.sina.weibo}
+    type=0 when=+3m1s330ms repeatInterval=0 count=0
+    operation=PendingIntent{529fa514: PendingIntentRecord{52a7b220 com.sina.weibo broadcastIntent}}
+
+18. 

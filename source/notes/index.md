@@ -4,9 +4,25 @@ date: 2017-10-19 17:11:22
 description: "无钱莫入众，言轻莫劝人，待到成功后，把酒问初心"
 tags: 
 ---
+[SOLID 各自有张很形象的图](https://www.jianshu.com/p/1c6498da3862)
+
+![](https://upload-images.jianshu.io/upload_images/2229793-d570c6f004008222.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/600/format/webp)
+
+[https://futurestud.io/](https://futurestud.io/)
+
 2018年12月12日15:39:28
 
 无钱莫入众，言轻莫劝人，待到成功后，把酒问初心，穷在闹市无人问，富在深山有远亲，不信但看筵中酒，杯杯先敬富贵人，门前拴着高头马，不是亲来也是亲，门前放着讨饭棍，亲朋好友不上门，世上结交需黄金，黄金不多交不深，有钱有酒多兄弟，急难何曾见一人
+
+1. adb root
+2. adb disable-verity
+(最新的adb 工具包才支持adb disable-verity命令，如果是Linux开发环境，则可使用工程编译结果目录out/host/linux-x86/bin下的adb执行文件）
+3. adb reboot 重启设备
+(只要不刷机，以上步骤执行一次就行)
+4. adb root
+5. adb remount
+现在可以对system分区进行读写了
+[原文链接](https://blog.csdn.net/yapingmcu/article/details/53203549)
 
 Chrome 关闭当前标签页   Ctrl+W    打开历史记录 Ctrl + H
 
