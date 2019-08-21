@@ -53,3 +53,17 @@ LOCAL_MODULE_PATH := $(TARGET_OUT_VENDOR)/operator/app
 
 [Android 预置第三方应用可卸载功能的实现](https://blog.csdn.net/pirionFordring/article/details/83586037)
 
+为了实现FMradio可卸载方案：
+1. 将FM apk由system/priv-app目录移至system/pre-install目录，同时将fm依赖的libfmjni.so添加到public lib库 
+但此方法引起了新的CTS fail项
+2. 经过与MTK沟通,建议将libfmjni.so打包到app目录下，libfmjni.so与其他的系统so有依赖，所以需要把所有有依赖关系的so都打包进来
+最后总共依赖了50多个so库，大小约为8M。本来FM apk的大小只有800K
+3. 为实现此需求FM多占用了8M的内存空间，GO项目本来就内存吃紧，而这里的卸载方案本来就不是真正从内存中删除
+
+MTK有将FM预置位可卸载的方案，要求是将FM依赖的libfmjni.so添加到public lib库（否则FM直接crash），但是这个会导致CTS failed。
+需要修改的就是将libfmjni.so添加APK内部去，但是由于这个库本身也有其他依赖，就需要将全部依赖添加到APK里面去。
+这样的结果就是：APK大小增大，是否还有其他由于依赖导致的功能问题，这个暂时无法预见
+
+编译到/vendror/app_backup中就可以可卸载,
+LOCAL_MODULE_PATH := $(PRODUCT_OUT)/vendor/app_backup
+

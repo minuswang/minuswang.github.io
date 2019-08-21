@@ -1,8 +1,10 @@
 ---
-title: 20190530 Daily Notes
-date: 2019-05-30 15:21:13
+title: 20190821 Daily Notes
+date: 2019-08-21 15:21:13
 tags:
 ---
+
+[Android 学习笔记核心篇](https://juejin.im/post/5c46db4ae51d4503834d8227)
 
 ## 0、adb remount 系统提示只读文件系统Read-only file system,解决用adb disable-verity
 
@@ -199,3 +201,51 @@ android:centerColor="#FFd4e9a9" 通常这个也不是被人常用
 android:shape 配置的是图形的形式，主要包括方形、圆形等，上边代码为方形。gradient节点主要配置起点颜色、终点颜色、中间点的坐标、中间点的颜色、渐变角度（90度为上下渐变，0为左右渐变），padding节点主要配置上下左右边距，corners节点配置四周园角的半径
 
 ## 9、[Android ToolBar 解析与应用（二）点击监听](https://blog.csdn.net/flykozhang/article/details/50280109)
+
+
+MTK 切国家码 
+
+####6030#   切
+
+####6020#   再切
+
+####5993#   查看国家码信息
+
+aapt：Android Asset Packaging Tool , 在SDK的tools/目录下. 该工具可以查看, 创建, 更新ZIP格式的文档附件(zip, jar, apk). 也可将资源文件编译成二进制文件.
+
+同步软件中得到apk信息就是用的这么一个android已经提供好的工具。
+
+aapt d[ump] [--values] WHAT file.{apk} [asset [asset ...]]
+   badging          Print the label and icon for the app declared in APK.
+   permissions      Print the permissions from the APK.
+   resources        Print the resource table from the APK.
+   configurations   Print the configurations in the APK.
+   xmltree          Print the compiled xmls in the given assets.
+   xmlstrings       Print the strings of the given compiled xml assets.
+
+## 10.  [http://adbshell.com](http://adbshell.com)
+adb shell
+getprop|grep ""     // 注意空格
+
+在android系统中的配置文件可以通过adb shell getprop “属性值” 和 adb shell setprop “属性值” 操作，里面的信息量很庞大
+
+/init.rc
+/default.prop
+/system/build.prop
+
+adb shell getprop | find "brand"
+[ro.product.brand]: [Lenovo]
+[ro.vendor.product.brand]: [Lenovo]
+
+STEP 1.
+adb shell
+
+STEP 2.
+getprop
+getprop ro.build.version.sdk
+getprop ro.chipname
+getprop | grep adb
+
+Android studio中调出代码快捷键，快速try catch包括代码块 if else
+选择要包裹的代码块，然后按下  Ctrl+Alt+t 就可以调出下边这个键，进行选择即可，非常方便~
+
