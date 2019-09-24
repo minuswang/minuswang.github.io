@@ -1,6 +1,6 @@
 ---
 title: Daily notes 2019
-date: 2019-07-10
+date: 2019-09-12
 tags:
 ---
 1. Linux beyond compare 免试用
@@ -106,3 +106,8 @@ adb shell dumpsys alarm
     operation=PendingIntent{529fa514: PendingIntentRecord{52a7b220 com.sina.weibo broadcastIntent}}
 
 18. 
+我们这边抓log有两种方法，1是联系人中输入####3333#，打开log，home键返回，这样log一直开着了，你就做操作就行，等出问题了再调出这个log界面点击保存按钮。log存在了设备根目录的mtklog下面
+
+第2种就是adb logcat -v time > XXX.txt，一直抓着。
+
+19. 
