@@ -13,11 +13,11 @@
 
     <title>
         
-          Android mk and so issue - MinusWang&#39;s Diary | MinusWangの日志
+          MinusWang&#39;s Diary | MinusWangの日志
         
     </title>
 
-    <link rel="canonical" href="http://minus.wang/2019/07/25/Android-mk-and-so-issue/">
+    <link rel="canonical" href="http://minus.wang/tags/Note/">
 
     <!-- Bootstrap Core CSS -->
     
@@ -167,174 +167,7 @@
 
 
     <!-- Main Content -->
-    
-<!-- Image to hack wechat -->
-<!-- <img src="http://minus.wang/img/icon_wechat.png" width="0" height="0"> -->
-<!-- <img src="{{ site.baseurl }}/{% if page.header-img %}{{ page.header-img }}{% else %}{{ site.header-img }}{% endif %}" width="0" height="0"> -->
-
-<!-- Post Header -->
-<style type="text/css">
-    header.intro-header{
-        background-image: url('/img/home-bg.jpg')
-    }
-</style>
-<header class="intro-header" >
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
-                <div class="post-heading">
-                    <div class="tags">
-                        
-                    </div>
-                    <h1>Android mk and so issue</h1>
-                    <h2 class="subheading"></h2>
-                    <span class="meta">
-                        Posted by MinusWang on
-                        2019-07-25
-                    </span>
-                </div>
-            </div>
-        </div>
-    </div>
-</header>
-
-<!-- Post Content -->
-<article>
-    <div class="container">
-        <div class="row">
-
-    <!-- Post Container -->
-            <div class="
-                col-lg-8 col-lg-offset-2
-                col-md-10 col-md-offset-1
-                post-container">
-
-                <p>Android JNI 的使用，之前很少使用这个，所以这次用到占用了很多时间搞，不熟悉C++好痛苦的说啊～</p>
-<p>Android JNI如何用呢？</p>
-<p>下面这段拷贝别人的，是没问题的：<br>常用有两种方法：</p>
-<p>1、在windows/linux下，首先把so动态库文件 编译出来(通过NDK)，然后再 拷贝到android的工程里 libs/armeabi/下，如果libs/armeabi 不存在，那就自己创建，最后用eclipse编译本项目，这样将自动把so文件打包到apk里；eclipse在打包的时候会根据文件名的命名规则（lib****.so）去打包so文件，开头和结尾必须分别为“lib”和“.so”，否则是不会打包到apk文件中的。</p>
-<p>2、在android源码里，使用mm命令编译apk工程。</p>
-<p>   在project根目录下创建一个Android.mk，文件内容如：</p>
-<p>LOCAL_PATH:= $(call my-dir)<br>include $(CLEAR_VARS)<br>LOCAL_MODULE_TAGS := user<br>LOCAL_SRC_FILES := $(call all-subdir-java-files)<br>LOCAL_PACKAGE_NAME := jnisample<br>LOCAL_JNI_SHARED_LIBRARIES := libtest<br>include $(BUILD_PACKAGE)<br>include $(LOCAL_PATH)/jni/Android.mk<br>#include $(call all-makefiles-under,$(LOCAL_PATH))<br>LOCAL_JNI_SHARED_LIBRARIES := libtest 就是把so文件放到apk文件里的libs/armeabi里，而include $(LOCAL_PATH)/jni/Android.mk为了编译so文件。</p>
-<h2 id="把工程文件放到SDK-platform-packages-apps目录下-然后进入该目录-命令里输入mm-进行该工程的编译-这样编译出来的apk，在libs-armeabi文件夹里面包含so文件"><a href="#把工程文件放到SDK-platform-packages-apps目录下-然后进入该目录-命令里输入mm-进行该工程的编译-这样编译出来的apk，在libs-armeabi文件夹里面包含so文件" class="headerlink" title="把工程文件放到SDK platform/packages/apps目录下,然后进入该目录,命令里输入mm,进行该工程的编译,这样编译出来的apk，在libs/armeabi文件夹里面包含so文件"></a>把工程文件放到SDK platform/packages/apps目录下,然后进入该目录,命令里输入mm,进行该工程的编译,这样编译出来的apk，在libs/armeabi文件夹里面包含so文件</h2><p>LOCAL_MODULE_CLASS用于制定LOCAL_MODULE_PATH的路径所在。<br>如果在Android.mk没有直接明确LOCAL_MODULE_PATH 的话，需要通过以下规则来自动生成base_rules.mk：<br> LOCAL_MODULE_PATH := $(strip $(LOCAL_MODULE_PATH))<br> ifeq ($(LOCAL_MODULE_PATH),)<br>         #LOCAL_MODULE_CLASS :=<br>   LOCAL_MODULE_PATH := $($(my_prefix)OUT$(partition_tag)_$(LOCAL_MODULE_CLASS))<br>   $(info <strong>***</strong>//////////$(LOCAL_MODULE_PATH))<br> ifeq ($(strip $(LOCAL_MODULE_PATH)),)<br>     $(error $(LOCAL_PATH): unhandled LOCAL_MODULE_CLASS “$(LOCAL_MODULE_CLASS)”)<br>   endif<br> endif</p>
-<p>在不同的Android.mk文件中，对于模块include()不同的编译类型选项，比如对于Library或者app,execut等在调用对应的处理mk文件时，会默认就指定当前的LOCAL_MODULE_CLASS的值，比如EXECUTABLES、SHARED_LIBRARIES等。所以在自己编写的Android.mk可不显示的指定LOCAL_MODULE_CLASS的值。但当遇到include $(BUILD_PREBUILT)的预编译选项时不会指定模块模块编译输出的类型CLASS，需要在自己编写的Android.mk中明确指定LOCAL_MODULE_CLASS的值如ETC/APP等，使其值为非空，从而帮助系统确定LOCAL_MODULE_PATH的路径，比如最终编译输出LOCAL_MODULE_PATH  := $(TARGRT_OUT_ETC)。</p>
-<p><a href="https://blog.csdn.net/shichaosong/article/details/22050029">Android JNI以及打包so文件到apk中</a></p>
-<p><a href="https://www.jianshu.com/p/00e7d382725b">Android 动态加载多个so–包含so引用so</a></p>
-<p><a href="https://blog.csdn.net/u010867436/article/details/88821480">Android.mk编译so，提示ninja: error</a></p>
-<p><a href="https://www.jianshu.com/p/683138f155c9">系统级应用apk集成和mk文件配置介绍</a></p>
-
-
-                <hr>
-
-                
-
-                <ul class="pager">
-                    
-                        <li class="previous">
-                            <a href="/2019/08/06/Android-mk学习笔记/" data-toggle="tooltip" data-placement="top" title="Android.mk学习笔记">&larr; Previous Post</a>
-                        </li>
-                    
-                    
-                        <li class="next">
-                            <a href="/2019/07/25/MTK-android-8-1关机闹钟/" data-toggle="tooltip" data-placement="top" title="MTK android 8.1关机闹钟">Next Post &rarr;</a>
-                        </li>
-                    
-                </ul>
-
-                
-
-                
-
-            </div>
-    <!-- Side Catalog Container -->
-        
-
-    <!-- Sidebar Container -->
-
-            <div class="
-                col-lg-8 col-lg-offset-2
-                col-md-10 col-md-offset-1
-                sidebar-container">
-
-                <!-- Featured Tags -->
-                
-                <section>
-                    <!-- no hr -->
-                    <h5><a href="/tags/">FEATURED TAGS</a></h5>
-                    <div class="tags">
-                       
-                    </div>
-                </section>
-                
-
-                <!-- Friends Blog -->
-                
-                <hr>
-                <h5>FRIENDS</h5>
-                <ul class="list-inline">
-
-                    
-                        <li><a href="http://minus.wang" target="_blank">MinusWang&#39;s Diary</a></li>
-                    
-                        <li><a href="http://minus.wang" target="_blank">MinusWang</a></li>
-                    
-                        <li><a href="#" target="_blank">Foo</a></li>
-                    
-                        <li><a href="#" target="_blank">Bar</a></li>
-                    
-                        <li><a href="#" target="_blank">Example Friends</a></li>
-                    
-                        <li><a href="#" target="_blank">It helps SEO</a></li>
-                    
-                </ul>
-                
-            </div>
-
-        </div>
-    </div>
-</article>
-
-
-
-
-
-
-
-<!-- async load function -->
-<script>
-    function async(u, c) {
-      var d = document, t = 'script',
-          o = d.createElement(t),
-          s = d.getElementsByTagName(t)[0];
-      o.src = u;
-      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
-      s.parentNode.insertBefore(o, s);
-    }
-</script>
-<!-- anchor-js, Doc:http://bryanbraun.github.io/anchorjs/ -->
-<script>
-    async("https://cdn.bootcss.com/anchor-js/1.1.1/anchor.min.js",function(){
-        anchors.options = {
-          visible: 'always',
-          placement: 'right',
-          icon: '#'
-        };
-        anchors.add().remove('.intro-header h1').remove('.subheading').remove('.sidebar-container h5');
-    })
-</script>
-<style>
-    /* place left on bigger screen */
-    @media all and (min-width: 800px) {
-        .anchorjs-link{
-            position: absolute;
-            left: -0.75em;
-            font-size: 1.1em;
-            margin-top : -0.1em;
-        }
-    }
-</style>
-
-
+    <!-- Default Archive layout, we use archives instead. -->
 
     <!-- Footer -->
     <!-- Footer -->
