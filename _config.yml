@@ -77,19 +77,21 @@ friends: [
     },{
         title: "MinusWang",
         href: "http://minus.wang"
-    },{
-        title: "Foo",
-        href: "#"
-    },{
-        title: "Bar",
-        href: "#"
-    },{
-        title: "Example Friends",
-        href: "#"
-    },{
-        title: "It helps SEO",
-        href: "#"
-    }
+    },
+    
+    # {
+    #     title: "Foo",
+    #     href: "#"
+    # },{
+    #     title: "Bar",
+    #     href: "#"
+    # },{
+    #     title: "Example Friends",
+    #     href: "#"
+    # },{
+    #     title: "It helps SEO",
+    #     href: "#"
+    # }
 ]
 ###############################################
 #Custom Setting End
