@@ -1,0 +1,932 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- Head tag -->
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Minus Wang - a life writer">
+    <meta name="keyword"  content="">
+    <link rel="shortcut icon" href="..//img/favicon.ico">
+
+    <title>
+        
+          转载-MD5算法原理 - MinusWang&#39;s Diary | MinusWangの日志
+        
+    </title>
+
+    <link rel="canonical" href="http://minus.wang/2017/11/15/转载-MD5算法原理/">
+
+    <!-- Bootstrap Core CSS -->
+    
+<link rel="stylesheet" href="/css/bootstrap.min.css">
+
+
+    <!-- Custom CSS -->
+    
+<link rel="stylesheet" href="/css/hux-blog.min.css">
+
+
+    <!-- Pygments Highlight CSS -->
+    
+<link rel="stylesheet" href="/css/highlight.css">
+
+
+    <!-- Custom Fonts -->
+    <!-- <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css"> -->
+    <!-- Hux change font-awesome CDN to qiniu -->
+    <link href="https://cdn.staticfile.org/font-awesome/4.5.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+
+    <!-- Hux Delete, sad but pending in China
+    <link href='http://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/
+    css'>
+    -->
+
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- ga & ba script hoook -->
+    <script></script>
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+
+<!-- hack iOS CSS :active style -->
+<body ontouchstart="">
+
+    <!-- Navigation -->
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">Minus Wang</a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <!-- Known Issue, found by Hux:
+            <nav>'s height woule be hold on by its content.
+            so, when navbar scale out, the <nav> will cover tags.
+            also mask any touch event of tags, unfortunately.
+        -->
+        <div id="huxblog_navbar">
+            <div class="navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="/">Home</a>
+                    </li>
+
+                    
+
+                        
+                    
+
+                        
+                        <li>
+                            <a href="/about/">About Me</a>
+                        </li>
+                        
+                    
+
+                        
+                        <li>
+                            <a href="/tags/">Tags</a>
+                        </li>
+                        
+                    
+
+                        
+                        <li>
+                            <a href="/archives/">Archives</a>
+                        </li>
+                        
+                    
+
+                        
+                        <li>
+                            <a href="/notes/">Notes</a>
+                        </li>
+                        
+                    
+
+                        
+                        <li>
+                            <a href="/Friends/">Friends</a>
+                        </li>
+                        
+                    
+                    
+                </ul>
+            </div>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container -->
+</nav>
+<script>
+    // Drop Bootstarp low-performance Navbar
+    // Use customize navbar with high-quality material design animation
+    // in high-perf jank-free CSS3 implementation
+    var $body   = document.body;
+    var $toggle = document.querySelector('.navbar-toggle');
+    var $navbar = document.querySelector('#huxblog_navbar');
+    var $collapse = document.querySelector('.navbar-collapse');
+
+    $toggle.addEventListener('click', handleMagic)
+    function handleMagic(e){
+        if ($navbar.className.indexOf('in') > 0) {
+        // CLOSE
+            $navbar.className = " ";
+            // wait until animation end.
+            setTimeout(function(){
+                // prevent frequently toggle
+                if($navbar.className.indexOf('in') < 0) {
+                    $collapse.style.height = "0px"
+                }
+            },400)
+        }else{
+        // OPEN
+            $collapse.style.height = "auto"
+            $navbar.className += " in";
+        }
+    }
+</script>
+
+
+    <!-- Main Content -->
+    
+<!-- Image to hack wechat -->
+<!-- <img src="http://minus.wang/img/icon_wechat.png" width="0" height="0"> -->
+<!-- <img src="{{ site.baseurl }}/{% if page.header-img %}{{ page.header-img }}{% else %}{{ site.header-img }}{% endif %}" width="0" height="0"> -->
+
+<!-- Post Header -->
+<style type="text/css">
+    header.intro-header{
+        background-image: url('/img/home-bg.jpg')
+    }
+</style>
+<header class="intro-header" >
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <div class="post-heading">
+                    <div class="tags">
+                        
+                    </div>
+                    <h1>转载-MD5算法原理</h1>
+                    <h2 class="subheading"></h2>
+                    <span class="meta">
+                        Posted by MinusWang on
+                        2017-11-15
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+<!-- Post Content -->
+<article>
+    <div class="container">
+        <div class="row">
+
+    <!-- Post Container -->
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                post-container">
+
+                <p>MD5（单向散列算法）的全称是<code>Message-Digest Algorithm 5</code>（信息-摘要算法），经MD2、MD3和MD4发展而来。MD5算法的使用不需要支付任何版权费用。</p>
+<blockquote>
+<p>MD5功能：</p>
+</blockquote>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">输入任意长度的信息，经过处理，输出为128位的信息（数字指纹）；</span><br><span class="line">不同的输入得到的不同的结果（唯一性）；</span><br><span class="line">根据128位的输出结果不可能反推出输入的信息（不可逆）； </span><br></pre></td></tr></table></figure>
+
+<pre><code>MD5属不属于加密算法：
+认为不属于的人是因为他们觉得不能从密文（散列值）反过来得到原文，即没有解密算法，所以这部分人认为MD5只能属于算法，不能称为加密算法；
+认为属于的人是因为他们觉得经过MD5处理后看不到原文，即已经将原文加密，所以认为MD5属于加密算法；我个人支持后者。</code></pre><blockquote>
+<p>MD5用途：</p>
+</blockquote>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">1、防止被篡改：</span><br><span class="line">1）比如发送一个电子文档，发送前，我先得到MD5的输出结果a。然后在对方收到电子文档后，对方也得到一个MD5的输出结果b。如果a与b一样就代表中途未被篡改。2）比如我提供文件下载，为了防止不法分子在安装程序中添加木马，我可以在网站上公布由安装文件得到的MD5输出结果。3）SVN在检测文件是否在CheckOut后被修改过，也是用到了MD5.</span><br><span class="line"></span><br><span class="line">2、防止直接看到明文：</span><br><span class="line">现在很多网站在数据库存储用户的密码的时候都是存储用户密码的MD5值。这样就算不法分子得到数据库的用户密码的MD5值，也无法知道用户的密码(其实这样是不安全的，后面我会提到)。（比如在UNIX系统中用户的密码就是以MD5（或其它类似的算法）经加密后存储在文件系统中。当用户登录的时候，系统把用户输入的密码计算成MD5值，然后再去和保存在文件系统中的MD5值进行比较，进而确定输入的密码是否正确。通过这样的步骤，系统在并不知道用户密码的明码的情况下就可以确定用户登录系统的合法性。这不但可以避免用户的密码被具有系统管理员权限的用户知道，而且还在一定程度上增加了密码被破解的难度。）</span><br><span class="line"></span><br><span class="line">3、防止抵赖（数字签名）：</span><br><span class="line">这需要一个第三方认证机构。例如A写了一个文件，认证机构对此文件用MD5算法产生摘要信息并做好记录。若以后A说这文件不是他写的，权威机构只需对此文件重新产生摘要信息，然后跟记录在册的摘要信息进行比对，相同的话，就证明是A写的了。这就是所谓的“数字签名”。</span><br></pre></td></tr></table></figure>
+
+<pre><code>MD5算法过程：
+对MD5算法简要的叙述可以为：MD5以512位分组来处理输入的信息，且每一分组又被划分为16个32位子分组，经过了一系列的处理后，算法的输出由四个32位分组组成，将这四个32位分组级联后将生成一个128位散列值。
+
+ 第一步、填充：如果输入信息的长度(bit)对512求余的结果不等于448，就需要填充使得对512求余的结果等于448。填充的方法是填充一个1和n个0。填充完后，信息的长度就为N*512+448(bit)；
+
+ 第二步、记录信息长度：用64位来存储填充前信息长度。这64位加在第一步结果的后面，这样信息长度就变为N*512+448+64=(N+1)*512位。
+
+ 第三步、装入标准的幻数（四个整数）：标准的幻数（物理顺序）是（A=(01234567)16，B=(89ABCDEF)16，C=(FEDCBA98)16，D=(76543210)16）。如果在程序中定义应该是（A=0X67452301L，B=0XEFCDAB89L，C=0X98BADCFEL，D=0X10325476L）。有点晕哈，其实想一想就明白了。
+
+ 第四步、四轮循环运算：循环的次数是分组的个数（N+1） 
+
+ 1）将每一512字节细分成16个小组，每个小组64位（8个字节）
+
+ 2）先认识四个线性函数(&amp;是与,|是或,~是非,^是异或)</code></pre>  <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">F(X,Y,Z)=(X&amp;Y)|((~X)&amp;Z)</span><br><span class="line">G(X,Y,Z)=(X&amp;Z)|(Y&amp;(~Z))</span><br><span class="line">H(X,Y,Z)=X^Y^Z</span><br><span class="line">I(X,Y,Z)=Y^(X|(~Z))</span><br></pre></td></tr></table></figure>
+
+<pre><code>3）设Mj表示消息的第j个子分组（从0到15），&lt;&lt;&lt;s表示循环左移s位，则四种操作为：</code></pre>  <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">FF(a,b,c,d,Mj,s,ti)表示a=b+((a+F(b,c,d)+Mj+ti)&lt;&lt;&lt;s)</span><br><span class="line">GG(a,b,c,d,Mj,s,ti)表示a=b+((a+G(b,c,d)+Mj+ti)&lt;&lt;&lt;s)</span><br><span class="line">HH(a,b,c,d,Mj,s,ti)表示a=b+((a+H(b,c,d)+Mj+ti)&lt;&lt;&lt;s)</span><br><span class="line">II(a,b,c,d,Mj,s,ti)表示a=b+((a+I(b,c,d)+Mj+ti)&lt;&lt;&lt;s)</span><br></pre></td></tr></table></figure>
+
+<pre><code>4）四轮运算</code></pre><p>第一轮<br>a=FF(a,b,c,d,M0,7,0xd76aa478)<br>b=FF(d,a,b,c,M1,12,0xe8c7b756)<br>c=FF(c,d,a,b,M2,17,0x242070db)<br>d=FF(b,c,d,a,M3,22,0xc1bdceee)<br>a=FF(a,b,c,d,M4,7,0xf57c0faf)<br>b=FF(d,a,b,c,M5,12,0x4787c62a)<br>c=FF(c,d,a,b,M6,17,0xa8304613)<br>d=FF(b,c,d,a,M7,22,0xfd469501)<br>a=FF(a,b,c,d,M8,7,0x698098d8)<br>b=FF(d,a,b,c,M9,12,0x8b44f7af)<br>c=FF(c,d,a,b,M10,17,0xffff5bb1)<br>d=FF(b,c,d,a,M11,22,0x895cd7be)<br>a=FF(a,b,c,d,M12,7,0x6b901122)<br>b=FF(d,a,b,c,M13,12,0xfd987193)<br>c=FF(c,d,a,b,M14,17,0xa679438e)<br>d=FF(b,c,d,a,M15,22,0x49b40821)</p>
+<p>第二轮<br>a=GG(a,b,c,d,M1,5,0xf61e2562)<br>b=GG(d,a,b,c,M6,9,0xc040b340)<br>c=GG(c,d,a,b,M11,14,0x265e5a51)<br>d=GG(b,c,d,a,M0,20,0xe9b6c7aa)<br>a=GG(a,b,c,d,M5,5,0xd62f105d)<br>b=GG(d,a,b,c,M10,9,0x02441453)<br>c=GG(c,d,a,b,M15,14,0xd8a1e681)<br>d=GG(b,c,d,a,M4,20,0xe7d3fbc8)<br>a=GG(a,b,c,d,M9,5,0x21e1cde6)<br>b=GG(d,a,b,c,M14,9,0xc33707d6)<br>c=GG(c,d,a,b,M3,14,0xf4d50d87)<br>d=GG(b,c,d,a,M8,20,0x455a14ed)<br>a=GG(a,b,c,d,M13,5,0xa9e3e905)<br>b=GG(d,a,b,c,M2,9,0xfcefa3f8)<br>c=GG(c,d,a,b,M7,14,0x676f02d9)<br>d=GG(b,c,d,a,M12,20,0x8d2a4c8a)</p>
+<p>第三轮<br>a=HH(a,b,c,d,M5,4,0xfffa3942)<br>b=HH(d,a,b,c,M8,11,0x8771f681)<br>c=HH(c,d,a,b,M11,16,0x6d9d6122)<br>d=HH(b,c,d,a,M14,23,0xfde5380c)<br>a=HH(a,b,c,d,M1,4,0xa4beea44)<br>b=HH(d,a,b,c,M4,11,0x4bdecfa9)<br>c=HH(c,d,a,b,M7,16,0xf6bb4b60)<br>d=HH(b,c,d,a,M10,23,0xbebfbc70)<br>a=HH(a,b,c,d,M13,4,0x289b7ec6)<br>b=HH(d,a,b,c,M0,11,0xeaa127fa)<br>c=HH(c,d,a,b,M3,16,0xd4ef3085)<br>d=HH(b,c,d,a,M6,23,0x04881d05)<br>a=HH(a,b,c,d,M9,4,0xd9d4d039)<br>b=HH(d,a,b,c,M12,11,0xe6db99e5)<br>c=HH(c,d,a,b,M15,16,0x1fa27cf8)<br>d=HH(b,c,d,a,M2,23,0xc4ac5665)</p>
+<p>第四轮<br>a=II(a,b,c,d,M0,6,0xf4292244)<br>b=II(d,a,b,c,M7,10,0x432aff97)<br>c=II(c,d,a,b,M14,15,0xab9423a7)<br>d=II(b,c,d,a,M5,21,0xfc93a039)<br>a=II(a,b,c,d,M12,6,0x655b59c3)<br>b=II(d,a,b,c,M3,10,0x8f0ccc92)<br>c=II(c,d,a,b,M10,15,0xffeff47d)<br>d=II(b,c,d,a,M1,21,0x85845dd1)<br>a=II(a,b,c,d,M8,6,0x6fa87e4f)<br>b=II(d,a,b,c,M15,10,0xfe2ce6e0)<br>c=II(c,d,a,b,M6,15,0xa3014314)<br>d=II(b,c,d,a,M13,21,0x4e0811a1)<br>a=II(a,b,c,d,M4,6,0xf7537e82)<br>b=II(d,a,b,c,M11,10,0xbd3af235)<br>c=II(c,d,a,b,M2,15,0x2ad7d2bb)<br>d=II(b,c,d,a,M9,21,0xeb86d391)</p>
+<pre><code>5）每轮循环后，将A，B，C，D分别加上a，b，c，d，然后进入下一循环。
+
+如果上面的过程用JAVA代码来实现的话，代码如下： </code></pre><p>package woxingwosu;</p>
+<p>/<strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong>****</strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></p>
+<ul>
+<li><p>MD5 算法</p>
+</li>
+<li><p>@author 我行我素</p>
+</li>
+<li><p>@Date 2007-07-01<br><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong>*****</strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong>/<br>public class MD5 {</p>
+<p> static final String hexs[]={“0”,”1”,”2”,”3”,”4”,”5”,”6”,”7”,”8”,”9”,”A”,”B”,”C”,”D”,”E”,”F”};<br> //标准的幻数<br> private static final long A=0x67452301L;<br> private static final long B=0xefcdab89L;<br> private static final long C=0x98badcfeL;<br> private static final long D=0x10325476L;</p>
+</li>
+</ul>
+<pre><code>//下面这些S11-S44实际上是一个4*4的矩阵，在四轮循环运算中用到
+static final int S11 = 7;
+static final int S12 = 12;
+static final int S13 = 17;
+static final int S14 = 22;
+
+static final int S21 = 5;
+static final int S22 = 9;
+static final int S23 = 14;
+static final int S24 = 20;
+
+static final int S31 = 4;
+static final int S32 = 11;
+static final int S33 = 16;
+static final int S34 = 23;
+
+static final int S41 = 6;
+static final int S42 = 10;
+static final int S43 = 15;
+static final int S44 = 21;
+
+//java不支持无符号的基本数据（unsigned）
+private long [] result=&#123;A,B,C,D&#125;;//存储hash结果，共4×32=128位，初始化值为（幻数的级联）
+
+public static void main(String []args)&#123;
+    MD5 md=new MD5();
+    System.out.println(&quot;md5(abc)=&quot;+md.digest(&quot;abc&quot;));
+&#125;
+
+private String digest(String inputStr)&#123;
+    byte [] inputBytes=inputStr.getBytes();
+    int byteLen=inputBytes.length;//长度（字节）
+    int groupCount=0;//完整分组的个数
+    groupCount=byteLen/64;//每组512位（64字节）
+    long []groups=null;//每个小组(64字节)再细分后的16个小组(4字节)
+
+    //处理每一个完整 分组
+    for(int step=0;step&lt;groupCount;step++)&#123;
+        groups=divGroup(inputBytes,step*64);
+        trans(groups);//处理分组，核心算法
+    &#125;
+
+    //处理完整分组后的尾巴
+    int rest=byteLen%64;//512位分组后的余数
+    byte [] tempBytes=new byte[64];
+    if(rest&lt;=56)&#123;
+        for(int i=0;i&lt;rest;i++)
+            tempBytes[i]=inputBytes[byteLen-rest+i];
+        if(rest&lt;56)&#123;
+            tempBytes[rest]=(byte)(1&lt;&lt;7);
+            for(int i=1;i&lt;56-rest;i++)
+                tempBytes[rest+i]=0;
+        &#125;
+        long len=(long)(byteLen&lt;&lt;3);
+        for(int i=0;i&lt;8;i++)&#123;
+            tempBytes[56+i]=(byte)(len&amp;0xFFL);
+            len=len&gt;&gt;8;
+        &#125;
+        groups=divGroup(tempBytes,0);
+        trans(groups);//处理分组
+    &#125;else&#123;
+        for(int i=0;i&lt;rest;i++)
+            tempBytes[i]=inputBytes[byteLen-rest+i];
+        tempBytes[rest]=(byte)(1&lt;&lt;7);
+        for(int i=rest+1;i&lt;64;i++)
+            tempBytes[i]=0;
+        groups=divGroup(tempBytes,0);
+        trans(groups);//处理分组
+
+        for(int i=0;i&lt;56;i++)
+            tempBytes[i]=0;
+        long len=(long)(byteLen&lt;&lt;3);
+        for(int i=0;i&lt;8;i++)&#123;
+            tempBytes[56+i]=(byte)(len&amp;0xFFL);
+            len=len&gt;&gt;8;
+        &#125;
+        groups=divGroup(tempBytes,0);
+        trans(groups);//处理分组
+    &#125;
+
+    //将Hash值转换成十六进制的字符串
+    String resStr=&quot;&quot;;
+    long temp=0;
+    for(int i=0;i&lt;4;i++)&#123;
+        for(int j=0;j&lt;4;j++)&#123;
+            temp=result[i]&amp;0x0FL;
+            String a=hexs[(int)(temp)];
+            result[i]=result[i]&gt;&gt;4;
+            temp=result[i]&amp;0x0FL;
+            resStr+=hexs[(int)(temp)]+a;
+            result[i]=result[i]&gt;&gt;4;
+        &#125;
+    &#125;
+    return resStr;
+&#125;
+
+/**
+ * 从inputBytes的index开始取512位，作为新的分组
+ * 将每一个512位的分组再细分成16个小组，每个小组64位（8个字节）
+ * @param inputBytes
+ * @param index
+ * @return
+ */
+private static long[] divGroup(byte[] inputBytes,int index)&#123;
+    long [] temp=new long[16];
+    for(int i=0;i&lt;16;i++)&#123;
+        temp[i]=b2iu(inputBytes[4*i+index])|
+            (b2iu(inputBytes[4*i+1+index]))&lt;&lt;8|
+            (b2iu(inputBytes[4*i+2+index]))&lt;&lt;16|
+            (b2iu(inputBytes[4*i+3+index]))&lt;&lt;24;
+    &#125;
+    return temp;
+&#125;
+
+/**
+ * 这时不存在符号位（符号位存储不再是代表正负），所以需要处理一下
+ * @param b
+ * @return
+ */
+public static long b2iu(byte b)&#123;
+    return b &lt; 0 ? b &amp; 0x7F + 128 : b;
+ &#125;
+
+/**
+ * 主要的操作，四轮循环
+ * @param groups[]--每一个分组512位（64字节）
+ */
+private void trans(long[] groups) &#123;
+    long a = result[0], b = result[1], c = result[2], d = result[3];
+    /*第一轮*/
+    a = FF(a, b, c, d, groups[0], S11, 0xd76aa478L); /* 1 */
+    d = FF(d, a, b, c, groups[1], S12, 0xe8c7b756L); /* 2 */
+    c = FF(c, d, a, b, groups[2], S13, 0x242070dbL); /* 3 */
+    b = FF(b, c, d, a, groups[3], S14, 0xc1bdceeeL); /* 4 */
+    a = FF(a, b, c, d, groups[4], S11, 0xf57c0fafL); /* 5 */
+    d = FF(d, a, b, c, groups[5], S12, 0x4787c62aL); /* 6 */
+    c = FF(c, d, a, b, groups[6], S13, 0xa8304613L); /* 7 */
+    b = FF(b, c, d, a, groups[7], S14, 0xfd469501L); /* 8 */
+    a = FF(a, b, c, d, groups[8], S11, 0x698098d8L); /* 9 */
+    d = FF(d, a, b, c, groups[9], S12, 0x8b44f7afL); /* 10 */
+    c = FF(c, d, a, b, groups[10], S13, 0xffff5bb1L); /* 11 */
+    b = FF(b, c, d, a, groups[11], S14, 0x895cd7beL); /* 12 */
+    a = FF(a, b, c, d, groups[12], S11, 0x6b901122L); /* 13 */
+    d = FF(d, a, b, c, groups[13], S12, 0xfd987193L); /* 14 */
+    c = FF(c, d, a, b, groups[14], S13, 0xa679438eL); /* 15 */
+    b = FF(b, c, d, a, groups[15], S14, 0x49b40821L); /* 16 */
+
+    /*第二轮*/
+    a = GG(a, b, c, d, groups[1], S21, 0xf61e2562L); /* 17 */
+    d = GG(d, a, b, c, groups[6], S22, 0xc040b340L); /* 18 */
+    c = GG(c, d, a, b, groups[11], S23, 0x265e5a51L); /* 19 */
+    b = GG(b, c, d, a, groups[0], S24, 0xe9b6c7aaL); /* 20 */
+    a = GG(a, b, c, d, groups[5], S21, 0xd62f105dL); /* 21 */
+    d = GG(d, a, b, c, groups[10], S22, 0x2441453L); /* 22 */
+    c = GG(c, d, a, b, groups[15], S23, 0xd8a1e681L); /* 23 */
+    b = GG(b, c, d, a, groups[4], S24, 0xe7d3fbc8L); /* 24 */
+    a = GG(a, b, c, d, groups[9], S21, 0x21e1cde6L); /* 25 */
+    d = GG(d, a, b, c, groups[14], S22, 0xc33707d6L); /* 26 */
+    c = GG(c, d, a, b, groups[3], S23, 0xf4d50d87L); /* 27 */
+    b = GG(b, c, d, a, groups[8], S24, 0x455a14edL); /* 28 */
+    a = GG(a, b, c, d, groups[13], S21, 0xa9e3e905L); /* 29 */
+    d = GG(d, a, b, c, groups[2], S22, 0xfcefa3f8L); /* 30 */
+    c = GG(c, d, a, b, groups[7], S23, 0x676f02d9L); /* 31 */
+    b = GG(b, c, d, a, groups[12], S24, 0x8d2a4c8aL); /* 32 */
+
+    /*第三轮*/
+    a = HH(a, b, c, d, groups[5], S31, 0xfffa3942L); /* 33 */
+    d = HH(d, a, b, c, groups[8], S32, 0x8771f681L); /* 34 */
+    c = HH(c, d, a, b, groups[11], S33, 0x6d9d6122L); /* 35 */
+    b = HH(b, c, d, a, groups[14], S34, 0xfde5380cL); /* 36 */
+    a = HH(a, b, c, d, groups[1], S31, 0xa4beea44L); /* 37 */
+    d = HH(d, a, b, c, groups[4], S32, 0x4bdecfa9L); /* 38 */
+    c = HH(c, d, a, b, groups[7], S33, 0xf6bb4b60L); /* 39 */
+    b = HH(b, c, d, a, groups[10], S34, 0xbebfbc70L); /* 40 */
+    a = HH(a, b, c, d, groups[13], S31, 0x289b7ec6L); /* 41 */
+    d = HH(d, a, b, c, groups[0], S32, 0xeaa127faL); /* 42 */
+    c = HH(c, d, a, b, groups[3], S33, 0xd4ef3085L); /* 43 */
+    b = HH(b, c, d, a, groups[6], S34, 0x4881d05L); /* 44 */
+    a = HH(a, b, c, d, groups[9], S31, 0xd9d4d039L); /* 45 */
+    d = HH(d, a, b, c, groups[12], S32, 0xe6db99e5L); /* 46 */
+    c = HH(c, d, a, b, groups[15], S33, 0x1fa27cf8L); /* 47 */
+    b = HH(b, c, d, a, groups[2], S34, 0xc4ac5665L); /* 48 */
+
+    /*第四轮*/
+    a = II(a, b, c, d, groups[0], S41, 0xf4292244L); /* 49 */
+    d = II(d, a, b, c, groups[7], S42, 0x432aff97L); /* 50 */
+    c = II(c, d, a, b, groups[14], S43, 0xab9423a7L); /* 51 */
+    b = II(b, c, d, a, groups[5], S44, 0xfc93a039L); /* 52 */
+    a = II(a, b, c, d, groups[12], S41, 0x655b59c3L); /* 53 */
+    d = II(d, a, b, c, groups[3], S42, 0x8f0ccc92L); /* 54 */
+    c = II(c, d, a, b, groups[10], S43, 0xffeff47dL); /* 55 */
+    b = II(b, c, d, a, groups[1], S44, 0x85845dd1L); /* 56 */
+    a = II(a, b, c, d, groups[8], S41, 0x6fa87e4fL); /* 57 */
+    d = II(d, a, b, c, groups[15], S42, 0xfe2ce6e0L); /* 58 */
+    c = II(c, d, a, b, groups[6], S43, 0xa3014314L); /* 59 */
+    b = II(b, c, d, a, groups[13], S44, 0x4e0811a1L); /* 60 */
+    a = II(a, b, c, d, groups[4], S41, 0xf7537e82L); /* 61 */
+    d = II(d, a, b, c, groups[11], S42, 0xbd3af235L); /* 62 */
+    c = II(c, d, a, b, groups[2], S43, 0x2ad7d2bbL); /* 63 */
+    b = II(b, c, d, a, groups[9], S44, 0xeb86d391L); /* 64 */
+
+    /*加入到之前计算的结果当中*/
+    result[0] += a;
+    result[1] += b;
+    result[2] += c;
+    result[3] += d;
+    result[0]=result[0]&amp;0xFFFFFFFFL;
+    result[1]=result[1]&amp;0xFFFFFFFFL;
+    result[2]=result[2]&amp;0xFFFFFFFFL;
+    result[3]=result[3]&amp;0xFFFFFFFFL;
+&#125;
+
+/**
+ * 下面是处理要用到的线性函数
+ */
+private static long F(long x, long y, long z) &#123;
+    return (x &amp; y) | ((~x) &amp; z);
+&#125;
+
+private static long G(long x, long y, long z) &#123;
+    return (x &amp; z) | (y &amp; (~z));
+&#125;
+
+private static long H(long x, long y, long z) &#123;
+    return x ^ y ^ z;
+&#125;
+
+private static long I(long x, long y, long z) &#123;
+    return y ^ (x | (~z));
+&#125;
+
+private static long FF(long a, long b, long c, long d, long x, long s,
+        long ac) &#123;
+    a += (F(b, c, d)&amp;0xFFFFFFFFL) + x + ac;
+    a = ((a&amp;0xFFFFFFFFL)&lt;&lt; s) | ((a&amp;0xFFFFFFFFL) &gt;&gt;&gt; (32 - s));
+    a += b;
+    return (a&amp;0xFFFFFFFFL);
+&#125;
+
+private static long GG(long a, long b, long c, long d, long x, long s,
+        long ac) &#123;
+    a += (G(b, c, d)&amp;0xFFFFFFFFL) + x + ac;
+    a = ((a&amp;0xFFFFFFFFL) &lt;&lt; s) | ((a&amp;0xFFFFFFFFL) &gt;&gt;&gt; (32 - s));
+    a += b;
+    return (a&amp;0xFFFFFFFFL);
+&#125;
+
+private static long HH(long a, long b, long c, long d, long x, long s,
+        long ac) &#123;
+    a += (H(b, c, d)&amp;0xFFFFFFFFL) + x + ac;
+    a = ((a&amp;0xFFFFFFFFL) &lt;&lt; s) | ((a&amp;0xFFFFFFFFL) &gt;&gt;&gt; (32 - s));
+    a += b;
+    return (a&amp;0xFFFFFFFFL);
+&#125;
+
+private static long II(long a, long b, long c, long d, long x, long s,
+        long ac) &#123;
+    a += (I(b, c, d)&amp;0xFFFFFFFFL) + x + ac;
+    a = ((a&amp;0xFFFFFFFFL) &lt;&lt; s) | ((a&amp;0xFFFFFFFFL) &gt;&gt;&gt; (32 - s));
+    a += b;
+    return (a&amp;0xFFFFFFFFL);
+&#125;</code></pre><p>}</p>
+<p>MD5安全性：<br>    普遍认为MD5是很安全，因为暴力破解的时间是一般人无法接受的。实际上如果把用户的密码MD5处理后再存储到数据库，其实是很不安全的。因为用户的密码是比较短的，而且很多用户的密码都使用生日，手机号码，身份证号码，电话号码等等。或者使用常用的一些吉利的数字，或者某个英文单词。如果我把常用的密码先MD5处理，把数据存储起来，然后再跟你的MD5结果匹配，这时我就有可能得到明文。比如某个MD5破解网站<a href="http://www.cmd5.com/default.aspx，我把其网站下的公告复制如下">http://www.cmd5.com/default.aspx，我把其网站下的公告复制如下</a><br>  md5破解、动网论坛密码破解等不再需要用穷举法，本站共有md5记录235亿条，还在不断增长中，已包含10位及10位以下数字、7位字母、部分7位字母＋数字,全部6位及以下字母加数字等组合，并针对国内用户做了大量优化，例如已经包含所有手机号码、全国部分大中城市固定电话号码、百家姓、常用拼音等大量组合，另加入了某大型网站真实会员密码数据10万条。本站数据量大，查询速度快，同时支持16位及32位密码查询。通过对10万会员的真实动网论坛样本数据的测试，本站对于动网论坛密码的命中率达到83%。<br>  本站4T的硬盘已经上线，正在生成数据，预计需要2个月左右时间，到时候本站能查询到12位数字和9位字母。<br>   你可以用你的生日，手机号码去测试一下。<br>   我觉得只需要将上面我写的MD5的标准幻数A,B,C,D的值修改一下，修改后也不是MD5算法了，因为不能保证唯一性。这样就算别人得到32位的值，他如果不知道幻数的值是无法还原明文的。就算得到了幻数，也是很难破解的。</p>
+<pre><code> JAVA实现MD5
+在java中实现MD5是很简单的，在包java.security有个类MessageDigest。官方文档如下
+MessageDigest 类为应用程序提供信息摘要算法的功能，如 MD5 或 SHA 算法。信息摘要是安全的单向哈希函数，它接收任意大小的数据，输出固定长度的哈希值。 
+
+MessageDigest 对象开始被初始化。该对象通过使用 update 方法处理数据。任何时候都可以调用 reset 方法重置摘要。一旦所有需要更新的数据都已经被更新了，应该调用 digest 方法之一完成哈希计算。 
+
+对于给定数量的更新数据，digest 方法只能被调用一次。digest 被调用后，MessageDigest 对象被重新设置成其初始状态。</code></pre><p>   使用MessageDigest很简单，例如<br>package woxingwosu;<br>/<strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong>****</strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></p>
+<ul>
+<li>MD5 算法</li>
+<li>@author 我行我素</li>
+<li>@Date 2007-07-06<br><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong>*****</strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong>/<br>import java.security.MessageDigest;</li>
+</ul>
+<p>public class MyMD5 {</p>
+<pre><code>static char[] hex = &#123;&apos;0&apos;,&apos;1&apos;,&apos;2&apos;,&apos;3&apos;,&apos;4&apos;,&apos;5&apos;,&apos;6&apos;,&apos;7&apos;,&apos;8&apos;,&apos;9&apos;,&apos;A&apos;,&apos;B&apos;,&apos;C&apos;,&apos;D&apos;,&apos;E&apos;,&apos;F&apos;&#125;; 
+public static void main(String[] args) &#123;
+    try&#123;
+        MessageDigest md5 = MessageDigest.getInstance(&quot;MD5&quot;);//申明使用MD5算法
+        md5.update(&quot;a&quot;.getBytes());//
+        System.out.println(&quot;md5(a)=&quot;+byte2str(md5.digest()));
+        md5.update(&quot;a&quot;.getBytes());
+        md5.update(&quot;bc&quot;.getBytes());
+        System.out.println(&quot;md5(abc)=&quot;+byte2str(md5.digest()));
+    &#125;catch(Exception e)&#123;
+        e.printStackTrace();
+    &#125;
+&#125;
+
+/**
+ * 将字节数组转换成十六进制字符串
+ * @param bytes
+ * @return
+ */
+private static String byte2str(byte []bytes)&#123;
+    int len = bytes.length;   
+    StringBuffer result = new StringBuffer();    
+    for (int i = 0; i &lt; len; i++) &#123;   
+        byte byte0 = bytes[i];   
+        result.append(hex[byte0 &gt;&gt;&gt; 4 &amp; 0xf]);   
+        result.append(hex[byte0 &amp; 0xf]);   
+    &#125;
+    return result.toString();
+&#125;</code></pre><p>} </p>
+<p>  另外附上其他版本的MD5算法的实现(来自网络)<br>    1)JS版的MD5(调用方法：md5(明文))<br>/*</p>
+<ul>
+<li>A JavaScript implementation of the RSA Data Security, Inc. MD5 Message</li>
+<li>Digest Algorithm, as defined in RFC 1321.</li>
+<li>Version 2.1 Copyright (C) Paul Johnston 1999 - 2002.</li>
+<li>Other contributors: Greg Holt, Andrew Kepert, Ydnar, Lostinet</li>
+<li>Distributed under the BSD License</li>
+<li>See <a href="http://pajhome.org.uk/crypt/md5">http://pajhome.org.uk/crypt/md5</a> for more info.</li>
+<li>/</li>
+</ul>
+<p>/*</p>
+<ul>
+<li>Configurable variables. You may need to tweak these to be compatible with</li>
+<li>the server-side, but the defaults work in most cases.</li>
+<li>/<br>var hexcase = 1;  /* hex output format. 0 - lowercase; 1 - uppercase        <em>/<br>var b64pad  = “”; /</em> base-64 pad character. “=” for strict RFC compliance   <em>/<br>var chrsz   = 8;  /</em> bits per input character. 8 - ASCII; 16 - Unicode      */</li>
+</ul>
+<p>/*</p>
+<ul>
+<li>These are the functions you’ll usually want to call</li>
+<li>They take string arguments and return either hex or base-64 encoded strings</li>
+<li>/<br>function hex_md5(s){ return binl2hex(core_md5(str2binl(s), s.length * chrsz));}<br>function str_md5(s){ return binl2str(core_md5(str2binl(s), s.length * chrsz));}<br>function hex_hmac_md5(key, data) { return binl2hex(core_hmac_md5(key, data)); }<br>function str_hmac_md5(key, data) { return binl2str(core_hmac_md5(key, data)); }</li>
+</ul>
+<p>/*</p>
+<ul>
+<li><p>Calculate the MD5 of an array of little-endian words, and a bit length</p>
+</li>
+<li><p>/<br>function core_md5(x, len)<br>{<br>/* append padding */<br>x[len &gt;&gt; 5] |= 0x80 &lt;&lt; ((len) % 32);<br>x[(((len + 64) &gt;&gt;&gt; 9) &lt;&lt; 4) + 14] = len;</p>
+<p>var a =  1732584193;<br>var b = -271733879;<br>var c = -1732584194;<br>var d =  271733878;</p>
+<p>for(var i = 0; i &lt; x.length; i += 16)<br>{<br>  var olda = a;<br>  var oldb = b;<br>  var oldc = c;<br>  var oldd = d;</p>
+<p>  a = md5_ff(a, b, c, d, x[i+ 0], 7 , -680876936);<br>  d = md5_ff(d, a, b, c, x[i+ 1], 12, -389564586);<br>  c = md5_ff(c, d, a, b, x[i+ 2], 17,  606105819);<br>  b = md5_ff(b, c, d, a, x[i+ 3], 22, -1044525330);<br>  a = md5_ff(a, b, c, d, x[i+ 4], 7 , -176418897);<br>  d = md5_ff(d, a, b, c, x[i+ 5], 12,  1200080426);<br>  c = md5_ff(c, d, a, b, x[i+ 6], 17, -1473231341);<br>  b = md5_ff(b, c, d, a, x[i+ 7], 22, -45705983);<br>  a = md5_ff(a, b, c, d, x[i+ 8], 7 ,  1770035416);<br>  d = md5_ff(d, a, b, c, x[i+ 9], 12, -1958414417);<br>  c = md5_ff(c, d, a, b, x[i+10], 17, -42063);<br>  b = md5_ff(b, c, d, a, x[i+11], 22, -1990404162);<br>  a = md5_ff(a, b, c, d, x[i+12], 7 ,  1804603682);<br>  d = md5_ff(d, a, b, c, x[i+13], 12, -40341101);<br>  c = md5_ff(c, d, a, b, x[i+14], 17, -1502002290);<br>  b = md5_ff(b, c, d, a, x[i+15], 22,  1236535329);</p>
+<p>  a = md5_gg(a, b, c, d, x[i+ 1], 5 , -165796510);<br>  d = md5_gg(d, a, b, c, x[i+ 6], 9 , -1069501632);<br>  c = md5_gg(c, d, a, b, x[i+11], 14,  643717713);<br>  b = md5_gg(b, c, d, a, x[i+ 0], 20, -373897302);<br>  a = md5_gg(a, b, c, d, x[i+ 5], 5 , -701558691);<br>  d = md5_gg(d, a, b, c, x[i+10], 9 ,  38016083);<br>  c = md5_gg(c, d, a, b, x[i+15], 14, -660478335);<br>  b = md5_gg(b, c, d, a, x[i+ 4], 20, -405537848);<br>  a = md5_gg(a, b, c, d, x[i+ 9], 5 ,  568446438);<br>  d = md5_gg(d, a, b, c, x[i+14], 9 , -1019803690);<br>  c = md5_gg(c, d, a, b, x[i+ 3], 14, -187363961);<br>  b = md5_gg(b, c, d, a, x[i+ 8], 20,  1163531501);<br>  a = md5_gg(a, b, c, d, x[i+13], 5 , -1444681467);<br>  d = md5_gg(d, a, b, c, x[i+ 2], 9 , -51403784);<br>  c = md5_gg(c, d, a, b, x[i+ 7], 14,  1735328473);<br>  b = md5_gg(b, c, d, a, x[i+12], 20, -1926607734);</p>
+<p>  a = md5_hh(a, b, c, d, x[i+ 5], 4 , -378558);<br>  d = md5_hh(d, a, b, c, x[i+ 8], 11, -2022574463);<br>  c = md5_hh(c, d, a, b, x[i+11], 16,  1839030562);<br>  b = md5_hh(b, c, d, a, x[i+14], 23, -35309556);<br>  a = md5_hh(a, b, c, d, x[i+ 1], 4 , -1530992060);<br>  d = md5_hh(d, a, b, c, x[i+ 4], 11,  1272893353);<br>  c = md5_hh(c, d, a, b, x[i+ 7], 16, -155497632);<br>  b = md5_hh(b, c, d, a, x[i+10], 23, -1094730640);<br>  a = md5_hh(a, b, c, d, x[i+13], 4 ,  681279174);<br>  d = md5_hh(d, a, b, c, x[i+ 0], 11, -358537222);<br>  c = md5_hh(c, d, a, b, x[i+ 3], 16, -722521979);<br>  b = md5_hh(b, c, d, a, x[i+ 6], 23,  76029189);<br>  a = md5_hh(a, b, c, d, x[i+ 9], 4 , -640364487);<br>  d = md5_hh(d, a, b, c, x[i+12], 11, -421815835);<br>  c = md5_hh(c, d, a, b, x[i+15], 16,  530742520);<br>  b = md5_hh(b, c, d, a, x[i+ 2], 23, -995338651);</p>
+<p>  a = md5_ii(a, b, c, d, x[i+ 0], 6 , -198630844);<br>  d = md5_ii(d, a, b, c, x[i+ 7], 10,  1126891415);<br>  c = md5_ii(c, d, a, b, x[i+14], 15, -1416354905);<br>  b = md5_ii(b, c, d, a, x[i+ 5], 21, -57434055);<br>  a = md5_ii(a, b, c, d, x[i+12], 6 ,  1700485571);<br>  d = md5_ii(d, a, b, c, x[i+ 3], 10, -1894986606);<br>  c = md5_ii(c, d, a, b, x[i+10], 15, -1051523);<br>  b = md5_ii(b, c, d, a, x[i+ 1], 21, -2054922799);<br>  a = md5_ii(a, b, c, d, x[i+ 8], 6 ,  1873313359);<br>  d = md5_ii(d, a, b, c, x[i+15], 10, -30611744);<br>  c = md5_ii(c, d, a, b, x[i+ 6], 15, -1560198380);<br>  b = md5_ii(b, c, d, a, x[i+13], 21,  1309151649);<br>  a = md5_ii(a, b, c, d, x[i+ 4], 6 , -145523070);<br>  d = md5_ii(d, a, b, c, x[i+11], 10, -1120210379);<br>  c = md5_ii(c, d, a, b, x[i+ 2], 15,  718787259);<br>  b = md5_ii(b, c, d, a, x[i+ 9], 21, -343485551);</p>
+<p>  a = safe_add(a, olda);<br>  b = safe_add(b, oldb);<br>  c = safe_add(c, oldc);<br>  d = safe_add(d, oldd);<br>}<br>return Array(a, b, c, d);</p>
+</li>
+</ul>
+<p>}</p>
+<p>/*</p>
+<ul>
+<li>These functions implement the four basic operations the algorithm uses.</li>
+<li>/<br>function md5_cmn(q, a, b, x, s, t)<br>{<br>return safe_add(bit_rol(safe_add(safe_add(a, q), safe_add(x, t)), s),b);<br>}<br>function md5_ff(a, b, c, d, x, s, t)<br>{<br>return md5_cmn((b &amp; c) | ((<del>b) &amp; d), a, b, x, s, t);<br>}<br>function md5_gg(a, b, c, d, x, s, t)<br>{<br>return md5_cmn((b &amp; d) | (c &amp; (</del>d)), a, b, x, s, t);<br>}<br>function md5_hh(a, b, c, d, x, s, t)<br>{<br>return md5_cmn(b ^ c ^ d, a, b, x, s, t);<br>}<br>function md5_ii(a, b, c, d, x, s, t)<br>{<br>return md5_cmn(c ^ (b | (~d)), a, b, x, s, t);<br>}</li>
+</ul>
+<p>/*</p>
+<ul>
+<li><p>Calculate the HMAC-MD5, of a key and some data</p>
+</li>
+<li><p>/<br>function core_hmac_md5(key, data)<br>{<br>var bkey = str2binl(key);<br>if(bkey.length &gt; 16) bkey = core_md5(bkey, key.length * chrsz);</p>
+<p>var ipad = Array(16), opad = Array(16);<br>for(var i = 0; i &lt; 16; i++)<br>{<br>  ipad[i] = bkey[i] ^ 0x36363636;<br>  opad[i] = bkey[i] ^ 0x5C5C5C5C;<br>}</p>
+<p>var hash = core_md5(ipad.concat(str2binl(data)), 512 + data.length * chrsz);<br>return core_md5(opad.concat(hash), 512 + 128);<br>}</p>
+</li>
+</ul>
+<p>/*</p>
+<ul>
+<li>Add integers, wrapping at 2^32. This uses 16-bit operations internally</li>
+<li>to work around bugs in some JS interpreters.</li>
+<li>/<br>function safe_add(x, y)<br>{<br>var lsw = (x &amp; 0xFFFF) + (y &amp; 0xFFFF);<br>var msw = (x &gt;&gt; 16) + (y &gt;&gt; 16) + (lsw &gt;&gt; 16);<br>return (msw &lt;&lt; 16) | (lsw &amp; 0xFFFF);<br>}</li>
+</ul>
+<p>/*</p>
+<ul>
+<li>Bitwise rotate a 32-bit number to the left.</li>
+<li>/<br>function bit_rol(num, cnt)<br>{<br>return (num &lt;&lt; cnt) | (num &gt;&gt;&gt; (32 - cnt));<br>}</li>
+</ul>
+<p>/*</p>
+<ul>
+<li>Convert a string to an array of little-endian words</li>
+<li>If chrsz is ASCII, characters &gt;255 have their hi-byte silently ignored.</li>
+<li>/<br>function str2binl(str)<br>{<br>var bin = Array();<br>var mask = (1 &lt;&lt; chrsz) - 1;<br>for(var i = 0; i &lt; str.length * chrsz; i += chrsz)<br>  bin[i&gt;&gt;5] |= (str.charCodeAt(i / chrsz) &amp; mask) &lt;&lt; (i%32);<br>return bin;<br>}</li>
+</ul>
+<p>/*</p>
+<ul>
+<li>Convert an array of little-endian words to a string</li>
+<li>/<br>function binl2str(bin)<br>{<br>var str = “”;<br>var mask = (1 &lt;&lt; chrsz) - 1;<br>for(var i = 0; i &lt; bin.length * 32; i += chrsz)<br>  str += String.fromCharCode((bin[i&gt;&gt;5] &gt;&gt;&gt; (i % 32)) &amp; mask);<br>return str;<br>}</li>
+</ul>
+<p>/*</p>
+<ul>
+<li>Convert an array of little-endian words to a hex string.</li>
+<li>/<br>function binl2hex(binarray)<br>{<br>var hex_tab = hexcase ? “0123456789ABCDEF” : “0123456789abcdef”;<br>var str = “”;<br>for(var i = 0; i &lt; binarray.length * 4; i++)<br>{<br>  str += hex_tab.charAt((binarray[i&gt;&gt;2] &gt;&gt; ((i%4)*8+4)) &amp; 0xF) +<pre><code>hex_tab.charAt((binarray[i&gt;&gt;2] &gt;&gt; ((i%4)*8  )) &amp; 0xF);</code></pre>}<br>return str;<br>}</li>
+</ul>
+<p>String.prototype.trim = function(){return this.replace(/(^s<em>)|(s</em>$)/g, “”);}</p>
+<p>function md5(text) {<br>    return hex_md5(text.trim());<br>}</p>
+
+
+                <hr>
+
+                
+
+                <ul class="pager">
+                    
+                        <li class="previous">
+                            <a href="/2017/11/15/git-apply、git-am打补丁-diff-和-patch/" data-toggle="tooltip" data-placement="top" title="git apply、git am打补丁.diff 和 .patch">&larr; Previous Post</a>
+                        </li>
+                    
+                    
+                        <li class="next">
+                            <a href="/2017/11/10/软件工程中英对照词汇表/" data-toggle="tooltip" data-placement="top" title="软件工程中英对照词汇表">Next Post &rarr;</a>
+                        </li>
+                    
+                </ul>
+
+                
+
+                
+
+            </div>
+    <!-- Side Catalog Container -->
+        
+
+    <!-- Sidebar Container -->
+
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                sidebar-container">
+
+                <!-- Featured Tags -->
+                
+                <section>
+                    <!-- no hr -->
+                    <h5><a href="/tags/">FEATURED TAGS</a></h5>
+                    <div class="tags">
+                       
+                    </div>
+                </section>
+                
+
+                <!-- Friends Blog -->
+                
+                <hr>
+                <h5>FRIENDS</h5>
+                <ul class="list-inline">
+
+                    
+                        <li><a href="http://minus.wang" target="_blank">MinusWang&#39;s Diary</a></li>
+                    
+                        <li><a href="http://minus.wang" target="_blank">MinusWang</a></li>
+                    
+                        <li><a href="#" target="_blank">Foo</a></li>
+                    
+                        <li><a href="#" target="_blank">Bar</a></li>
+                    
+                        <li><a href="#" target="_blank">Example Friends</a></li>
+                    
+                        <li><a href="#" target="_blank">It helps SEO</a></li>
+                    
+                </ul>
+                
+            </div>
+
+        </div>
+    </div>
+</article>
+
+
+
+
+
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+<!-- anchor-js, Doc:http://bryanbraun.github.io/anchorjs/ -->
+<script>
+    async("https://cdn.bootcss.com/anchor-js/1.1.1/anchor.min.js",function(){
+        anchors.options = {
+          visible: 'always',
+          placement: 'right',
+          icon: '#'
+        };
+        anchors.add().remove('.intro-header h1').remove('.subheading').remove('.sidebar-container h5');
+    })
+</script>
+<style>
+    /* place left on bigger screen */
+    @media all and (min-width: 800px) {
+        .anchorjs-link{
+            position: absolute;
+            left: -0.75em;
+            font-size: 1.1em;
+            margin-top : -0.1em;
+        }
+    }
+</style>
+
+
+
+    <!-- Footer -->
+    <!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <ul class="list-inline text-center">
+                
+                
+                    <li>
+                        <a target="_blank" href="https://twitter.com/MinusWang">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+                
+                    <li>
+                        <a target="_blank" href="https://www.zhihu.com/people/MinusWang">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa  fa-stack-1x fa-inverse">知</i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+                    <li>
+                        <a target="_blank" href="http://weibo.com/MinusWang">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-weibo fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+                    <li>
+                        <a target="_blank" href="https://www.facebook.com/MinusWang">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-facebook fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+                    <li>
+                        <a target="_blank"  href="https://github.com/MinusWang">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+                    <li>
+                        <a target="_blank"  href="https://www.linkedin.com/in/MinusWang">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-linkedin fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                </ul>
+                <p class="copyright text-muted">
+				    <br>
+					<br>
+                    Copyright &copy; 2024 Minus Wang
+                </p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- jQuery -->
+
+<script src="/js/jquery.min.js"></script>
+
+
+<!-- Bootstrap Core JavaScript -->
+
+<script src="/js/bootstrap.min.js"></script>
+
+
+<!-- Custom Theme JavaScript -->
+
+<script src="/js/hux-blog.min.js"></script>
+
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+<!-- 
+     Because of the native support for backtick-style fenced code blocks 
+     right within the Markdown is landed in Github Pages, 
+     From V1.6, There is no need for Highlight.js, 
+     so Huxblog drops it officially.
+
+     - https://github.com/blog/2100-github-pages-now-faster-and-simpler-with-jekyll-3-0  
+     - https://help.github.com/articles/creating-and-highlighting-code-blocks/    
+-->
+<!--
+    <script>
+        async("http://cdn.bootcss.com/highlight.js/8.6/highlight.min.js", function(){
+            hljs.initHighlightingOnLoad();
+        })
+    </script>
+    <link href="http://cdn.bootcss.com/highlight.js/8.6/styles/github.min.css" rel="stylesheet">
+-->
+
+
+<!-- jquery.tagcloud.js -->
+<script>
+    // only load tagcloud.js in tag.html
+    if($('#tag_cloud').length !== 0){
+        async("http://minus.wang/js/jquery.tagcloud.js",function(){
+            $.fn.tagcloud.defaults = {
+                //size: {start: 1, end: 1, unit: 'em'},
+                color: {start: '#bbbbee', end: '#0085a1'},
+            };
+            $('#tag_cloud a').tagcloud();
+        })
+    }
+</script>
+
+<!--fastClick.js -->
+<script>
+    async("https://cdn.bootcss.com/fastclick/1.0.6/fastclick.min.js", function(){
+        var $nav = document.querySelector("nav");
+        if($nav) FastClick.attach($nav);
+    })
+</script>
+
+
+<!-- Google Analytics -->
+
+
+
+
+<!-- Baidu Tongji -->
+
+
+<!-- Side Catalog -->
+
+
+
+
+
+<!-- Image to hack wechat -->
+<img src="http://minus.wang/img/icon_wechat.png" width="0" height="0" />
+<!-- Migrate from head to bottom, no longer block render and still work -->
+
+</body>
+
+</html>

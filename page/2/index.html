@@ -1,0 +1,850 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- Head tag -->
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Minus Wang - a life writer">
+    <meta name="keyword"  content="">
+    <link rel="shortcut icon" href="..//img/favicon.ico">
+
+    <title>
+        
+          MinusWang&#39;s Diary | MinusWangの日志
+        
+    </title>
+
+    <link rel="canonical" href="http://minus.wang/page/2/">
+
+    <!-- Bootstrap Core CSS -->
+    
+<link rel="stylesheet" href="/css/bootstrap.min.css">
+
+
+    <!-- Custom CSS -->
+    
+<link rel="stylesheet" href="/css/hux-blog.min.css">
+
+
+    <!-- Pygments Highlight CSS -->
+    
+<link rel="stylesheet" href="/css/highlight.css">
+
+
+    <!-- Custom Fonts -->
+    <!-- <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css"> -->
+    <!-- Hux change font-awesome CDN to qiniu -->
+    <link href="https://cdn.staticfile.org/font-awesome/4.5.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+
+    <!-- Hux Delete, sad but pending in China
+    <link href='http://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/
+    css'>
+    -->
+
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- ga & ba script hoook -->
+    <script></script>
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+
+<!-- hack iOS CSS :active style -->
+<body ontouchstart="">
+
+    <!-- Navigation -->
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">Minus Wang</a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <!-- Known Issue, found by Hux:
+            <nav>'s height woule be hold on by its content.
+            so, when navbar scale out, the <nav> will cover tags.
+            also mask any touch event of tags, unfortunately.
+        -->
+        <div id="huxblog_navbar">
+            <div class="navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="/">Home</a>
+                    </li>
+
+                    
+
+                        
+                    
+
+                        
+                        <li>
+                            <a href="/about/">About Me</a>
+                        </li>
+                        
+                    
+
+                        
+                        <li>
+                            <a href="/tags/">Tags</a>
+                        </li>
+                        
+                    
+
+                        
+                        <li>
+                            <a href="/archives/">Archives</a>
+                        </li>
+                        
+                    
+
+                        
+                        <li>
+                            <a href="/notes/">Notes</a>
+                        </li>
+                        
+                    
+
+                        
+                        <li>
+                            <a href="/Friends/">Friends</a>
+                        </li>
+                        
+                    
+                    
+                </ul>
+            </div>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container -->
+</nav>
+<script>
+    // Drop Bootstarp low-performance Navbar
+    // Use customize navbar with high-quality material design animation
+    // in high-perf jank-free CSS3 implementation
+    var $body   = document.body;
+    var $toggle = document.querySelector('.navbar-toggle');
+    var $navbar = document.querySelector('#huxblog_navbar');
+    var $collapse = document.querySelector('.navbar-collapse');
+
+    $toggle.addEventListener('click', handleMagic)
+    function handleMagic(e){
+        if ($navbar.className.indexOf('in') > 0) {
+        // CLOSE
+            $navbar.className = " ";
+            // wait until animation end.
+            setTimeout(function(){
+                // prevent frequently toggle
+                if($navbar.className.indexOf('in') < 0) {
+                    $collapse.style.height = "0px"
+                }
+            },400)
+        }else{
+        // OPEN
+            $collapse.style.height = "auto"
+            $navbar.className += " in";
+        }
+    }
+</script>
+
+
+    <!-- Main Content -->
+    <!-- Page Header -->
+<header class="intro-header" style="background-image: url('/img/home-bg.jpg')">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1 ">
+                <div class="site-heading">
+                    <h1>Minus Wang</h1>
+                    <!--<hr class="small">-->
+                    <span class="subheading">人生最可悲的事情，莫过于胸怀大志，却又虚度光阴</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+
+
+<!-- Main Content -->
+<div class="container">
+    <div class="row">
+        
+
+<!-- USE SIDEBAR -->
+    <!-- Post Container -->
+            <div class="
+                col-lg-8 col-lg-offset-1
+                col-md-8 col-md-offset-1
+                col-sm-12
+                col-xs-12
+                post-container
+            ">
+            
+                <!-- Main Content -->
+
+
+<div class="post-preview">
+
+    <a href="/2019/08/06/Android-mk学习笔记/">
+        <h2 class="post-title">
+            Android.mk学习笔记
+        </h2>
+        <h3 class="post-subtitle">
+            
+        </h3>
+        <div class="post-content-preview">
+             hardware\led\led\Android.mk
+LOCAL_PATH := $(call my-dir){    首先需要指定LOCAL_PATH变量，用于查找源文件    上面的语句的意思是将LOCAL_PATH变量定义成本文件所在目录路径}
+#Android.mk中可以定义多个编译模块，每个编译模块都是以include $(CLEAR_VARS)开始#以include $(BU......
+        </div>
+    </a>
+    <p class="post-meta">
+        Posted by MinusWang on
+        2019-08-06
+    </p>
+
+</div>
+<hr>
+
+<div class="post-preview">
+
+    <a href="/2019/07/25/Android-mk-and-so-issue/">
+        <h2 class="post-title">
+            Android mk and so issue
+        </h2>
+        <h3 class="post-subtitle">
+            
+        </h3>
+        <div class="post-content-preview">
+            Android JNI 的使用，之前很少使用这个，所以这次用到占用了很多时间搞，不熟悉C++好痛苦的说啊～
+Android JNI如何用呢？
+下面这段拷贝别人的，是没问题的：常用有两种方法：
+1、在windows/linux下，首先把so动态库文件 编译出来(通过NDK)，然后再 拷贝到android的工程里 libs/armeabi/下，如果libs/armeabi 不存在，那就自己创建，......
+        </div>
+    </a>
+    <p class="post-meta">
+        Posted by MinusWang on
+        2019-07-25
+    </p>
+
+</div>
+<hr>
+
+<div class="post-preview">
+
+    <a href="/2019/07/25/MTK-android-8-1关机闹钟/">
+        <h2 class="post-title">
+            MTK android 8.1关机闹钟
+        </h2>
+        <h3 class="post-subtitle">
+            
+        </h3>
+        <div class="post-content-preview">
+            在android 8.1上mtk修改了关机闹钟的实现，此feature与原有的feature有很大的区别。
+
+文件变化(1) android O上关机闹钟在framework这边的实现，是在加了一支文件MtkAlarmManagerService.java. MtkAlarmManagerService继承于原生的AlarmManagerService。
+
+此文件的路径：
+/vendor/m......
+        </div>
+    </a>
+    <p class="post-meta">
+        Posted by MinusWang on
+        2019-07-25
+    </p>
+
+</div>
+<hr>
+
+<div class="post-preview">
+
+    <a href="/2019/07/25/Android-8-1-MT6739-预置apk-可卸载/">
+        <h2 class="post-title">
+            Android 8.1 MT6739 预置apk 可卸载
+        </h2>
+        <h3 class="post-subtitle">
+            
+        </h3>
+        <div class="post-content-preview">
+            
+在 package/apps/3rd-party 下面以需要预置的apk名字新建文件夹，以预置 facebook 为例。
+将 facebook.apk 放到 package/apps/3rd-party/facebook 中。
+在 package/apps/3rd-party/facebook 下面创建文件 Android.mk，文件内容如下
+在 build/make/target/pro......
+        </div>
+    </a>
+    <p class="post-meta">
+        Posted by MinusWang on
+        2019-07-25
+    </p>
+
+</div>
+<hr>
+
+<div class="post-preview">
+
+    <a href="/2019/07/25/SurfaceView和Canvas绘制动画/">
+        <h2 class="post-title">
+            SurfaceView和Canvas绘制动画
+        </h2>
+        <h3 class="post-subtitle">
+            
+        </h3>
+        <div class="post-content-preview">
+            其实每个View中都有Canvas可以用来绘制动画，只需要在这个View中重载onDraw()方法就可以，但是SurfaceView类是一个专门用来制动动画的类。
+Canvas(中文叫做”画布”)就和HTML5中的canvas标签一样可以在一定区域内自由绘制图形。Canvas+SurfaceView制作的动画与View Animation和Property Animation这类动画比起来更......
+        </div>
+    </a>
+    <p class="post-meta">
+        Posted by MinusWang on
+        2019-07-25
+    </p>
+
+</div>
+<hr>
+
+<div class="post-preview">
+
+    <a href="/2019/07/07/HTTPS-漫话/">
+        <h2 class="post-title">
+            HTTPS 漫话
+        </h2>
+        <h3 class="post-subtitle">
+            
+        </h3>
+        <div class="post-content-preview">
+            原文链接
+上过网的朋友都知道，网络是非常不安全的。尤其是公共场所很多免费的wifi，或许只是攻击者的一个诱饵。还有大家平时喜欢用的万能钥匙，等等。那我们平时上网可能会存在哪些风险呢？
+1、泄密，个人隐私、账户密码等信息可能会被盗取。
+2、篡改，收到的数据可能被第三方修改过，或被植入广告等。
+3、假冒，访问的站点非目标服务器站点。如域名欺骗、域名劫持、钓鱼网站等。
+可能住你隔壁穿人字拖、说话都......
+        </div>
+    </a>
+    <p class="post-meta">
+        Posted by MinusWang on
+        2019-07-07
+    </p>
+
+</div>
+<hr>
+
+<div class="post-preview">
+
+    <a href="/2019/06/26/阿里技术-李运华-如何快速成长为技术大牛/">
+        <h2 class="post-title">
+            阿里技术-李运华 如何快速成长为技术大牛
+        </h2>
+        <h3 class="post-subtitle">
+            
+        </h3>
+        <div class="post-content-preview">
+            原文链接
+写在前面不管是开发、测试、运维，每个技术人员心里多多少少都有一个成为技术大牛的梦，毕竟“梦想总是要有的，万一实现了呢”！正是对技术梦的追求，促使我们不断地努力和提升自己。然而“梦想是美好的，现实却是残酷的”，很多同学在实际工作后就会发现，梦想是成为大牛，但做的事情看起来跟大牛都不沾边，例如，程序员说“天天写业务代码还加班，如何才能成为技术大牛”，测试说“每天都有执行不完的测试用例”......
+        </div>
+    </a>
+    <p class="post-meta">
+        Posted by MinusWang on
+        2019-06-26
+    </p>
+
+</div>
+<hr>
+
+<div class="post-preview">
+
+    <a href="/2019/06/25/HashMap为啥要用位运算代替取模/">
+        <h2 class="post-title">
+            HashMap为啥要用位运算代替取模
+        </h2>
+        <h3 class="post-subtitle">
+            
+        </h3>
+        <div class="post-content-preview">
+            
+2^n 表示 2 的 n 次方，也就是说， 一个数对 2^n 取模相当于一个数和 (2^n – 1) 做按位与运算
+
+在hash中查找key的时候，经常会发现用&amp;取代%，先看两段代码吧，
+JDK6中的HashMap中的indexFor方法：
+Java代码/** 
+
+Returns index for hash code h. 
+/static int indexFor(int h,......
+        </div>
+    </a>
+    <p class="post-meta">
+        Posted by MinusWang on
+        2019-06-25
+    </p>
+
+</div>
+<hr>
+
+<div class="post-preview">
+
+    <a href="/2019/06/25/A-Collection-of-the-lastest-software-development-technology/">
+        <h2 class="post-title">
+            A Collection of the lastest software development technology
+        </h2>
+        <h3 class="post-subtitle">
+            
+        </h3>
+        <div class="post-content-preview">
+            
+Android屏幕适配Android屏幕适配总结终极方案Android屏幕适配全攻略Android独立开发从入门到放弃
+
+Android组件化Android组件化方案
+
+算法程序员小灰的漫画算法漫画算法：什么是红黑树？30张图带你彻底理解红黑树
+
+多渠道打包Android多渠道包生成最佳实践（一）Android多渠道包生成最佳实践（二）Walle（瓦力）：Android Signature......
+        </div>
+    </a>
+    <p class="post-meta">
+        Posted by MinusWang on
+        2019-06-25
+    </p>
+
+</div>
+<hr>
+
+<div class="post-preview">
+
+    <a href="/2019/06/17/为什么我不推荐盲目-flutter-以及作为前端程序员的一点感悟/">
+        <h2 class="post-title">
+            为什么我不推荐盲目 flutter 以及作为前端程序员的一点感悟
+        </h2>
+        <h3 class="post-subtitle">
+            
+        </h3>
+        <div class="post-content-preview">
+            转载-原文链接
+先总结观点：
+1、只有大厂才有资格谈发展，小厂只看生态和眼前
+2、app 市场没那么大了，越来越多的 app 倒闭或被并购，甚至成为安卓 rom 的一部分，未来是内容至上的年代
+3、如果 flutter 真的很优秀，1 年甚至 3 年后再学一样不晚，早进早踩坑，晚用晚舒服
+4、是不是有人真的以为 app 程序员就是 java = android 和 ios = objc 啊，......
+        </div>
+    </a>
+    <p class="post-meta">
+        Posted by MinusWang on
+        2019-06-17
+    </p>
+
+</div>
+<hr>
+
+<div class="post-preview">
+
+    <a href="/2019/06/17/Record-of-the-beginning-work/">
+        <h2 class="post-title">
+            Record of the beginning work
+        </h2>
+        <h3 class="post-subtitle">
+            
+        </h3>
+        <div class="post-content-preview">
+            参与模块：LenovoNotificationCenter 截屏 Settings  MessageUI  Calender FM Radio 
+
+find -name “.“ |sort|xargs grep “*” –color –line-number -rfind -iname “××*” -type f    （d  文件夹）find -type f | xargs grep “*......
+        </div>
+    </a>
+    <p class="post-meta">
+        Posted by MinusWang on
+        2019-06-17
+    </p>
+
+</div>
+<hr>
+
+<div class="post-preview">
+
+    <a href="/2019/03/26/Reference-WEB架构师成长系列索引/">
+        <h2 class="post-title">
+            Reference- WEB架构师成长系列索引
+        </h2>
+        <h3 class="post-subtitle">
+            
+        </h3>
+        <div class="post-content-preview">
+            WEB架构师成长系列索引
+序言
+WEB架构师成长之路之一-走正确的路
+WEB架构师成长之路之二-大牛的法宝
+WEB架构师成长之路之三-架构师都要懂哪些知识
+第一篇 设计模式
+什么是对象，为什么要面向对象，怎么才能面向对象？
+面向对象基础
+设计模式培训之一：为什么要用单例模式？
+设计模式培训之二：简单工厂、工厂方法
+设计模式培训之三：抽象工厂
+设计模式培训之四：策略模式
+设计模式培训之五：代理......
+        </div>
+    </a>
+    <p class="post-meta">
+        Posted by MinusWang on
+        2019-03-26
+    </p>
+
+</div>
+<hr>
+
+
+
+<!-- Pager -->
+
+<ul class="pager">
+    
+        <li class="previous">
+            <a href="/">&larr; Newer Posts</a>
+        </li>
+    
+    
+        <li class="next">
+            <a href="/page/3/">Older Posts &rarr;</a>
+        </li>
+    
+</ul>
+
+
+
+                <!-- 如果开启评论功能 -->
+                
+
+            </div>
+    <!-- Sidebar Container -->
+            <div class="
+                col-lg-3 col-lg-offset-0
+                col-md-3 col-md-offset-0
+                col-sm-12
+                col-xs-12
+                sidebar-container
+            ">
+                <!-- Featured Tags -->
+                
+                <section>
+                    <!-- no hr -->
+                    <h5><a href="/tags/">FEATURED TAGS</a></h5>
+                    <div class="tags">
+                        
+                            
+                        
+                            
+                        
+                            
+                            <a href="/tags/#Android" title="Android" rel="2">Android</a>
+                            
+                        
+                            
+                        
+                    </div>
+                </section>
+                
+
+                <!-- Short About -->
+                <section class="visible-md visible-lg">
+                    <hr><h5><a href="/about/">ABOUT ME</a></h5>
+                    <div class="short-about">
+
+                        
+                            <img src="/img/avatar.jpg" />
+                        
+
+                        
+                            <p>人生最可悲的事情，莫过于胸怀大志，却又虚度光阴，2018.10.12</p>
+                        
+
+                        <!-- SNS Link -->
+                        <ul class="list-inline">
+                            
+                            
+                                <li>
+                                    <a target="_blank" href="https://twitter.com/MinusWang">
+                                        <span class="fa-stack fa-lg">
+                                            <i class="fa fa-circle fa-stack-2x"></i>
+                                            <i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
+                                        </span>
+                                    </a>
+                                </li>
+                            
+                            
+                                <li>
+                                    <a target="_blank" href="https://www.zhihu.com/people/MinusWang">
+                                        <span class="fa-stack fa-lg">
+                                            <i class="fa fa-circle fa-stack-2x"></i>
+                                            <i class="fa  fa-stack-1x fa-inverse">知</i>
+                                        </span>
+                                    </a>
+                                </li>
+                            
+
+                            
+                                <li>
+                                    <a target="_blank" href="http://weibo.com/MinusWang">
+                                        <span class="fa-stack fa-lg">
+                                            <i class="fa fa-circle fa-stack-2x"></i>
+                                            <i class="fa fa-weibo fa-stack-1x fa-inverse"></i>
+                                        </span>
+                                    </a>
+                                </li>
+                            
+
+                            
+                                <li>
+                                    <a target="_blank" href="https://www.facebook.com/MinusWang">
+                                        <span class="fa-stack fa-lg">
+                                            <i class="fa fa-circle fa-stack-2x"></i>
+                                            <i class="fa fa-facebook fa-stack-1x fa-inverse"></i>
+                                        </span>
+                                    </a>
+                                </li>
+                            
+
+                            
+                                <li>
+                                    <a target="_blank"  href="https://github.com/MinusWang">
+                                        <span class="fa-stack fa-lg">
+                                            <i class="fa fa-circle fa-stack-2x"></i>
+                                            <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                                        </span>
+                                    </a>
+                                </li>
+                            
+                            
+                            
+                            
+                                <li>
+                                    <a target="_blank"  href="https://www.linkedin.com/in/MinusWang">
+                                        <span class="fa-stack fa-lg">
+                                            <i class="fa fa-circle fa-stack-2x"></i>
+                                            <i class="fa fa-linkedin fa-stack-1x fa-inverse"></i>
+                                        </span>
+                                    </a>
+                                </li>
+                            
+                        </ul>
+                    </div>
+                </section>
+                
+                <!-- Friends Blog -->
+                
+                <hr>
+                <h5>FRIENDS</h5>
+                <ul class="list-inline">
+
+                    
+                        <li><a href="http://minus.wang" target="_blank">MinusWang&#39;s Diary</a></li>
+                    
+                        <li><a href="http://minus.wang" target="_blank">MinusWang</a></li>
+                    
+                        <li><a href="#" target="_blank">Foo</a></li>
+                    
+                        <li><a href="#" target="_blank">Bar</a></li>
+                    
+                        <li><a href="#" target="_blank">Example Friends</a></li>
+                    
+                        <li><a href="#" target="_blank">It helps SEO</a></li>
+                    
+                </ul>
+                
+            </div>
+        
+    </div>
+</div>
+
+
+    <!-- Footer -->
+    <!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <ul class="list-inline text-center">
+                
+                
+                    <li>
+                        <a target="_blank" href="https://twitter.com/MinusWang">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+                
+                    <li>
+                        <a target="_blank" href="https://www.zhihu.com/people/MinusWang">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa  fa-stack-1x fa-inverse">知</i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+                    <li>
+                        <a target="_blank" href="http://weibo.com/MinusWang">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-weibo fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+                    <li>
+                        <a target="_blank" href="https://www.facebook.com/MinusWang">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-facebook fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+                    <li>
+                        <a target="_blank"  href="https://github.com/MinusWang">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+                    <li>
+                        <a target="_blank"  href="https://www.linkedin.com/in/MinusWang">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-linkedin fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                </ul>
+                <p class="copyright text-muted">
+				    <br>
+					<br>
+                    Copyright &copy; 2024 Minus Wang
+                </p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- jQuery -->
+
+<script src="/js/jquery.min.js"></script>
+
+
+<!-- Bootstrap Core JavaScript -->
+
+<script src="/js/bootstrap.min.js"></script>
+
+
+<!-- Custom Theme JavaScript -->
+
+<script src="/js/hux-blog.min.js"></script>
+
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+<!-- 
+     Because of the native support for backtick-style fenced code blocks 
+     right within the Markdown is landed in Github Pages, 
+     From V1.6, There is no need for Highlight.js, 
+     so Huxblog drops it officially.
+
+     - https://github.com/blog/2100-github-pages-now-faster-and-simpler-with-jekyll-3-0  
+     - https://help.github.com/articles/creating-and-highlighting-code-blocks/    
+-->
+<!--
+    <script>
+        async("http://cdn.bootcss.com/highlight.js/8.6/highlight.min.js", function(){
+            hljs.initHighlightingOnLoad();
+        })
+    </script>
+    <link href="http://cdn.bootcss.com/highlight.js/8.6/styles/github.min.css" rel="stylesheet">
+-->
+
+
+<!-- jquery.tagcloud.js -->
+<script>
+    // only load tagcloud.js in tag.html
+    if($('#tag_cloud').length !== 0){
+        async("http://minus.wang/js/jquery.tagcloud.js",function(){
+            $.fn.tagcloud.defaults = {
+                //size: {start: 1, end: 1, unit: 'em'},
+                color: {start: '#bbbbee', end: '#0085a1'},
+            };
+            $('#tag_cloud a').tagcloud();
+        })
+    }
+</script>
+
+<!--fastClick.js -->
+<script>
+    async("https://cdn.bootcss.com/fastclick/1.0.6/fastclick.min.js", function(){
+        var $nav = document.querySelector("nav");
+        if($nav) FastClick.attach($nav);
+    })
+</script>
+
+
+<!-- Google Analytics -->
+
+
+
+
+<!-- Baidu Tongji -->
+
+
+<!-- Side Catalog -->
+
+
+
+
+
+<!-- Image to hack wechat -->
+<img src="http://minus.wang/img/icon_wechat.png" width="0" height="0" />
+<!-- Migrate from head to bottom, no longer block render and still work -->
+
+</body>
+
+</html>

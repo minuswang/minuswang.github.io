@@ -1,0 +1,581 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- Head tag -->
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Minus Wang - a life writer">
+    <meta name="keyword"  content="">
+    <link rel="shortcut icon" href="..//img/favicon.ico">
+
+    <title>
+        
+          WIN10安装ubuntu18.04 LTS双系统 - MinusWang&#39;s Diary | MinusWangの日志
+        
+    </title>
+
+    <link rel="canonical" href="http://minus.wang/2018/10/28/WIN10安装ubuntu18-04-LTS双系统/">
+
+    <!-- Bootstrap Core CSS -->
+    
+<link rel="stylesheet" href="/css/bootstrap.min.css">
+
+
+    <!-- Custom CSS -->
+    
+<link rel="stylesheet" href="/css/hux-blog.min.css">
+
+
+    <!-- Pygments Highlight CSS -->
+    
+<link rel="stylesheet" href="/css/highlight.css">
+
+
+    <!-- Custom Fonts -->
+    <!-- <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css"> -->
+    <!-- Hux change font-awesome CDN to qiniu -->
+    <link href="https://cdn.staticfile.org/font-awesome/4.5.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+
+    <!-- Hux Delete, sad but pending in China
+    <link href='http://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/
+    css'>
+    -->
+
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- ga & ba script hoook -->
+    <script></script>
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+
+<!-- hack iOS CSS :active style -->
+<body ontouchstart="">
+
+    <!-- Navigation -->
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">Minus Wang</a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <!-- Known Issue, found by Hux:
+            <nav>'s height woule be hold on by its content.
+            so, when navbar scale out, the <nav> will cover tags.
+            also mask any touch event of tags, unfortunately.
+        -->
+        <div id="huxblog_navbar">
+            <div class="navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="/">Home</a>
+                    </li>
+
+                    
+
+                        
+                    
+
+                        
+                        <li>
+                            <a href="/about/">About Me</a>
+                        </li>
+                        
+                    
+
+                        
+                        <li>
+                            <a href="/tags/">Tags</a>
+                        </li>
+                        
+                    
+
+                        
+                        <li>
+                            <a href="/archives/">Archives</a>
+                        </li>
+                        
+                    
+
+                        
+                        <li>
+                            <a href="/notes/">Notes</a>
+                        </li>
+                        
+                    
+
+                        
+                        <li>
+                            <a href="/Friends/">Friends</a>
+                        </li>
+                        
+                    
+                    
+                </ul>
+            </div>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container -->
+</nav>
+<script>
+    // Drop Bootstarp low-performance Navbar
+    // Use customize navbar with high-quality material design animation
+    // in high-perf jank-free CSS3 implementation
+    var $body   = document.body;
+    var $toggle = document.querySelector('.navbar-toggle');
+    var $navbar = document.querySelector('#huxblog_navbar');
+    var $collapse = document.querySelector('.navbar-collapse');
+
+    $toggle.addEventListener('click', handleMagic)
+    function handleMagic(e){
+        if ($navbar.className.indexOf('in') > 0) {
+        // CLOSE
+            $navbar.className = " ";
+            // wait until animation end.
+            setTimeout(function(){
+                // prevent frequently toggle
+                if($navbar.className.indexOf('in') < 0) {
+                    $collapse.style.height = "0px"
+                }
+            },400)
+        }else{
+        // OPEN
+            $collapse.style.height = "auto"
+            $navbar.className += " in";
+        }
+    }
+</script>
+
+
+    <!-- Main Content -->
+    
+<!-- Image to hack wechat -->
+<!-- <img src="http://minus.wang/img/icon_wechat.png" width="0" height="0"> -->
+<!-- <img src="{{ site.baseurl }}/{% if page.header-img %}{{ page.header-img }}{% else %}{{ site.header-img }}{% endif %}" width="0" height="0"> -->
+
+<!-- Post Header -->
+<style type="text/css">
+    header.intro-header{
+        background-image: url('/img/home-bg.jpg')
+    }
+</style>
+<header class="intro-header" >
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <div class="post-heading">
+                    <div class="tags">
+                        
+                    </div>
+                    <h1>WIN10安装ubuntu18.04 LTS双系统</h1>
+                    <h2 class="subheading"></h2>
+                    <span class="meta">
+                        Posted by MinusWang on
+                        2018-10-28
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+<!-- Post Content -->
+<article>
+    <div class="container">
+        <div class="row">
+
+    <!-- Post Container -->
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                post-container">
+
+                <p>零、使用分区助手先在已有盘中分区一个空白区</p>
+<p><a href="https://www.jianshu.com/p/38e6be8efecf">原文作者：owolf</a></p>
+<p>一、制作U盘启动盘<br>去官网下载ubuntu 18.04TSL镜像文件，用UltralSO软件，找一个没用的U盘，用镜像文件制作一个启动盘。详细制作过程请百度，很简单。</p>
+<p>二、创建硬盘空白分区<br>可以直接删除一个分区作为空白分区，但是更推荐如下的方法：我的电脑–管理–磁盘管理，然后找一个有很大空间但平时用不了这么大的分区进行压缩。如下图右键–压缩卷–填写压缩卷的大小。（如果文件碎片比较多，可压缩的空间会很少，建议用分区助手来分区）<br>压缩卷产生的分区用来装ubuntu系统，推荐50G以上。我硬盘比较大，划分了80G：</p>
+<p>三、关闭win10系统的快速启动和安全启动<br>1、关闭快速启动<br>2、关闭安全启动<br>我的电脑是联想拯救者ISK-15，在开机的过程中，狂按F2键，进入BIOS模式，选择Security选项，将下面的Secure Boot设置成disabled。（补充：联想拯救者开机过程狂按F12会进入启动项的选择中）<br>可以在Boot选项查看快速启动是否关闭：</p>
+<p>四、查看系统的启动模式<br>按Win+R打开运行，输入msinfo32，回车查看系统信息。在BIOS模式中如果显示“传统”，表示系统启动方式为Legacy BIOS；如果为UEFI，则显示UEFI。</p>
+<p>五、安装过程<br>我的电脑是联想拯救者ISK-15，BIOS启动模式为UEFI。插上U盘启动盘，在开机的过程中不断按F12，然后选择U盘启动方式。然后选择Install Ubuntu，就开始了Ubuntu系统的安装过程。接下来就是连接WiFi，安装图形界面了，大家可以根据自己的网络情况是否连接WiFi。这个影响不大。</p>
+<p>到了最关键的一步了，这个时候系统会提示你是否与windows 10 共存，我们不要点击那个，我们选择其他选项，这样自己方便管理一些。注意:如果系统没提示你之前安装过windows 那么你的启动方式就错误了，你得回到BIOS页面下更改启动方式再次启动。现在我们来对Ubuntu进行分区，这步非常重要。</p>
+<blockquote>
+<p>其中显示空闲的那一项，就是你刚才在win系统上分出的区，看看后面的空间大小，也和你分的空间大小一致。 选中空闲那一行，点击+号，这是要将整个空闲分区继续分区，以用来装Ubuntu系统。 </p>
+</blockquote>
+<p>我们在这里只分两个区，一个事swap分区，另一个是/分区，其他统统不分，首先解释一下为什么只分两个分区。 只分两个区：swap交换空间和/分区，swap是linux的虚拟内存，具体分的空间大小因个人电脑的内存而定，2g电脑分4g，4g内存的电脑分4<del>6个g即可，8g电脑分8</del>10g即可。 余下的空间全部分给/分区，因为/分区是你所有东西的存放位置，里面包括的home，usr等等，千万不要单独给home、usr等等单独分区，这样纯属自己找麻烦，一旦之后usr空间快满了，而/分区中还有很大剩余空间，usr也调用不了，这是非常悲催的一件事，所以只给/分区划分空间，以后不管是home分区还是usr分区还是其他分区需要空间，都可以随便用。</p>
+<p>1.swap分区：选中空闲磁盘，点击+，选择逻辑分区、“空间起始位置”，用于后面选择“交换空间”，给它分区16g空间（举例），然后点击确定。<br>2./分区：继续选中空闲磁盘，点击+，所有空间都给/分区，选择逻辑分区、“空间起始位置”，Ext4和“挂载点/”。下图我选的是主分区，没有任何区别，逻辑分区也可以。</p>
+<p>什么选择逻辑分区而不是主分区，这个没什么影响，但是主分区数量少，逻辑分区数量多，所以不用浪费主分区了，逻辑分区就好，对于使用没有任何差别，实际上，一块硬盘最多容纳4个主分区。</p>
+<blockquote>
+<p>分好后，看好界面上挂载点是/的那一行，前面设备那一列，显示应该是/dev/sdaX,X是一个阿拉伯数字，具体是几每个人不一样，表示的是你的/分区按在硬盘的第几块位置，记住/这个分区的sda后面是什么数字，然后在下面安装启动引导器设备：处，选择sdaX（X是一个阿拉伯数字）的那一项，也就是说，要将启动引导器安装在/分区中。之后安装，重启。</p>
+</blockquote>
+<p>注意：启动的过程中，你会发现会让你选择是win10系统启动还是ubuntu启动，通过上下键来选择。这是ubuntu系统引导的开机启动。如果以后要卸载ubuntu，一定不能在win10系统下格式化那个ubuntu系统盘，这样会导致以后电脑开机不了。对于如何卸载UEFI模式下ubuntu系统引导的双系统中的ubuntu系统，请看这篇文章。</p>
+<p><a href="http://ideapad.it168.com/forum.php?mod=viewthread&tid=2650041&ordertype=1">win10开机状态下进入BIOS的方法-参考链接</a></p>
+<p>// 直接在设置界面搜索“高级启动”</p>
+<p>在metro界面下找到设置选项<br>▲然后点击“更改电脑设置”<br>▲然后如图所示，先选择“常规”，然后再点选“高级启动”<br>▲到了这一步选择“疑难解答”<br>▲接着选择“高级选项”<br>▲接着就是选择“UEFI固件设置”<br>▲最后这里点击“重启”……………<br>电脑重启后自动进入BIOS设置界面。这个方法有点复杂，步骤较多，但也不失为一个好方法</p>
+<p>网上参考两个分区方案：</p>
+<p>![](WIN10安装ubuntu18.04 LTS双系统/1.png)</p>
+<p>![](WIN10安装ubuntu18.04 LTS双系统/2.png)</p>
+<p>实际最终分区方案：</p>
+<table>
+<thead>
+<tr>
+<th>分区</th>
+<th align="center">大小</th>
+<th align="right">1024M换算</th>
+<th align="left">分区属性</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>分区Total</td>
+<td align="center">150G</td>
+<td align="right"></td>
+<td align="left"></td>
+</tr>
+<tr>
+<td>EFI</td>
+<td align="center">1G</td>
+<td align="right">1024M</td>
+<td align="left">主分区，一定放在开头</td>
+</tr>
+<tr>
+<td>/</td>
+<td align="center">30G</td>
+<td align="right">30720M</td>
+<td align="left">挂载点，逻辑分区</td>
+</tr>
+<tr>
+<td>SWAP</td>
+<td align="center">16G</td>
+<td align="right">16384M</td>
+<td align="left">交换空间，逻辑分区</td>
+</tr>
+<tr>
+<td>BOOT</td>
+<td align="center">2G</td>
+<td align="right">2048M</td>
+<td align="left">逻辑分区</td>
+</tr>
+<tr>
+<td>HOME</td>
+<td align="center">108G</td>
+<td align="right">110890M</td>
+<td align="left">以上依次分配完以后，所有剩余空间</td>
+</tr>
+</tbody></table>
+<p>安装启动引导器设备：</p>
+<blockquote>
+<p>分好后，看好界面上挂载点是/的那一行，前面设备那一列，显示应该是/dev/sdaX,X是一个阿拉伯数字，具体是几每个人不一样，表示的是你的/分区按在硬盘的第几块位置，记住/这个分区的sda后面是什么数字，然后在下面安装启动引导器设备：处，选择sdaX（X是一个阿拉伯数字）的那一项，也就是说，要将启动引导器安装在/分区中。之后安装，重启</p>
+</blockquote>
+<p>MarkDown 表格语法说明： </p>
+<ol>
+<li>第一行为表头，第二行分隔表头和主体部分，第三行开始每一行代表一个表格行； </li>
+<li>列与列之间用管道符号 “|” 隔开，原生方式的表格每一行的两边也要有管道符。 </li>
+<li>可在第二行指定不同列单元格内容的对齐方式，默认为左对齐，在 “-” 右边加上 “:” 为右对齐，在 “-” 两侧同时加上 “:” 为居中对齐。</li>
+</ol>
+
+
+                <hr>
+
+                
+
+                <ul class="pager">
+                    
+                        <li class="previous">
+                            <a href="/2018/12/11/Android保存数据到系统数据库中Settings-System/" data-toggle="tooltip" data-placement="top" title="Android保存数据到系统数据库中Settings.System">&larr; Previous Post</a>
+                        </li>
+                    
+                    
+                        <li class="next">
+                            <a href="/2018/10/16/Git的正确使用姿势/" data-toggle="tooltip" data-placement="top" title="Git的正确使用姿势">Next Post &rarr;</a>
+                        </li>
+                    
+                </ul>
+
+                
+
+                
+
+            </div>
+    <!-- Side Catalog Container -->
+        
+
+    <!-- Sidebar Container -->
+
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                sidebar-container">
+
+                <!-- Featured Tags -->
+                
+                <section>
+                    <!-- no hr -->
+                    <h5><a href="/tags/">FEATURED TAGS</a></h5>
+                    <div class="tags">
+                       
+                    </div>
+                </section>
+                
+
+                <!-- Friends Blog -->
+                
+                <hr>
+                <h5>FRIENDS</h5>
+                <ul class="list-inline">
+
+                    
+                        <li><a href="http://minus.wang" target="_blank">MinusWang&#39;s Diary</a></li>
+                    
+                        <li><a href="http://minus.wang" target="_blank">MinusWang</a></li>
+                    
+                        <li><a href="#" target="_blank">Foo</a></li>
+                    
+                        <li><a href="#" target="_blank">Bar</a></li>
+                    
+                        <li><a href="#" target="_blank">Example Friends</a></li>
+                    
+                        <li><a href="#" target="_blank">It helps SEO</a></li>
+                    
+                </ul>
+                
+            </div>
+
+        </div>
+    </div>
+</article>
+
+
+
+
+
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+<!-- anchor-js, Doc:http://bryanbraun.github.io/anchorjs/ -->
+<script>
+    async("https://cdn.bootcss.com/anchor-js/1.1.1/anchor.min.js",function(){
+        anchors.options = {
+          visible: 'always',
+          placement: 'right',
+          icon: '#'
+        };
+        anchors.add().remove('.intro-header h1').remove('.subheading').remove('.sidebar-container h5');
+    })
+</script>
+<style>
+    /* place left on bigger screen */
+    @media all and (min-width: 800px) {
+        .anchorjs-link{
+            position: absolute;
+            left: -0.75em;
+            font-size: 1.1em;
+            margin-top : -0.1em;
+        }
+    }
+</style>
+
+
+
+    <!-- Footer -->
+    <!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <ul class="list-inline text-center">
+                
+                
+                    <li>
+                        <a target="_blank" href="https://twitter.com/MinusWang">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+                
+                    <li>
+                        <a target="_blank" href="https://www.zhihu.com/people/MinusWang">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa  fa-stack-1x fa-inverse">知</i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+                    <li>
+                        <a target="_blank" href="http://weibo.com/MinusWang">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-weibo fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+                    <li>
+                        <a target="_blank" href="https://www.facebook.com/MinusWang">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-facebook fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+                    <li>
+                        <a target="_blank"  href="https://github.com/MinusWang">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+                    <li>
+                        <a target="_blank"  href="https://www.linkedin.com/in/MinusWang">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-linkedin fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                </ul>
+                <p class="copyright text-muted">
+				    <br>
+					<br>
+                    Copyright &copy; 2024 Minus Wang
+                </p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- jQuery -->
+
+<script src="/js/jquery.min.js"></script>
+
+
+<!-- Bootstrap Core JavaScript -->
+
+<script src="/js/bootstrap.min.js"></script>
+
+
+<!-- Custom Theme JavaScript -->
+
+<script src="/js/hux-blog.min.js"></script>
+
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+<!-- 
+     Because of the native support for backtick-style fenced code blocks 
+     right within the Markdown is landed in Github Pages, 
+     From V1.6, There is no need for Highlight.js, 
+     so Huxblog drops it officially.
+
+     - https://github.com/blog/2100-github-pages-now-faster-and-simpler-with-jekyll-3-0  
+     - https://help.github.com/articles/creating-and-highlighting-code-blocks/    
+-->
+<!--
+    <script>
+        async("http://cdn.bootcss.com/highlight.js/8.6/highlight.min.js", function(){
+            hljs.initHighlightingOnLoad();
+        })
+    </script>
+    <link href="http://cdn.bootcss.com/highlight.js/8.6/styles/github.min.css" rel="stylesheet">
+-->
+
+
+<!-- jquery.tagcloud.js -->
+<script>
+    // only load tagcloud.js in tag.html
+    if($('#tag_cloud').length !== 0){
+        async("http://minus.wang/js/jquery.tagcloud.js",function(){
+            $.fn.tagcloud.defaults = {
+                //size: {start: 1, end: 1, unit: 'em'},
+                color: {start: '#bbbbee', end: '#0085a1'},
+            };
+            $('#tag_cloud a').tagcloud();
+        })
+    }
+</script>
+
+<!--fastClick.js -->
+<script>
+    async("https://cdn.bootcss.com/fastclick/1.0.6/fastclick.min.js", function(){
+        var $nav = document.querySelector("nav");
+        if($nav) FastClick.attach($nav);
+    })
+</script>
+
+
+<!-- Google Analytics -->
+
+
+
+
+<!-- Baidu Tongji -->
+
+
+<!-- Side Catalog -->
+
+
+
+
+
+<!-- Image to hack wechat -->
+<img src="http://minus.wang/img/icon_wechat.png" width="0" height="0" />
+<!-- Migrate from head to bottom, no longer block render and still work -->
+
+</body>
+
+</html>

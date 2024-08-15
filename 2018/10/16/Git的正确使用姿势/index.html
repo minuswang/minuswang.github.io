@@ -1,0 +1,639 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- Head tag -->
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Minus Wang - a life writer">
+    <meta name="keyword"  content="">
+    <link rel="shortcut icon" href="..//img/favicon.ico">
+
+    <title>
+        
+          Git的正确使用姿势 - MinusWang&#39;s Diary | MinusWangの日志
+        
+    </title>
+
+    <link rel="canonical" href="http://minus.wang/2018/10/16/Git的正确使用姿势/">
+
+    <!-- Bootstrap Core CSS -->
+    
+<link rel="stylesheet" href="/css/bootstrap.min.css">
+
+
+    <!-- Custom CSS -->
+    
+<link rel="stylesheet" href="/css/hux-blog.min.css">
+
+
+    <!-- Pygments Highlight CSS -->
+    
+<link rel="stylesheet" href="/css/highlight.css">
+
+
+    <!-- Custom Fonts -->
+    <!-- <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css"> -->
+    <!-- Hux change font-awesome CDN to qiniu -->
+    <link href="https://cdn.staticfile.org/font-awesome/4.5.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+
+    <!-- Hux Delete, sad but pending in China
+    <link href='http://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/
+    css'>
+    -->
+
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- ga & ba script hoook -->
+    <script></script>
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+
+<!-- hack iOS CSS :active style -->
+<body ontouchstart="">
+
+    <!-- Navigation -->
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">Minus Wang</a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <!-- Known Issue, found by Hux:
+            <nav>'s height woule be hold on by its content.
+            so, when navbar scale out, the <nav> will cover tags.
+            also mask any touch event of tags, unfortunately.
+        -->
+        <div id="huxblog_navbar">
+            <div class="navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="/">Home</a>
+                    </li>
+
+                    
+
+                        
+                    
+
+                        
+                        <li>
+                            <a href="/about/">About Me</a>
+                        </li>
+                        
+                    
+
+                        
+                        <li>
+                            <a href="/tags/">Tags</a>
+                        </li>
+                        
+                    
+
+                        
+                        <li>
+                            <a href="/archives/">Archives</a>
+                        </li>
+                        
+                    
+
+                        
+                        <li>
+                            <a href="/notes/">Notes</a>
+                        </li>
+                        
+                    
+
+                        
+                        <li>
+                            <a href="/Friends/">Friends</a>
+                        </li>
+                        
+                    
+                    
+                </ul>
+            </div>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container -->
+</nav>
+<script>
+    // Drop Bootstarp low-performance Navbar
+    // Use customize navbar with high-quality material design animation
+    // in high-perf jank-free CSS3 implementation
+    var $body   = document.body;
+    var $toggle = document.querySelector('.navbar-toggle');
+    var $navbar = document.querySelector('#huxblog_navbar');
+    var $collapse = document.querySelector('.navbar-collapse');
+
+    $toggle.addEventListener('click', handleMagic)
+    function handleMagic(e){
+        if ($navbar.className.indexOf('in') > 0) {
+        // CLOSE
+            $navbar.className = " ";
+            // wait until animation end.
+            setTimeout(function(){
+                // prevent frequently toggle
+                if($navbar.className.indexOf('in') < 0) {
+                    $collapse.style.height = "0px"
+                }
+            },400)
+        }else{
+        // OPEN
+            $collapse.style.height = "auto"
+            $navbar.className += " in";
+        }
+    }
+</script>
+
+
+    <!-- Main Content -->
+    
+<!-- Image to hack wechat -->
+<!-- <img src="http://minus.wang/img/icon_wechat.png" width="0" height="0"> -->
+<!-- <img src="{{ site.baseurl }}/{% if page.header-img %}{{ page.header-img }}{% else %}{{ site.header-img }}{% endif %}" width="0" height="0"> -->
+
+<!-- Post Header -->
+<style type="text/css">
+    header.intro-header{
+        background-image: url('/img/home-bg.jpg')
+    }
+</style>
+<header class="intro-header" >
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <div class="post-heading">
+                    <div class="tags">
+                        
+                          <a class="tag" href="/tags/#工具  Git" title="工具  Git">工具  Git</a>
+                        
+                    </div>
+                    <h1>Git的正确使用姿势</h1>
+                    <h2 class="subheading"></h2>
+                    <span class="meta">
+                        Posted by MinusWang on
+                        2018-10-16
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+<!-- Post Content -->
+<article>
+    <div class="container">
+        <div class="row">
+
+    <!-- Post Container -->
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                post-container">
+
+                <p><img src="Git%E7%9A%84%E6%AD%A3%E7%A1%AE%E4%BD%BF%E7%94%A8%E5%A7%BF%E5%8A%BF/1.svg" alt=""></p>
+<p><a href="https://www.jianshu.com/p/7220132da61b?utm_campaign=maleskine&utm_content=note&utm_medium=seo_notes&utm_source=recommendation">Git使用总结</a></p>
+<p><a href="https://www.jianshu.com/p/f4cd5f2d1a5f">Git 王者超神之路</a></p>
+<h2 id="文件的几个状态"><a href="#文件的几个状态" class="headerlink" title="文件的几个状态"></a>文件的几个状态</h2><p>按大类划分，分为两种状态：Tracked(已跟踪)和Untracked(未跟踪)，依据是：该文件是否已加入版本控制？</p>
+<p>流程简述：假设某个项目已加入版本控制系统</p>
+<p>1.新建一个文件，该文件处于<code>Untracked 状态</code>；工作区<br>2.通过<code>git add</code>命令添加到<code>缓存区</code>，此时文件处于<code>Tracked状态</code>又或者说此时这个文件已经被版本控制系统所跟踪，而且他处于<code>Staged(暂存)状态</code>；<br>3.通过<code>git commit</code>命令把暂存区的文件提交提交到本地仓库，此时文件处于<code>Unmodified(未修改)状态</code>；<br>4.此时如果去编辑这个文件，文件又会变成<code>Modified(修改)状态</code>；</p>
+<h2 id="一、本地操作命令"><a href="#一、本地操作命令" class="headerlink" title="一、本地操作命令"></a>一、本地操作命令</h2><blockquote>
+<p>1.相关配置【git config】</p>
+</blockquote>
+<p>区分global 和 local，前者代表全局设置，就是设置了在整个系统中，所有的带Git版本管理的项目都是这样的配置；后者代表<code>本地设置,即在某个项目中独立的设置，优先级高于全局设置</code>。比如全局设置的用户名是”Coder-pig”，本地设置的是”Jay”，commit的时候author就是Jay而不是Coder-pig。除了通过命令行修改，还可以直接修改对应文件：</p>
+<p>全局配置文件：etc/gitconfig (Mac下是隐藏文件，用户/.gitconfig)<br><code>本地配置文件：当前仓库/.git/config</code></p>
+<h3 id="1-1-安装完Git后第一件要做的事，设置用户信息-global可换成local在单独项目生效-："><a href="#1-1-安装完Git后第一件要做的事，设置用户信息-global可换成local在单独项目生效-：" class="headerlink" title="1.1 安装完Git后第一件要做的事，设置用户信息(global可换成local在单独项目生效)："></a>1.1 安装完Git后第一件要做的事，设置用户信息(global可换成local在单独项目生效)：</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">git config --global user.name &quot;用户名&quot; # 设置用户名</span><br><span class="line">git config --global user.email &quot;用户邮箱&quot;   #设置邮箱</span><br><span class="line">git config --global user.name   # 查看用户名是否配置成功</span><br><span class="line">git config --global user.email   # 查看邮箱是否配置</span><br></pre></td></tr></table></figure>
+
+<h3 id="1-2-其他查看配置相关"><a href="#1-2-其他查看配置相关" class="headerlink" title="1.2 其他查看配置相关"></a>1.2 其他查看配置相关</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">git config --global --list  # 查看全局设置相关参数列表</span><br><span class="line">git config --local --list # 查看本地设置相关参数列表</span><br><span class="line">git config --system --list # 查看系统配置参数列表</span><br><span class="line">git config --list  # 查看所有Git的配置(全局+本地+系统)</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>2.获取帮助【git help】</p>
+</blockquote>
+<p><code>git help</code> 命令   # 如：<code>git help init</code></p>
+<blockquote>
+<p>3.创建本地仓库【git init】<br><code>git init 仓库名</code> # 创建一个新的带Git仓库的项目<br><code>git init</code> # 为已存在的项目生成一个Git仓库</p>
+</blockquote>
+<blockquote>
+<p>4.添加文件到暂存区/文件跟踪标记【git add】<br>可以使用git add 文件名，将工作空间的文件添加到暂存区，或批量添加文件</p>
+</blockquote>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">git add 文件名 # 将工作区的某个文件添加到暂存区</span><br><span class="line"></span><br><span class="line">git add -u # 添加所有被tracked文件中被修改或删除的文件信息到暂存区，不处理untracked的文件</span><br><span class="line"></span><br><span class="line">git add -A # 添加所有被tracked文件中被修改或删除的文件信息到暂存区，包括untracked的文件</span><br><span class="line"></span><br><span class="line">git add . # 将当前工作区的所有文件都加入暂存区</span><br><span class="line"></span><br><span class="line">git add -i # 进入交互界面模式，按需添加文件到缓存区</span><br></pre></td></tr></table></figure>
+
+<p><img src="http://static.zybuluo.com/coder-pig/0eus2t7231x0ca767hqtltsm/image_1b2ruorse1r09mc71qav17v1u719.png" alt=""></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">1.先在GitForTest的文件夹里创建了两个文件</span><br><span class="line">2.键入git add -i，进入后，键入4，选择添加untracked的文件</span><br><span class="line">3.他给我们列出了untracked的文件，然后我们根据序号来添加文件</span><br><span class="line">4.输入?会弹出相关提示，然后直接回车，结束选择！</span><br><span class="line">5.然后再次输入git add -i，输入4，可以看到已不存在untacked的文件了！</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>5.让Git不Tracked特定文件【.gitignore文件配置】</p>
+</blockquote>
+<p>将未tracked的文件添加到缓存区后，Git就会开始跟踪这个文件了！对于一些比如：自动生成的文件，日志，临时编译文件等，就没必要进行跟踪了，这个时候可以编写.gitignore文件，在里面把不需要跟踪的文件或文件夹都写上，git就不会对这些文件进行跟踪！另外.gitignore文件与.git文件夹在同级目录下！</p>
+<p>如果不想自己写，可以直接到：<a href="https://github.com/github/gitignore">https://github.com/github/gitignore</a> 复制粘贴！<br>也可以自行编写，支持简化了的正则表达式(规范与示例模板摘自：Git王者超神之路)</p>
+<p><strong><strong>* ： 匹配零个或多个任意字符<br>[abc]：只匹配括号内中的任意一个字符<br>[0-9]：- 代表范围，匹配0-9之间的任何字符<br>?：匹配任意一个字符<br>**</strong></strong>：匹配任意的中间目录，例如a/**/z可以匹配:a/z,a/b/z,a/b/c/z等<br>示例模板：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">忽略所有以 .c结尾的文件</span><br><span class="line">`*.c`</span><br><span class="line"> </span><br><span class="line">但是 stream.c 会被git追踪</span><br><span class="line">`!stream.c`</span><br><span class="line"> </span><br><span class="line">只忽略当前文件夹下的TODO文件, 不包括其他文件夹下的TODO例如: subdir/TODO</span><br><span class="line">`/TODO`</span><br><span class="line"> </span><br><span class="line">忽略所有在build文件夹下的文件</span><br><span class="line">`build/`</span><br><span class="line"> </span><br><span class="line">忽略 doc/notes.txt, 但不包括多层下.txt例如: doc/server/arch.txt</span><br><span class="line">`doc/*.txt`</span><br><span class="line"> </span><br><span class="line">忽略所有在doc目录下的.pdf文件</span><br><span class="line">`doc/**/*.pdf`</span><br></pre></td></tr></table></figure>
+
+<p>！！！特别要注意一点！！！：</p>
+<p>配置.gitignore只对那些没有添加到版本控制系统的文件生效(未Tracked的文件)！</p>
+<p>举个例子：</p>
+<p>有A，B两个文件，你先把他两个add了，然后在.gitignore文件中配置了不跟踪这两个文件，但是你会发现根本不会生效。</p>
+<p>git add A<br>git add B</p>
+<p>配置不跟踪A和B<br>git add .gitignore</p>
+<p>所以，最好的做法就是在项目刚开始的时候，先添加.gitignore文件。当然，即使是发生了，还是有解决方法的，可以键入下述命令清除标记状态，然后先添加.gitignore，再添加文件即可：</p>
+<p><code>git rm -r --cached . #清除版本控制标记，.代表所有文件，也可指定具体文件</code></p>
+<p>还有，如果你用的是IDEA的编辑器的话，可以下一个.ignore的插件，可以手动直接勾选不需要跟踪的文件。</p>
+<blockquote>
+<p>6.将暂存区内容提交到本地仓库【git commit】</p>
+</blockquote>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git commit -m &quot;提交说明&quot; # 将暂存区内容提交到本地仓库</span><br><span class="line">git commit -a -m &quot;提交说明&quot; # 跳过缓存区操作，直接把工作区内容提交到本地仓库</span><br></pre></td></tr></table></figure>
+
+<p>如果不加-m “提交说明”，git会让用你让默认编辑器(如vi)来编写提交说明，<br>可能有些朋友用不惯vi，要么别漏掉-m “提交说明”，要么自己设置编译器：</p>
+<p>git config –global core.edit 喜欢的编辑器<br>除此之外，有时可能需要修改上次提交的内容，比如修改提交说明，或者修改文件等：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">合并暂存区和最近的一次commit，生成新的commit并替换掉老的,如果缓存区没内容，利用amend可以修改上次commit的提交说明</span><br><span class="line">注：因为amend后生成的commit是一个全新的commit，旧的会被删除，所以别在公共的commit上使用amend！切记！！！</span><br><span class="line"></span><br><span class="line">git commit --amend </span><br><span class="line">git commit --amend --no-edit # 沿用上次commit的提交说明</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>7.查看工作区与缓存区的状态【git status】</p>
+</blockquote>
+<p><code>git status</code> # 查看工作区与暂存区的当前情况<br><code>git status -s</code> # 让结果以更简短的形式输出</p>
+<blockquote>
+<p>8.差异对比(内容变化)【git diff】</p>
+</blockquote>
+<p>git diff # 工作区与缓存区的差异</p>
+<p>git diff 分支名 #工作区与某分支的差异，远程分支这样写：remotes/origin/分支名</p>
+<p>git diff HEAD  # 工作区与HEAD指针指向的内容差异</p>
+<p>git diff 提交id 文件路径 # 工作区某文件当前版本与历史版本的差异</p>
+<p>git diff –stage # 工作区文件与上次提交的差异(1.6 版本前用 –cached)</p>
+<p>git diff 版本TAG # 查看从某个版本后都改动内容</p>
+<p>git diff 分支A 分支B # 比较从分支A和分支B的差异(也支持比较两个TAG)</p>
+<p>git diff 分支A…分支B # 比较两分支在分开后各自的改动</p>
+<p>另外：如果只想统计哪些文件被改动，多少行被改动，可以添加 –stat 参数</p>
+<blockquote>
+<p>9.查看历史提交记录【git log】</p>
+</blockquote>
+<p>git log # 查看所有commit记录(SHA-A校验和，作者名称，邮箱，提交时间，提交说明)</p>
+<p>git log -p -次数 # 查看最近多少次的提交记录</p>
+<p>git log –stat # 简略显示每次提交的内容更改</p>
+<p>git log –name-only # 仅显示已修改的文件清单</p>
+<p>git log –name-status # 显示新增，修改，删除的文件清单</p>
+<p>git log –oneline # 让提交记录以精简的一行输出</p>
+<p>git log –graph –all –online # 图形展示分支的合并历史</p>
+<p>git log –author=作者  # 查询作者的提交记录(和grep同时使用要加一个–all–match参数)</p>
+<p>git log –grep=过滤信息 # 列出提交信息中包含过滤信息的提交记录</p>
+<p>git log -S查询内容 # 和–grep类似，S和查询内容间没有空格</p>
+<p>git log fileName # 查看某文件的修改记录，找背锅专用</p>
+<p>除此之外，还可以通过 –pretty 对提交信息进行定制，比如：</p>
+<p>更多规则与定制如下(摘自：Git王者超神之路)，或参见：Viewing the Commit History ：</p>
+<p>format对应的常用占位符：(注：作者是指最后一次修改文件的人，提交者是提交该文件的人)</p>
+<p>占位符    说明    占位符    说明<br>%H    提交对象（commit）的完整哈希字串    %h    提交对象的简短哈希字串<br>%T    树对象（tree）的完整哈希字串    %t    树对象的简短哈希字串<br>%P    父对象（parent）的完整哈希字串    %p    父对象的简短哈希字串<br>%an    作者（author）的名字    %ae    作者的电子邮件地址<br>%ad    作者修订日期（可以用 –date= 选项定制格式）    %ar    按多久以前的方式显示<br>%cn    提交者(committer)的名字    %ce    提交者的电子邮件地址<br>%cd    提交日期    %cr    提交日期，按多久以前的方式显示<br>%s    提交说明<br>一些其他操作：</p>
+<p>选项    说明<br>-p    按补丁格式显示每个更新之间的差异<br>–stat    显示每次更新的文件修改统计信息(行数)<br>–shortstat    只显示 –stat 中最后的行数修改添加移除统计<br>–name-only    仅在提交信息后显示已修改的文件清单<br>–name-status    显示新增、修改、删除的文件清单<br>–abbrev-commit    仅显示 SHA-1 的前几个字符，而非所有的 40 个字符<br>–relative-date    使用较短的相对时间显示（比如，“2 weeks ago”）<br>–graph    显示 ASCII 图形表示的分支合并历史<br>–pretty    格式定制，可选选项有：oneline，short，full，Fullerton和format(后跟指定格式)<br>还有一些限制log输出的选项</p>
+<p>选项    说明<br>-(n)    仅显示最近的 n 条提交<br>–since, –after    仅显示指定时间之后的提交。<br>–until, –before    仅显示指定时间之前的提交。<br>–author    仅显示指定作者相关的提交。<br>–committer    仅显示指定提交者相关的提交。<br>–grep    仅显示含指定关键字的提交<br>-S    仅显示添加或移除了某个关键字的提交</p>
+<blockquote>
+<p>10.查看某行代码是谁写的【git blame】</p>
+</blockquote>
+<p><code>git blame 文件名</code> # 查看某文件的每一行代码的作者，最新commit和提交时间</p>
+<p>Tip：如果你用的IDEA系列的编译器，右键行号，选择Annotate也可以实现同样的效果</p>
+<blockquote>
+<p>11.设置Git命令别名【git config –global alias】</p>
+</blockquote>
+<p>可以为常见的命令起个简单的别名，就不用每次都敲完整命令，比如可以设置：<br>status为st，checkout为co ; commit为ci ; branch为br等</p>
+<p>git config –global alias.st status</p>
+<blockquote>
+<p>12.为重要的commit打标签【git tag】</p>
+</blockquote>
+<p>对于某些提交，我们可以为它打上Tag，表示这次提交很重要，比如为一些正式发布大版本的commit，打上TAG，当某个版本出问题了，通过TAG可以快速找到此次提交，拿到SHA1值，再去查找问题，比起一个个commit看，省事很多！</p>
+<p>Git标签分两种：轻量标签 和 附加标签<br>前者只是在提交上加个Tag，指向提交的Hash值；而后者还会保存打标签者的信息，时间和附加信息；</p>
+<p>git tag 标记内容 # 轻量标签<br>git tag -a 标记内容 -m “附加信息” # 附加标签<br>如果想为之前的某次commit打TAG的话，可以先找出SHA1值，设置调下述命令：</p>
+<p>git tag -a 标记内容 版本id # 比如：git tag -a v1.1 bcfed96<br>默认情况，git push不会把标签推送TAG到远程仓库，如果想推送到服务器，可以：</p>
+<p>git push origin 标记内容 # 推送某标签到</p>
+<p>删除所有本地仓库中不存在的TAG：<br>git push origin –tags<br>另外，可以在新建分支的时候也加上TAG</p>
+<p>git checkout -b 分支名 标记内容<br>还可以用show命令查看标签对应的信息</p>
+<p>git show 标记内容<br>如果你想删除本地Tag：</p>
+<p>git tag -d 标记内容<br>如果是删除远程Tag：</p>
+<p>git push origin –delete tag 标记内容</p>
+<blockquote>
+<p>13.Git命令自动补全【输命令的时候按两次tab键】</p>
+</blockquote>
+<h2 id="文件回复-版本回退"><a href="#文件回复-版本回退" class="headerlink" title="文件回复/版本回退"></a>文件回复/版本回退</h2><p>1.文件恢复(未commit)【git checkout】<br>如果在工作区直接删除被Git Tracked的文件，暂存区中还会存在该文件，<br>此时键入：git status，会是这样：</p>
+<p>Git告诉你工作区的文件被删除了，你可以 删掉暂存区里的文件或 恢复被删文件</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"># 删除暂存区中的文件：</span><br><span class="line">git rm 文件名</span><br><span class="line">git commit -m &quot;提交说明&quot;</span><br><span class="line"></span><br><span class="line"># 误删恢复文件</span><br><span class="line">git checkout -- 文件名</span><br></pre></td></tr></table></figure>
+
+<p>另外注意：git checkout会抛弃当前工作区的更改!!!不可恢复！！！务必小心！！！</p>
+<p>2.文件恢复(已add未commit)【git reset HEAD】<br>如果更改后add到了暂存区，想恢复原状，下述指令可以让文件恢复原状：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git reset HEAD 文件名   </span><br><span class="line">git checkout 文件名</span><br></pre></td></tr></table></figure>
+
+<p>3.版本回退(已commit)【git reset –hard】<br>文件已经commit了，想恢复成上次commit的版本或者上上次，可以：</p>
+<p>git reset HEAD^ # 恢复成上次提交的版本<br>git reset HEAD^^ # 恢复成上上次提交的版本，就是多个^，以此类推或用~次数<br>git reset –hard 版本号 # git log查看到的SHA1值，取前七位即可，根据版本号回退<br>reset命令其实就是：重置HEAD指针，让其指向另一个commit<br>而这个动作可能会对工作区与缓存区造成影响，举个例子</p>
+<p>本来的分支线：- A - B - C (HEAD, master)<br>git reset B后：- A - B (HEAD, master)<br>解释：看不到C了，但是他还是存在的，可以通过git reset C版本号找回，前提是<br>C没有被Git当做垃圾处理掉(一般是30天)。<br>reset三个可选参数解析：</p>
+<p>–soft：只是改变HEAD指针指向，缓存区和工作区不变；<br>–mixed：修改HEAD指针指向，暂存区内容丢失，工作区不变；<br>–hard：修改HEAD指针指向，暂存区内容丢失，工作区恢复以前状态；<br>4.查看输入指令记录【git reflog】<br>Git会记住你输入的每个Git指令，比如上面的git reset 切换成一个旧的<br>commit，然后git log后发现新提交的记录没了，想切换回新的那次commit，<br>可以先调git reflog 获取新commit的SHA1码，然后git reset 回去。</p>
+<p>git reflog</p>
+<p>注意：这个指令记录不会永久保存！Git会定时清理用不到的对象！！！</p>
+<p>5.撤销某次提交【git revert】<br>有时可能我们想撤销某次提交所做的更改，可以使用revert命令</p>
+<p>git revert HEAD # 撤销最近的一个提交<br>git revert 版本号 # 撤销某次commit<br>不是真的把提交给撤销了，而是生成一个新的提交来覆盖旧的提交，被撤销的提交<br>和新的提交记录都会保存！！！不信你再调一次revert HEAD 会发现被撤销的更改<br>又变回来了，另外，每次revert后，都需要发起新的commit！<br>简单点说，撤销的只是文件变化，提交记录依旧是存在的！</p>
+<p>6.查看某次提交修改内容【git show】<br>git show 提交id # 查看某次commit的修改内容<br>7.查看某个分支的版本号【git rev-parse】<br>git rev-parse 分支名 # 查看分支commit的版本号，可以写HEAD<br>8.找回丢失对象的最后一点希望【git fsck】<br>因为你的某次误操作导致commit丢失，如果git reflog都找不到，你<br>可以考虑使用git fsck，找到丢失的对象的版本id，然后恢复即可</p>
+
+
+                <hr>
+
+                
+
+                <ul class="pager">
+                    
+                        <li class="previous">
+                            <a href="/2018/10/28/WIN10安装ubuntu18-04-LTS双系统/" data-toggle="tooltip" data-placement="top" title="WIN10安装ubuntu18.04 LTS双系统">&larr; Previous Post</a>
+                        </li>
+                    
+                    
+                        <li class="next">
+                            <a href="/2018/10/16/论Android开发过程如何高效的捉虫/" data-toggle="tooltip" data-placement="top" title="论Android开发过程如何高效的捉虫">Next Post &rarr;</a>
+                        </li>
+                    
+                </ul>
+
+                
+
+                
+
+            </div>
+    <!-- Side Catalog Container -->
+        
+
+    <!-- Sidebar Container -->
+
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                sidebar-container">
+
+                <!-- Featured Tags -->
+                
+                <section>
+                    <!-- no hr -->
+                    <h5><a href="/tags/">FEATURED TAGS</a></h5>
+                    <div class="tags">
+                       
+                          <a class="tag" href="/tags/#工具  Git" title="工具  Git">工具  Git</a>
+                        
+                    </div>
+                </section>
+                
+
+                <!-- Friends Blog -->
+                
+                <hr>
+                <h5>FRIENDS</h5>
+                <ul class="list-inline">
+
+                    
+                        <li><a href="http://minus.wang" target="_blank">MinusWang&#39;s Diary</a></li>
+                    
+                        <li><a href="http://minus.wang" target="_blank">MinusWang</a></li>
+                    
+                        <li><a href="#" target="_blank">Foo</a></li>
+                    
+                        <li><a href="#" target="_blank">Bar</a></li>
+                    
+                        <li><a href="#" target="_blank">Example Friends</a></li>
+                    
+                        <li><a href="#" target="_blank">It helps SEO</a></li>
+                    
+                </ul>
+                
+            </div>
+
+        </div>
+    </div>
+</article>
+
+
+
+
+
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+<!-- anchor-js, Doc:http://bryanbraun.github.io/anchorjs/ -->
+<script>
+    async("https://cdn.bootcss.com/anchor-js/1.1.1/anchor.min.js",function(){
+        anchors.options = {
+          visible: 'always',
+          placement: 'right',
+          icon: '#'
+        };
+        anchors.add().remove('.intro-header h1').remove('.subheading').remove('.sidebar-container h5');
+    })
+</script>
+<style>
+    /* place left on bigger screen */
+    @media all and (min-width: 800px) {
+        .anchorjs-link{
+            position: absolute;
+            left: -0.75em;
+            font-size: 1.1em;
+            margin-top : -0.1em;
+        }
+    }
+</style>
+
+
+
+    <!-- Footer -->
+    <!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <ul class="list-inline text-center">
+                
+                
+                    <li>
+                        <a target="_blank" href="https://twitter.com/MinusWang">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+                
+                    <li>
+                        <a target="_blank" href="https://www.zhihu.com/people/MinusWang">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa  fa-stack-1x fa-inverse">知</i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+                    <li>
+                        <a target="_blank" href="http://weibo.com/MinusWang">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-weibo fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+                    <li>
+                        <a target="_blank" href="https://www.facebook.com/MinusWang">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-facebook fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+                    <li>
+                        <a target="_blank"  href="https://github.com/MinusWang">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+                    <li>
+                        <a target="_blank"  href="https://www.linkedin.com/in/MinusWang">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-linkedin fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                </ul>
+                <p class="copyright text-muted">
+				    <br>
+					<br>
+                    Copyright &copy; 2024 Minus Wang
+                </p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- jQuery -->
+
+<script src="/js/jquery.min.js"></script>
+
+
+<!-- Bootstrap Core JavaScript -->
+
+<script src="/js/bootstrap.min.js"></script>
+
+
+<!-- Custom Theme JavaScript -->
+
+<script src="/js/hux-blog.min.js"></script>
+
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+<!-- 
+     Because of the native support for backtick-style fenced code blocks 
+     right within the Markdown is landed in Github Pages, 
+     From V1.6, There is no need for Highlight.js, 
+     so Huxblog drops it officially.
+
+     - https://github.com/blog/2100-github-pages-now-faster-and-simpler-with-jekyll-3-0  
+     - https://help.github.com/articles/creating-and-highlighting-code-blocks/    
+-->
+<!--
+    <script>
+        async("http://cdn.bootcss.com/highlight.js/8.6/highlight.min.js", function(){
+            hljs.initHighlightingOnLoad();
+        })
+    </script>
+    <link href="http://cdn.bootcss.com/highlight.js/8.6/styles/github.min.css" rel="stylesheet">
+-->
+
+
+<!-- jquery.tagcloud.js -->
+<script>
+    // only load tagcloud.js in tag.html
+    if($('#tag_cloud').length !== 0){
+        async("http://minus.wang/js/jquery.tagcloud.js",function(){
+            $.fn.tagcloud.defaults = {
+                //size: {start: 1, end: 1, unit: 'em'},
+                color: {start: '#bbbbee', end: '#0085a1'},
+            };
+            $('#tag_cloud a').tagcloud();
+        })
+    }
+</script>
+
+<!--fastClick.js -->
+<script>
+    async("https://cdn.bootcss.com/fastclick/1.0.6/fastclick.min.js", function(){
+        var $nav = document.querySelector("nav");
+        if($nav) FastClick.attach($nav);
+    })
+</script>
+
+
+<!-- Google Analytics -->
+
+
+
+
+<!-- Baidu Tongji -->
+
+
+<!-- Side Catalog -->
+
+
+
+
+
+<!-- Image to hack wechat -->
+<img src="http://minus.wang/img/icon_wechat.png" width="0" height="0" />
+<!-- Migrate from head to bottom, no longer block render and still work -->
+
+</body>
+
+</html>

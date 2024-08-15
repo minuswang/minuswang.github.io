@@ -1,0 +1,591 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- Head tag -->
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Minus Wang - a life writer">
+    <meta name="keyword"  content="">
+    <link rel="shortcut icon" href="..//img/favicon.ico">
+
+    <title>
+        
+          HEXO blog deploy in two computers - MinusWang&#39;s Diary | MinusWangの日志
+        
+    </title>
+
+    <link rel="canonical" href="http://minus.wang/2018/01/13/HEXO-blog-deploy-in-two-computers/">
+
+    <!-- Bootstrap Core CSS -->
+    
+<link rel="stylesheet" href="/css/bootstrap.min.css">
+
+
+    <!-- Custom CSS -->
+    
+<link rel="stylesheet" href="/css/hux-blog.min.css">
+
+
+    <!-- Pygments Highlight CSS -->
+    
+<link rel="stylesheet" href="/css/highlight.css">
+
+
+    <!-- Custom Fonts -->
+    <!-- <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css"> -->
+    <!-- Hux change font-awesome CDN to qiniu -->
+    <link href="https://cdn.staticfile.org/font-awesome/4.5.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+
+    <!-- Hux Delete, sad but pending in China
+    <link href='http://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/
+    css'>
+    -->
+
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- ga & ba script hoook -->
+    <script></script>
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+
+<!-- hack iOS CSS :active style -->
+<body ontouchstart="">
+
+    <!-- Navigation -->
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">Minus Wang</a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <!-- Known Issue, found by Hux:
+            <nav>'s height woule be hold on by its content.
+            so, when navbar scale out, the <nav> will cover tags.
+            also mask any touch event of tags, unfortunately.
+        -->
+        <div id="huxblog_navbar">
+            <div class="navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="/">Home</a>
+                    </li>
+
+                    
+
+                        
+                    
+
+                        
+                        <li>
+                            <a href="/about/">About Me</a>
+                        </li>
+                        
+                    
+
+                        
+                        <li>
+                            <a href="/tags/">Tags</a>
+                        </li>
+                        
+                    
+
+                        
+                        <li>
+                            <a href="/archives/">Archives</a>
+                        </li>
+                        
+                    
+
+                        
+                        <li>
+                            <a href="/notes/">Notes</a>
+                        </li>
+                        
+                    
+
+                        
+                        <li>
+                            <a href="/Friends/">Friends</a>
+                        </li>
+                        
+                    
+                    
+                </ul>
+            </div>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container -->
+</nav>
+<script>
+    // Drop Bootstarp low-performance Navbar
+    // Use customize navbar with high-quality material design animation
+    // in high-perf jank-free CSS3 implementation
+    var $body   = document.body;
+    var $toggle = document.querySelector('.navbar-toggle');
+    var $navbar = document.querySelector('#huxblog_navbar');
+    var $collapse = document.querySelector('.navbar-collapse');
+
+    $toggle.addEventListener('click', handleMagic)
+    function handleMagic(e){
+        if ($navbar.className.indexOf('in') > 0) {
+        // CLOSE
+            $navbar.className = " ";
+            // wait until animation end.
+            setTimeout(function(){
+                // prevent frequently toggle
+                if($navbar.className.indexOf('in') < 0) {
+                    $collapse.style.height = "0px"
+                }
+            },400)
+        }else{
+        // OPEN
+            $collapse.style.height = "auto"
+            $navbar.className += " in";
+        }
+    }
+</script>
+
+
+    <!-- Main Content -->
+    
+<!-- Image to hack wechat -->
+<!-- <img src="http://minus.wang/img/icon_wechat.png" width="0" height="0"> -->
+<!-- <img src="{{ site.baseurl }}/{% if page.header-img %}{{ page.header-img }}{% else %}{{ site.header-img }}{% endif %}" width="0" height="0"> -->
+
+<!-- Post Header -->
+<style type="text/css">
+    header.intro-header{
+        background-image: url('/img/home-bg.jpg')
+    }
+</style>
+<header class="intro-header" >
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <div class="post-heading">
+                    <div class="tags">
+                        
+                    </div>
+                    <h1>HEXO blog deploy in two computers</h1>
+                    <h2 class="subheading"></h2>
+                    <span class="meta">
+                        Posted by MinusWang on
+                        2018-01-13
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+<!-- Post Content -->
+<article>
+    <div class="container">
+        <div class="row">
+
+    <!-- Post Container -->
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                post-container">
+
+                <h2 id="已有电脑"><a href="#已有电脑" class="headerlink" title="已有电脑"></a>已有电脑</h2><ol>
+<li>新创建一个hexo分支，将hexo设为默认分支</li>
+<li><code>把之前的博客文件夹弃用</code></li>
+<li>将github的东西克隆下来（会有博客的基本结构）</li>
+<li>将之前保留的_config.yml，themes/，source/，scaffolds/，package.json，.gitignore复制过来</li>
+<li>执行npm install和npm install hexo-deployer-git（重要 在hexo分支）</li>
+<li>执行git add .、git commit -m “”、git push origin hexo来提交hexo网站源文件</li>
+<li>依次执行hexo g和hexo d生成静态网页部署至Github上</li>
+<li>这样一来，你的博客仓库就有master分支和hexo分支，分别保存静态网页和源文件</li>
+</ol>
+<h2 id="以后再进行修改添加"><a href="#以后再进行修改添加" class="headerlink" title="以后再进行修改添加"></a>以后再进行修改添加</h2><ol>
+<li>执行<code>git add .</code>、<code>git commit -m &quot;&quot;</code>、<code>git push origin hexo(新分支名)</code>来提交hexo网站源文件</li>
+<li>依次执行hexo g和hexo d生成静态网页部署至Github上</li>
+</ol>
+<p>思路：通过 git 的分支实现。hexo 生成的静态博客文件默认放在 master 分支上，可以新创建一个 hexo 分支，把 hexo 的源文件都放在 hexo 分支上，换新电脑时，直接 git clone hexo 分支即可。</p>
+<h1 id="1-分析"><a href="#1-分析" class="headerlink" title="1. 分析"></a>1. 分析</h1><p>新建一个 hexo 分支，把 hexo 的源文件都放到这个分支上。但是源文件有70多M，并不需要把所有文件都放在分支上。node_modules目录可以用 npm install 命令生成，public目录可以使用 hexo g 命令生成，.deploy_git目录是hexo d命令生成，所以可以把这三个目录放在 .gitignore 里忽略提交。</p>
+<h1 id="2-操作"><a href="#2-操作" class="headerlink" title="2. 操作"></a>2. 操作</h1><p>在原来的笔记本上：</p>
+<ol>
+<li>创建新的分支 hexo 并切换到这个分支上。</li>
+</ol>
+<p>在Github的username.github.io仓库上新建一个xxx分支，并切换到该分支，并在该仓库-&gt;Settings-&gt;Branches-&gt;Default branch中将默认分支设为xxx，save保存；然后将该仓库克隆到本地，进入该username.github.io文件目录。完成上面步骤后，在当前目录使用Git Bash执行git branch命令查看当前所在分支，应为新建的分支xxx</p>
+<ol start="2">
+<li>在博客的目录下创建 .gitignore 文件，在文件里写入：</li>
+</ol>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">node_modules/</span><br><span class="line">public/</span><br><span class="line">.deploy_git/</span><br></pre></td></tr></table></figure>
+
+<ol start="3">
+<li><p>执行npm install和npm install hexo-deployer-git（重要 在hexo分支）</p>
+</li>
+<li><p>在 hexo 分支下，git add、git commit 提交所有文件，最后把 hexo 分支 push 到 github 上。这时 github 上有两个分支：master 和 hexo，master 分支是博客的静态文件，hexo 分支是博客的源代码。master分支和xxx分支各自保存着一个版本，master分支用于保存博客静态资源，提供博客页面供人访问；xxx分支用于备份博客部署文件，供自己维护更新，两者在一个GitHub仓库内互不冲突，完美！</p>
+</li>
+</ol>
+<h2 id="在新电脑上："><a href="#在新电脑上：" class="headerlink" title="在新电脑上："></a>在新电脑上：</h2><ol>
+<li><p>安装 git。在 git bash 下输入以下命令配置用户名和邮箱，邮箱是自己 github 账号的邮箱：<br>git config –global user.name “Your Name”<br>git config –global user.email “<a href="mailto:email@example.com">email@example.com</a>“</p>
+</li>
+<li><p>执行以下命令生成 SSH key：<br>ssh-keygen -t rsa -C “<a href="mailto:youremail@example.com">youremail@example.com</a>“<br>其中 <a href="mailto:youremail@example.com">youremail@example.com</a> 是你的 github 邮箱，剩下的一路回车即可。最后会在用户主目录下生成一个 .ssh 目录，该目录下有 id_rsa 和 id_rsa.pub 两个文件，这两个文件就是 SSH 的密钥对，id_rsa 是私钥，id_rsa.pub 是公钥。</p>
+</li>
+<li><p>登录 github，在 settings 里找到 SSH and GPG keys，创建新的 SSH key，title 可以是任意值，key 文本框里粘贴 id_rsa.pub 里的内容，最后保存。</p>
+</li>
+<li><p>安装 Node.js。<br>在 git bash 里输入以下命令安装 hexo：<br>npm install hexo-cli -g</p>
+</li>
+<li><p>新建博客目录，在该目录打开 git bash，执行：<br>git init<br>初始化该目录。</p>
+</li>
+<li><p>使用 git clone 把 github 上的 hexo 分支复制到博客目录。指明如下：<br><code>git clone -b hexo git@github.com:xxx/xxx.github.io.git</code><br>注意默认 git clone 命令只会复制 master 分支，这里需要用 -b 指明只克隆 hexo 分支。因为源代码都放在了hexo分支上，并不需要对master分支进行操作。</p>
+</li>
+<li><p>克隆完以后，执行<br><code>npm install</code><br>安装所有依赖（生成 node_modules 目录）</p>
+</li>
+</ol>
+<p><code>npm install hexo-deployer-git</code>（重要 在hexo分支）</p>
+<p>error   fan qiang </p>
+<ol start="8">
+<li><p>执行<br>hexo g<br>生成博客的静态文件（即 public 目录）</p>
+</li>
+<li><p>执行<br>hexo new post “文章标题”<br>创建新文章，然后可以在 source/_posts/ 目录下找到对应的文章并可以编辑。</p>
+</li>
+<li><p>执行<br>hexo s<br>运行 hexo 服务器，在浏览器中打开 <a href="http://localhost:4000">http://localhost:4000</a> 查看博客是否已经可以运行。</p>
+</li>
+<li><p>执行<br>hexo d<br>可以把博客的静态文件部署到 github 上。注意在 _config.yml 中 deploy 的 branch 值必须为 master，指明 hexo d 命令是把博客静态文件推到 master 分支上。</p>
+</li>
+<li><p>最后把修改推到 github 上的 hexo 分支：<br>git add .<br>git commit -m “commit message”<br>git push origin hexo<br>注意：以上所有操作都是在 hexo分支下操作的。</p>
+</li>
+</ol>
+<h2 id="日常操作流程"><a href="#日常操作流程" class="headerlink" title="日常操作流程"></a>日常操作流程</h2><ol>
+<li><p>换到不同电脑上时，首先拉下 github 上的 hexo分支的更新<br>git pull origin hexo</p>
+</li>
+<li><p>编写、修改博客，并使用 hexo d 命令部署</p>
+</li>
+<li><p>把对文件的修改推送到 github 的hexo分支上</p>
+</li>
+</ol>
+<p>git add .<br>git commit -m “commit message”<br>git push origin hexo</p>
+<p>参考链接：</p>
+<ol>
+<li><p>[在多台电脑间使用hexo]{<a href="https://theqwang.github.io/2017/03/17/在多台电脑间使用hexo/}">https://theqwang.github.io/2017/03/17/在多台电脑间使用hexo/}</a></p>
+</li>
+<li><p>[利用Hexo在多台电脑上提交和更新github pages博客]{<a href="https://www.jianshu.com/p/0b1fccce74e0}">https://www.jianshu.com/p/0b1fccce74e0}</a></p>
+</li>
+<li><p>[hexo博客分支教训]{<a href="https://www.jianshu.com/p/a27e9761ecf3}">https://www.jianshu.com/p/a27e9761ecf3}</a></p>
+</li>
+<li><p><a href="https://www.zhihu.com/question/38781463?sort=created">hexo本地测试运行重启后页面空白,提示 : WARN No layout: index.html?</a>   theme文件夹出错，不显示layout</p>
+</li>
+</ol>
+<p>run npm config get proxy看看拿到什么</p>
+<p>如果上面的返回不为空，npm config set proxy null或者npm config delete proxy ,顺便把https的代理也关掉npm config set https-proxy null, 证书问题，把证书的校验关掉npm config set strict-ssl false, 当然上面的命令你不用全敲一遍，根据报错信息提示，选择对应的解决方式， 然后再试试</p>
+<p>如果1的命令为空，检查你的环境变量里面是不是有HTTP_PROXY</p>
+<p>是不是开了全局的代理</p>
+<p>电脑是不是开了代理，导致证书不被npm信任。建议你关掉代理，使用淘宝镜像源试下</p>
+<p>npm install -g express –registry=<a href="https://registry.npm.taobao.org">https://registry.npm.taobao.org</a></p>
+<p>在Windows平台上，使用Git。当输入添加命令（例如：git add .）时，会出现warning: LF will be replaced by CRLF in……这样的警告。虽然对于后期编程没有影响，但毕竟是warning，还是需要了解一下是啥原因吧！经过查阅相关资料，才知道原来是换行符的问题。</p>
+<p>原因分析：<br>CRLF – Carriage-Return Line-Feed 回车换行。也就是回车（CR, ASCII 13, \r），换行（LF, ASCII 10,\n）。这两个ACSII字符不会在屏幕有任何显示，是Windows平台上用来标识一行的结束。而在Linux/UNIX系统中只有换行符LF，没有回车符CR。也就是说在Windows中的换行符为 CRLF，而在Linux下的换行符为：LF。使用Git来生成一个工程后，文件中的换行符为LF，当执行添加命令（例如：git add .）时，系统就会发出警告。解决方法：在Git Bash中输入以下命令：</p>
+<h2 id="git-config-global-core-autocrlf-false"><a href="#git-config-global-core-autocrlf-false" class="headerlink" title="git config --global core.autocrlf false"></a><code>git config --global core.autocrlf false</code></h2><p>git clone -b 分支名字 <a href="mailto:git@github.com">git@github.com</a>:账号/账号.github.io.git</p>
+
+
+                <hr>
+
+                
+
+                <ul class="pager">
+                    
+                        <li class="previous">
+                            <a href="/2018/01/17/Git-删除远程仓库中误传的文件/" data-toggle="tooltip" data-placement="top" title="Git 删除远程仓库中误传的文件">&larr; Previous Post</a>
+                        </li>
+                    
+                    
+                        <li class="next">
+                            <a href="/2018/01/02/Android开源框架/" data-toggle="tooltip" data-placement="top" title="Android开源框架">Next Post &rarr;</a>
+                        </li>
+                    
+                </ul>
+
+                
+
+                
+
+            </div>
+    <!-- Side Catalog Container -->
+        
+
+    <!-- Sidebar Container -->
+
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                sidebar-container">
+
+                <!-- Featured Tags -->
+                
+                <section>
+                    <!-- no hr -->
+                    <h5><a href="/tags/">FEATURED TAGS</a></h5>
+                    <div class="tags">
+                       
+                    </div>
+                </section>
+                
+
+                <!-- Friends Blog -->
+                
+                <hr>
+                <h5>FRIENDS</h5>
+                <ul class="list-inline">
+
+                    
+                        <li><a href="http://minus.wang" target="_blank">MinusWang&#39;s Diary</a></li>
+                    
+                        <li><a href="http://minus.wang" target="_blank">MinusWang</a></li>
+                    
+                        <li><a href="#" target="_blank">Foo</a></li>
+                    
+                        <li><a href="#" target="_blank">Bar</a></li>
+                    
+                        <li><a href="#" target="_blank">Example Friends</a></li>
+                    
+                        <li><a href="#" target="_blank">It helps SEO</a></li>
+                    
+                </ul>
+                
+            </div>
+
+        </div>
+    </div>
+</article>
+
+
+
+
+
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+<!-- anchor-js, Doc:http://bryanbraun.github.io/anchorjs/ -->
+<script>
+    async("https://cdn.bootcss.com/anchor-js/1.1.1/anchor.min.js",function(){
+        anchors.options = {
+          visible: 'always',
+          placement: 'right',
+          icon: '#'
+        };
+        anchors.add().remove('.intro-header h1').remove('.subheading').remove('.sidebar-container h5');
+    })
+</script>
+<style>
+    /* place left on bigger screen */
+    @media all and (min-width: 800px) {
+        .anchorjs-link{
+            position: absolute;
+            left: -0.75em;
+            font-size: 1.1em;
+            margin-top : -0.1em;
+        }
+    }
+</style>
+
+
+
+    <!-- Footer -->
+    <!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <ul class="list-inline text-center">
+                
+                
+                    <li>
+                        <a target="_blank" href="https://twitter.com/MinusWang">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+                
+                    <li>
+                        <a target="_blank" href="https://www.zhihu.com/people/MinusWang">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa  fa-stack-1x fa-inverse">知</i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+                    <li>
+                        <a target="_blank" href="http://weibo.com/MinusWang">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-weibo fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+                    <li>
+                        <a target="_blank" href="https://www.facebook.com/MinusWang">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-facebook fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+                    <li>
+                        <a target="_blank"  href="https://github.com/MinusWang">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+                    <li>
+                        <a target="_blank"  href="https://www.linkedin.com/in/MinusWang">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-linkedin fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                </ul>
+                <p class="copyright text-muted">
+				    <br>
+					<br>
+                    Copyright &copy; 2024 Minus Wang
+                </p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- jQuery -->
+
+<script src="/js/jquery.min.js"></script>
+
+
+<!-- Bootstrap Core JavaScript -->
+
+<script src="/js/bootstrap.min.js"></script>
+
+
+<!-- Custom Theme JavaScript -->
+
+<script src="/js/hux-blog.min.js"></script>
+
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+<!-- 
+     Because of the native support for backtick-style fenced code blocks 
+     right within the Markdown is landed in Github Pages, 
+     From V1.6, There is no need for Highlight.js, 
+     so Huxblog drops it officially.
+
+     - https://github.com/blog/2100-github-pages-now-faster-and-simpler-with-jekyll-3-0  
+     - https://help.github.com/articles/creating-and-highlighting-code-blocks/    
+-->
+<!--
+    <script>
+        async("http://cdn.bootcss.com/highlight.js/8.6/highlight.min.js", function(){
+            hljs.initHighlightingOnLoad();
+        })
+    </script>
+    <link href="http://cdn.bootcss.com/highlight.js/8.6/styles/github.min.css" rel="stylesheet">
+-->
+
+
+<!-- jquery.tagcloud.js -->
+<script>
+    // only load tagcloud.js in tag.html
+    if($('#tag_cloud').length !== 0){
+        async("http://minus.wang/js/jquery.tagcloud.js",function(){
+            $.fn.tagcloud.defaults = {
+                //size: {start: 1, end: 1, unit: 'em'},
+                color: {start: '#bbbbee', end: '#0085a1'},
+            };
+            $('#tag_cloud a').tagcloud();
+        })
+    }
+</script>
+
+<!--fastClick.js -->
+<script>
+    async("https://cdn.bootcss.com/fastclick/1.0.6/fastclick.min.js", function(){
+        var $nav = document.querySelector("nav");
+        if($nav) FastClick.attach($nav);
+    })
+</script>
+
+
+<!-- Google Analytics -->
+
+
+
+
+<!-- Baidu Tongji -->
+
+
+<!-- Side Catalog -->
+
+
+
+
+
+<!-- Image to hack wechat -->
+<img src="http://minus.wang/img/icon_wechat.png" width="0" height="0" />
+<!-- Migrate from head to bottom, no longer block render and still work -->
+
+</body>
+
+</html>

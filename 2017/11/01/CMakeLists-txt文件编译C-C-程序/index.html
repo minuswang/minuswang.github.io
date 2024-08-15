@@ -1,0 +1,583 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- Head tag -->
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Minus Wang - a life writer">
+    <meta name="keyword"  content="">
+    <link rel="shortcut icon" href="..//img/favicon.ico">
+
+    <title>
+        
+          CMakeLists.txt文件编译C/C++程序 - MinusWang&#39;s Diary | MinusWangの日志
+        
+    </title>
+
+    <link rel="canonical" href="http://minus.wang/2017/11/01/CMakeLists-txt文件编译C-C-程序/">
+
+    <!-- Bootstrap Core CSS -->
+    
+<link rel="stylesheet" href="/css/bootstrap.min.css">
+
+
+    <!-- Custom CSS -->
+    
+<link rel="stylesheet" href="/css/hux-blog.min.css">
+
+
+    <!-- Pygments Highlight CSS -->
+    
+<link rel="stylesheet" href="/css/highlight.css">
+
+
+    <!-- Custom Fonts -->
+    <!-- <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css"> -->
+    <!-- Hux change font-awesome CDN to qiniu -->
+    <link href="https://cdn.staticfile.org/font-awesome/4.5.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+
+    <!-- Hux Delete, sad but pending in China
+    <link href='http://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/
+    css'>
+    -->
+
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- ga & ba script hoook -->
+    <script></script>
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+
+<!-- hack iOS CSS :active style -->
+<body ontouchstart="">
+
+    <!-- Navigation -->
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">Minus Wang</a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <!-- Known Issue, found by Hux:
+            <nav>'s height woule be hold on by its content.
+            so, when navbar scale out, the <nav> will cover tags.
+            also mask any touch event of tags, unfortunately.
+        -->
+        <div id="huxblog_navbar">
+            <div class="navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="/">Home</a>
+                    </li>
+
+                    
+
+                        
+                    
+
+                        
+                        <li>
+                            <a href="/about/">About Me</a>
+                        </li>
+                        
+                    
+
+                        
+                        <li>
+                            <a href="/tags/">Tags</a>
+                        </li>
+                        
+                    
+
+                        
+                        <li>
+                            <a href="/archives/">Archives</a>
+                        </li>
+                        
+                    
+
+                        
+                        <li>
+                            <a href="/notes/">Notes</a>
+                        </li>
+                        
+                    
+
+                        
+                        <li>
+                            <a href="/Friends/">Friends</a>
+                        </li>
+                        
+                    
+                    
+                </ul>
+            </div>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container -->
+</nav>
+<script>
+    // Drop Bootstarp low-performance Navbar
+    // Use customize navbar with high-quality material design animation
+    // in high-perf jank-free CSS3 implementation
+    var $body   = document.body;
+    var $toggle = document.querySelector('.navbar-toggle');
+    var $navbar = document.querySelector('#huxblog_navbar');
+    var $collapse = document.querySelector('.navbar-collapse');
+
+    $toggle.addEventListener('click', handleMagic)
+    function handleMagic(e){
+        if ($navbar.className.indexOf('in') > 0) {
+        // CLOSE
+            $navbar.className = " ";
+            // wait until animation end.
+            setTimeout(function(){
+                // prevent frequently toggle
+                if($navbar.className.indexOf('in') < 0) {
+                    $collapse.style.height = "0px"
+                }
+            },400)
+        }else{
+        // OPEN
+            $collapse.style.height = "auto"
+            $navbar.className += " in";
+        }
+    }
+</script>
+
+
+    <!-- Main Content -->
+    
+<!-- Image to hack wechat -->
+<!-- <img src="http://minus.wang/img/icon_wechat.png" width="0" height="0"> -->
+<!-- <img src="{{ site.baseurl }}/{% if page.header-img %}{{ page.header-img }}{% else %}{{ site.header-img }}{% endif %}" width="0" height="0"> -->
+
+<!-- Post Header -->
+<style type="text/css">
+    header.intro-header{
+        background-image: url('/img/home-bg.jpg')
+    }
+</style>
+<header class="intro-header" >
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <div class="post-heading">
+                    <div class="tags">
+                        
+                    </div>
+                    <h1>CMakeLists.txt文件编译C/C++程序</h1>
+                    <h2 class="subheading"></h2>
+                    <span class="meta">
+                        Posted by MinusWang on
+                        2017-11-01
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+<!-- Post Content -->
+<article>
+    <div class="container">
+        <div class="row">
+
+    <!-- Post Container -->
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                post-container">
+
+                <h2 id="gt-CMake编译原理"><a href="#gt-CMake编译原理" class="headerlink" title="&gt;CMake编译原理"></a>&gt;CMake编译原理</h2><p><code>CMake</code>是一种跨平台编译工具，比<code>make</code>更为高级，使用起来要方便得多。<code>CMake</code>主要是编写<code>CMakeLists.txt</code>文件，然后用<code>cmake</code>命令将<code>CMakeLists.txt</code>文件转化为<code>make</code>所需要的<code>makefile</code>文件，最后用<code>make</code>命令编译源码生成可执行程序或共享库<code>（so(shared object)）</code>。因此<code>CMake</code>的编译基本就两个步骤：</p>
+<ol>
+<li>cmake</li>
+<li>make</li>
+</ol>
+<p><code>cmake</code> 指向<code>CMakeLists.txt</code>所在的目录，例如<code>cmake ..</code>表示<code>CMakeLists.txt</code>在当前目录的上一级目录。<code>cmake</code>后会生成很多编译的中间文件以及<code>makefile</code>文件，所以一般建议新建一个新的目录，专门用来编译，例如</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">mkdir build</span><br><span class="line">cd build</span><br><span class="line">cmake ..</span><br><span class="line">make</span><br></pre></td></tr></table></figure>
+<p><code>make</code>根据生成<code>makefile</code>文件，编译程序。</p>
+<h2 id="gt-使用Cmake编译程序"><a href="#gt-使用Cmake编译程序" class="headerlink" title="&gt;使用Cmake编译程序"></a>&gt;使用<code>Cmake</code>编译程序</h2><p>我们编写一个关于开平方的<code>C/C++</code>程序项目，即<code>b= sqrt(a)</code>，以此理解整个<code>CMake</code>编译的过程。</p>
+<p>a.准备程序文件</p>
+<p>文件目录结构如下：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">.</span><br><span class="line">├── build</span><br><span class="line">├── CMakeLists.txt</span><br><span class="line">├── include</span><br><span class="line">│   └── b.h</span><br><span class="line">└── src</span><br><span class="line">    ├── b.c</span><br><span class="line">    └── main.c</span><br></pre></td></tr></table></figure>
+
+<p>头文件<code>b.h</code>，如下所示：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">ifndef</span> B_FILE_HEADER_INC</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> B_FIEL_HEADER_INC</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;math.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="type">double</span> <span class="title function_">cal_sqrt</span><span class="params">(<span class="type">double</span> value)</span>;</span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="keyword">endif</span></span></span><br></pre></td></tr></table></figure>
+
+
+<p>头文件<code>b.c</code>，如下所示：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&quot;../include/b.h&quot;</span></span></span><br><span class="line"></span><br><span class="line"><span class="type">double</span> <span class="title function_">cal_sqrt</span><span class="params">(<span class="type">double</span> value)</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">sqrt</span>(value);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+<p><code>main.c</code>主函数，如下所示：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&quot;../include/b.h&quot;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="type">int</span> <span class="title function_">main</span><span class="params">(<span class="type">int</span> argc, <span class="type">char</span>** argv)</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="type">double</span> a = <span class="number">49.0</span>; </span><br><span class="line">    <span class="type">double</span> b = <span class="number">0.0</span>;</span><br><span class="line"></span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;input a:%f\n&quot;</span>,a);</span><br><span class="line">    b = cal_sqrt(a);</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;sqrt result:%f\n&quot;</span>,b);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+<h2 id="gt-编写CMakeLists-txt"><a href="#gt-编写CMakeLists-txt" class="headerlink" title="&gt;编写CMakeLists.txt"></a>&gt;编写<code>CMakeLists.txt</code></h2><p>接下来编写<code>CMakeLists.txt</code>文件，该文件放在和<code>src</code>，<code>include</code>的同级目录，实际方哪里都可以，只要里面编写的路径能够正确指向就好了。<code>CMakeLists.txt</code>文件，如下所示：</p>
+<blockquote>
+<ol>
+<li><code>cmake verson</code>，指定<code>cmake</code>版本 </li>
+</ol>
+</blockquote>
+<p>  <code>cmake_minimum_required(VERSION 3.2)</code></p>
+<blockquote>
+<ol start="2">
+<li><code>project name</code>，指定项目的名称，一般和项目的文件夹名称对应</li>
+</ol>
+</blockquote>
+<p>  <code>PROJECT(test_sqrt)</code></p>
+<blockquote>
+<ol start="3">
+<li><code>head file path</code>，头文件目录</li>
+</ol>
+</blockquote>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"> INCLUDE_DIRECTORIES(</span><br><span class="line"> include</span><br><span class="line">)</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<ol start="4">
+<li><code>source directory</code>，源文件目录</li>
+</ol>
+</blockquote>
+<p> <code>AUX_SOURCE_DIRECTORY(src DIR_SRCS)</code></p>
+<blockquote>
+<ol start="5">
+<li><code>set environment variable</code>，设置环境变量，编译用到的源文件全部都要放到这里，否则编译能够通过，但是执行的时候会出现各种问题，比如<code>&quot;symbol lookup error xxxxx , undefined symbol&quot;</code></li>
+</ol>
+</blockquote>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">SET(TEST_MATH</span><br><span class="line">$&#123;DIR_SRCS&#125;</span><br><span class="line">)</span><br></pre></td></tr></table></figure>
+<blockquote>
+<ol start="6">
+<li><code>add executable file</code>，添加要编译的可执行文件</li>
+</ol>
+</blockquote>
+<p> <code>ADD_EXECUTABLE($&#123;PROJECT_NAME&#125; $&#123;TEST_MATH&#125;)</code></p>
+<blockquote>
+<ol start="7">
+<li><code>add link library</code>，添加可执行文件所需要的库，比如我们用到了<code>libm.so</code>（命名规则：<code>lib+name+.so</code>），就添加该库的名称</li>
+</ol>
+</blockquote>
+<p> <code>TARGET_LINK_LIBRARIES($&#123;PROJECT_NAME&#125; m)</code></p>
+<p> <code>CMakeLists.txt</code>主要包含以上的7个步骤，具体的意义，请阅读相应的注释。</p>
+<h2 id="gt-编译和运行程序"><a href="#gt-编译和运行程序" class="headerlink" title="&gt;编译和运行程序"></a>&gt;编译和运行程序</h2><p>准备好了以上的所有材料，接下来，就可以编译了，由于编译中出现许多中间的文件，因此最好新建一个独立的目录<code>build</code>，在该目录下进行编译，编译步骤如下所示：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">mkdir build</span><br><span class="line">cd build</span><br><span class="line">cmake ..</span><br><span class="line">make</span><br></pre></td></tr></table></figure>
+<p>操作后，在<code>build</code>下生成的目录结构如下：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br></pre></td><td class="code"><pre><span class="line">├── build</span><br><span class="line">│   ├── CMakeCache.txt</span><br><span class="line">│   ├── CMakeFiles</span><br><span class="line">│   │   ├── <span class="number">3.2</span><span class="number">.2</span></span><br><span class="line">│   │   │   ├── CMakeCCompiler.cmake</span><br><span class="line">│   │   │   ├── CMakeCXXCompiler.cmake</span><br><span class="line">│   │   │   ├── CMakeDetermineCompilerABI_C.bin</span><br><span class="line">│   │   │   ├── CMakeDetermineCompilerABI_CXX.bin</span><br><span class="line">│   │   │   ├── CMakeSystem.cmake</span><br><span class="line">│   │   │   ├── CompilerIdC</span><br><span class="line">│   │   │   │   ├── a.out</span><br><span class="line">│   │   │   │   └── CMakeCCompilerId.c</span><br><span class="line">│   │   │   └── CompilerIdCXX</span><br><span class="line">│   │   │       ├── a.out</span><br><span class="line">│   │   │       └── CMakeCXXCompilerId.cpp</span><br><span class="line">│   │   ├── cmake.check_cache</span><br><span class="line">│   │   ├── CMakeDirectoryInformation.cmake</span><br><span class="line">│   │   ├── CMakeOutput.<span class="built_in">log</span></span><br><span class="line">│   │   ├── CMakeTmp</span><br><span class="line">│   │   ├── feature_tests.bin</span><br><span class="line">│   │   ├── feature_tests.c</span><br><span class="line">│   │   ├── feature_tests.cxx</span><br><span class="line">│   │   ├── Makefile2</span><br><span class="line">│   │   ├── Makefile.cmake</span><br><span class="line">│   │   ├── progress.marks</span><br><span class="line">│   │   ├── TargetDirectories.txt</span><br><span class="line">│   │   └── test_sqrt.dir</span><br><span class="line">│   │       ├── build.make</span><br><span class="line">│   │       ├── C.includecache</span><br><span class="line">│   │       ├── cmake_clean.cmake</span><br><span class="line">│   │       ├── DependInfo.cmake</span><br><span class="line">│   │       ├── depend.internal</span><br><span class="line">│   │       ├── depend.make</span><br><span class="line">│   │       ├── flags.make</span><br><span class="line">│   │       ├── link.txt</span><br><span class="line">│   │       ├── progress.make</span><br><span class="line">│   │       └── src</span><br><span class="line">│   │           ├── b.c.o</span><br><span class="line">│   │           └── main.c.o</span><br><span class="line">│   ├── cmake_install.cmake</span><br><span class="line">│   ├── Makefile</span><br><span class="line">│   └── test_sqrt</span><br><span class="line">├── CMakeLists.txt</span><br><span class="line">├── include</span><br><span class="line">│   └── b.h</span><br><span class="line">└── src</span><br><span class="line">    ├── b.c</span><br><span class="line">    └── main.c</span><br></pre></td></tr></table></figure>
+
+<p>注意在<code>build</code>的目录下生成了一个可执行的文件<code>test_sqrt</code>,运行获取结果如下：</p>
+<p>命令：<br><code>./test_sqrt</code><br>结果：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">input a:49.000000</span><br><span class="line">sqrt result:7.000000</span><br></pre></td></tr></table></figure>
+
+<p>d.源码</p>
+<p><a href="http://files.cnblogs.com/files/cv-pr/test_sqrt.tar.gz">地址：test_sqrt.tar.gz</a></p>
+<p>3.参考资料</p>
+<p><a href="http://blog.csdn.net/u012150179/article/details/17852273">CMake 使用方法 &amp; CMakeList.txt</a></p>
+
+
+                <hr>
+
+                
+
+                <ul class="pager">
+                    
+                        <li class="previous">
+                            <a href="/2017/11/02/任玉刚-Android之道方法论/" data-toggle="tooltip" data-placement="top" title="任玉刚-Android之道方法论">&larr; Previous Post</a>
+                        </li>
+                    
+                    
+                        <li class="next">
+                            <a href="/2017/11/01/神秘的0x5f3759df-不可思议的Quake-III源码/" data-toggle="tooltip" data-placement="top" title="神秘的0x5f3759df 不可思议的Quake III源码">Next Post &rarr;</a>
+                        </li>
+                    
+                </ul>
+
+                
+
+                
+
+            </div>
+    <!-- Side Catalog Container -->
+        
+
+    <!-- Sidebar Container -->
+
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                sidebar-container">
+
+                <!-- Featured Tags -->
+                
+                <section>
+                    <!-- no hr -->
+                    <h5><a href="/tags/">FEATURED TAGS</a></h5>
+                    <div class="tags">
+                       
+                    </div>
+                </section>
+                
+
+                <!-- Friends Blog -->
+                
+                <hr>
+                <h5>FRIENDS</h5>
+                <ul class="list-inline">
+
+                    
+                        <li><a href="http://minus.wang" target="_blank">MinusWang&#39;s Diary</a></li>
+                    
+                        <li><a href="http://minus.wang" target="_blank">MinusWang</a></li>
+                    
+                        <li><a href="#" target="_blank">Foo</a></li>
+                    
+                        <li><a href="#" target="_blank">Bar</a></li>
+                    
+                        <li><a href="#" target="_blank">Example Friends</a></li>
+                    
+                        <li><a href="#" target="_blank">It helps SEO</a></li>
+                    
+                </ul>
+                
+            </div>
+
+        </div>
+    </div>
+</article>
+
+
+
+
+
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+<!-- anchor-js, Doc:http://bryanbraun.github.io/anchorjs/ -->
+<script>
+    async("https://cdn.bootcss.com/anchor-js/1.1.1/anchor.min.js",function(){
+        anchors.options = {
+          visible: 'always',
+          placement: 'right',
+          icon: '#'
+        };
+        anchors.add().remove('.intro-header h1').remove('.subheading').remove('.sidebar-container h5');
+    })
+</script>
+<style>
+    /* place left on bigger screen */
+    @media all and (min-width: 800px) {
+        .anchorjs-link{
+            position: absolute;
+            left: -0.75em;
+            font-size: 1.1em;
+            margin-top : -0.1em;
+        }
+    }
+</style>
+
+
+
+    <!-- Footer -->
+    <!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <ul class="list-inline text-center">
+                
+                
+                    <li>
+                        <a target="_blank" href="https://twitter.com/MinusWang">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+                
+                    <li>
+                        <a target="_blank" href="https://www.zhihu.com/people/MinusWang">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa  fa-stack-1x fa-inverse">知</i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+                    <li>
+                        <a target="_blank" href="http://weibo.com/MinusWang">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-weibo fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+                    <li>
+                        <a target="_blank" href="https://www.facebook.com/MinusWang">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-facebook fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+                    <li>
+                        <a target="_blank"  href="https://github.com/MinusWang">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+                    <li>
+                        <a target="_blank"  href="https://www.linkedin.com/in/MinusWang">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-linkedin fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                </ul>
+                <p class="copyright text-muted">
+				    <br>
+					<br>
+                    Copyright &copy; 2024 Minus Wang
+                </p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- jQuery -->
+
+<script src="/js/jquery.min.js"></script>
+
+
+<!-- Bootstrap Core JavaScript -->
+
+<script src="/js/bootstrap.min.js"></script>
+
+
+<!-- Custom Theme JavaScript -->
+
+<script src="/js/hux-blog.min.js"></script>
+
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+<!-- 
+     Because of the native support for backtick-style fenced code blocks 
+     right within the Markdown is landed in Github Pages, 
+     From V1.6, There is no need for Highlight.js, 
+     so Huxblog drops it officially.
+
+     - https://github.com/blog/2100-github-pages-now-faster-and-simpler-with-jekyll-3-0  
+     - https://help.github.com/articles/creating-and-highlighting-code-blocks/    
+-->
+<!--
+    <script>
+        async("http://cdn.bootcss.com/highlight.js/8.6/highlight.min.js", function(){
+            hljs.initHighlightingOnLoad();
+        })
+    </script>
+    <link href="http://cdn.bootcss.com/highlight.js/8.6/styles/github.min.css" rel="stylesheet">
+-->
+
+
+<!-- jquery.tagcloud.js -->
+<script>
+    // only load tagcloud.js in tag.html
+    if($('#tag_cloud').length !== 0){
+        async("http://minus.wang/js/jquery.tagcloud.js",function(){
+            $.fn.tagcloud.defaults = {
+                //size: {start: 1, end: 1, unit: 'em'},
+                color: {start: '#bbbbee', end: '#0085a1'},
+            };
+            $('#tag_cloud a').tagcloud();
+        })
+    }
+</script>
+
+<!--fastClick.js -->
+<script>
+    async("https://cdn.bootcss.com/fastclick/1.0.6/fastclick.min.js", function(){
+        var $nav = document.querySelector("nav");
+        if($nav) FastClick.attach($nav);
+    })
+</script>
+
+
+<!-- Google Analytics -->
+
+
+
+
+<!-- Baidu Tongji -->
+
+
+<!-- Side Catalog -->
+
+
+
+
+
+<!-- Image to hack wechat -->
+<img src="http://minus.wang/img/icon_wechat.png" width="0" height="0" />
+<!-- Migrate from head to bottom, no longer block render and still work -->
+
+</body>
+
+</html>

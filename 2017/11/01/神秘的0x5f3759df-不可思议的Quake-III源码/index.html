@@ -1,0 +1,545 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- Head tag -->
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Minus Wang - a life writer">
+    <meta name="keyword"  content="">
+    <link rel="shortcut icon" href="..//img/favicon.ico">
+
+    <title>
+        
+          神秘的0x5f3759df 不可思议的Quake III源码 - MinusWang&#39;s Diary | MinusWangの日志
+        
+    </title>
+
+    <link rel="canonical" href="http://minus.wang/2017/11/01/神秘的0x5f3759df-不可思议的Quake-III源码/">
+
+    <!-- Bootstrap Core CSS -->
+    
+<link rel="stylesheet" href="/css/bootstrap.min.css">
+
+
+    <!-- Custom CSS -->
+    
+<link rel="stylesheet" href="/css/hux-blog.min.css">
+
+
+    <!-- Pygments Highlight CSS -->
+    
+<link rel="stylesheet" href="/css/highlight.css">
+
+
+    <!-- Custom Fonts -->
+    <!-- <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css"> -->
+    <!-- Hux change font-awesome CDN to qiniu -->
+    <link href="https://cdn.staticfile.org/font-awesome/4.5.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+
+    <!-- Hux Delete, sad but pending in China
+    <link href='http://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/
+    css'>
+    -->
+
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- ga & ba script hoook -->
+    <script></script>
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+
+<!-- hack iOS CSS :active style -->
+<body ontouchstart="">
+
+    <!-- Navigation -->
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">Minus Wang</a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <!-- Known Issue, found by Hux:
+            <nav>'s height woule be hold on by its content.
+            so, when navbar scale out, the <nav> will cover tags.
+            also mask any touch event of tags, unfortunately.
+        -->
+        <div id="huxblog_navbar">
+            <div class="navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="/">Home</a>
+                    </li>
+
+                    
+
+                        
+                    
+
+                        
+                        <li>
+                            <a href="/about/">About Me</a>
+                        </li>
+                        
+                    
+
+                        
+                        <li>
+                            <a href="/tags/">Tags</a>
+                        </li>
+                        
+                    
+
+                        
+                        <li>
+                            <a href="/archives/">Archives</a>
+                        </li>
+                        
+                    
+
+                        
+                        <li>
+                            <a href="/notes/">Notes</a>
+                        </li>
+                        
+                    
+
+                        
+                        <li>
+                            <a href="/Friends/">Friends</a>
+                        </li>
+                        
+                    
+                    
+                </ul>
+            </div>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container -->
+</nav>
+<script>
+    // Drop Bootstarp low-performance Navbar
+    // Use customize navbar with high-quality material design animation
+    // in high-perf jank-free CSS3 implementation
+    var $body   = document.body;
+    var $toggle = document.querySelector('.navbar-toggle');
+    var $navbar = document.querySelector('#huxblog_navbar');
+    var $collapse = document.querySelector('.navbar-collapse');
+
+    $toggle.addEventListener('click', handleMagic)
+    function handleMagic(e){
+        if ($navbar.className.indexOf('in') > 0) {
+        // CLOSE
+            $navbar.className = " ";
+            // wait until animation end.
+            setTimeout(function(){
+                // prevent frequently toggle
+                if($navbar.className.indexOf('in') < 0) {
+                    $collapse.style.height = "0px"
+                }
+            },400)
+        }else{
+        // OPEN
+            $collapse.style.height = "auto"
+            $navbar.className += " in";
+        }
+    }
+</script>
+
+
+    <!-- Main Content -->
+    
+<!-- Image to hack wechat -->
+<!-- <img src="http://minus.wang/img/icon_wechat.png" width="0" height="0"> -->
+<!-- <img src="{{ site.baseurl }}/{% if page.header-img %}{{ page.header-img }}{% else %}{{ site.header-img }}{% endif %}" width="0" height="0"> -->
+
+<!-- Post Header -->
+<style type="text/css">
+    header.intro-header{
+        background-image: url('/img/home-bg.jpg')
+    }
+</style>
+<header class="intro-header" >
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <div class="post-heading">
+                    <div class="tags">
+                        
+                    </div>
+                    <h1>神秘的0x5f3759df 不可思议的Quake III源码</h1>
+                    <h2 class="subheading"></h2>
+                    <span class="meta">
+                        Posted by MinusWang on
+                        2017-11-01
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+<!-- Post Content -->
+<article>
+    <div class="container">
+        <div class="row">
+
+    <!-- Post Container -->
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                post-container">
+
+                <p><a href="http://www.matrix67.com/blog/archives/362">原文链接</a></p>
+<p>Quake III公开源码后，有人在<code>game/code/q_math.c</code>里发现了这样一段代码。它的作用是将一个数开平方并取倒，经测试这段代码比<code>(float)(1.0/sqrt(x))</code>快4倍：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">float</span> <span class="title function_">Q_rsqrt</span><span class="params">( <span class="type">float</span> number )</span></span><br><span class="line">&#123;</span><br><span class="line">  <span class="type">long</span> i;</span><br><span class="line">  <span class="type">float</span> x2, y;</span><br><span class="line">  <span class="type">const</span> <span class="type">float</span> threehalfs = <span class="number">1.5F</span>;</span><br><span class="line"></span><br><span class="line">  x2 = number * <span class="number">0.5F</span>;</span><br><span class="line">  y  = number;</span><br><span class="line">  i  = * ( <span class="type">long</span> * ) &amp;y;  <span class="comment">// evil floating point bit level hacking</span></span><br><span class="line">  i  = <span class="number">0x5f3759df</span> - ( i &gt;&gt; <span class="number">1</span> ); <span class="comment">// what the fuck?</span></span><br><span class="line">  y  = * ( <span class="type">float</span> * ) &amp;i;</span><br><span class="line">  y  = y * ( threehalfs - ( x2 * y * y ) ); <span class="comment">// 1st iteration</span></span><br><span class="line">  <span class="comment">// y  = y * ( threehalfs - ( x2 * y * y ) ); // 2nd iteration, this can be removed</span></span><br><span class="line"></span><br><span class="line">  <span class="meta">#<span class="keyword">ifndef</span> Q3_VM</span></span><br><span class="line">  <span class="meta">#<span class="keyword">ifdef</span> __linux__</span></span><br><span class="line">    assert( !isnan(y) ); <span class="comment">// bk010122 - FPE?</span></span><br><span class="line">  <span class="meta">#<span class="keyword">endif</span></span></span><br><span class="line">  <span class="meta">#<span class="keyword">endif</span></span></span><br><span class="line">  <span class="keyword">return</span> y;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><code>code/common/cm_trace.c</code>中也出现了这样一段解释<code>sqrt(x)</code>的函数，与上面的代码唯一不同的就是这个函数返回的是<code>number*y</code>：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">================</span></span><br><span class="line"><span class="comment">SquareRootFloat</span></span><br><span class="line"><span class="comment">================</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="type">float</span> <span class="title function_">SquareRootFloat</span><span class="params">(<span class="type">float</span> number)</span> &#123;</span><br><span class="line">    <span class="type">long</span> i;</span><br><span class="line">    <span class="type">float</span> x, y;</span><br><span class="line">    <span class="type">const</span> <span class="type">float</span> f = <span class="number">1.5F</span>;</span><br><span class="line"></span><br><span class="line">    x = number * <span class="number">0.5F</span>;</span><br><span class="line">    y  = number;</span><br><span class="line">    i  = * ( <span class="type">long</span> * ) &amp;y;</span><br><span class="line">    i  = <span class="number">0x5f3759df</span> - ( i &gt;&gt; <span class="number">1</span> );</span><br><span class="line">    y  = * ( <span class="type">float</span> * ) &amp;i;</span><br><span class="line">    y  = y * ( f - ( x * y * y ) );</span><br><span class="line">    y  = y * ( f - ( x * y * y ) );</span><br><span class="line">    <span class="keyword">return</span> number * y;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>这样的代码速度肯定飞快，我就不用多说了；但算法的原理是什么呢？其实说穿了也不是很神，程序首先猜测了一个接近<code>1/sqrt(number)</code>的值，然后两次使用牛顿迭代法进行迭代。根号<code>a</code>的倒数实际上就是方程<code>1/x^2 – a = 0</code>的一个正实根，它的导数是<code>-2/x^3</code>。运用牛顿迭代公式<code>x&#39; = x – f(x)/f&#39;(x)</code>，式子化简为<code>x&#39; = x * (1.5 – 0.5a * x^2)</code>。迭代几次后，<code>x</code>的值将趋于<code>1/sqrt(a)</code>。</p>
+<p>但这段代码真正牛B的是那个神秘的<code>0x5f3759df</code>，因为<code>0x5f3759df – (i &gt;&gt; 1)</code>出人意料地接近根号<code>y</code>的倒数。人们都不知道这个神秘的常数是怎么来的，只能把它当作神来膜拜。这个富有传奇色彩的常数到底咋回事，很少有人说得清楚。这篇论文<a href="http://www.matrix67.com/data/InvSqrt.pdf">FAST INVERSE SQUARE ROOT</a>比较科学地解释了这个常数。</p>
+<h2 id="quake3源码分析"><a href="#quake3源码分析" class="headerlink" title="quake3源码分析"></a>quake3源码分析</h2><p>quake3 游戏demo演示版，没有玩过quake3游戏的或想了解quake3画面的 ， 可到此处下载，<br><a href="http://ishare.iask.sina.com.cn/search.php?key=q3ademo&amp;from=index&amp;format=">http://ishare.iask.sina.com.cn/search.php?key=q3ademo&amp;from=index&amp;format=</a><br>这两个任意都可直接下载，点击直接下载，50M，下载极快。</p>
+<p><a href="https://github.com/barrettcolin/quake3.gpl.old">https://github.com/barrettcolin/quake3.gpl.old</a> quake3源码的一个下载地址</p>
+<p>quake3包含了渲染部分，人工智能，网络部分等</p>
+<p> 主要代码文件如下（我自己大致的分法）</p>
+<blockquote>
+<p>工具部分的代码</p>
+</blockquote>
+<p>lcc文件包是用来编译quake 代码里面的game,cgame,ui的代码，卡马克对开源的lcc进行了改写，再使用qasm来进行编译成为了qvm文件，在游戏时候调用</p>
+<p>qasm 文件夹将game.cgame.ui等等文件夹里的东西汇编为机器码，形成一个虚拟机，执行速度快，也可跨平台。 </p>
+<p>radiant生成这个地图map文件</p>
+<p>q3map场景处理部分，那是将.map文件经历bsp树分割，，pvs,光线追踪等等处理后生成bsp树这个地图</p>
+<blockquote>
+<p>引擎代码</p>
+</blockquote>
+<p>code内是雷神之锤3引擎主要的代码,</p>
+<p>我自己将之分为上层和下层，上层主要是游戏逻辑部分，下层音频，视频，渲染器，文件系统，网络系统</p>
+<p>上层主要调用下层的函数，分模块，这样有利于随意换掉任意一个渲染模块，或者任意换掉一个音频处理部分</p>
+<blockquote>
+<p>上层</p>
+</blockquote>
+<p>AAS是一种文件格式，保存的机器人行走的导航图，</p>
+<p>bspc主要生成aas地图的</p>
+<p>botlib是用于机器人部分，用于单人模式的一部分，其中包括加载BSP文件，加载模型,机器人AI部分等。</p>
+<p>q3ui是quake3的用户界面部分。  </p>
+<p>cgame 部分是用于客户端程序的逻辑部分,</p>
+<p>game 是用于服务器端的逻辑部分，分两部分，1单人时运行时的人工智能部分，模拟网络连线对战。2网络连线时，运行网络部分代码。</p>
+<blockquote>
+<p>下层 </p>
+</blockquote>
+<p> client主要键盘，有鼠标驱动的实现方式，以及键盘键值的绑定，输入输出 ，套接字以及控制台代码的使用等等</p>
+<p> sever 网络部分，一个游戏运行时1 单人时运行时仿照多人部分的服务器端 2,LAN或者Internet部分这个服务器部分实现 </p>
+<p> Render渲染器主要是 先用q3关卡编辑器quake radiant ，将编辑者在电脑上画出的关卡部分，存为.map文件，</p>
+<p>再将.map文件格式用q3map部分编译成以.bsp为后缀名的文件。  再将.bsp文件加载到内存中，</p>
+<p>用quake3 code文件夹中render部分进行渲染。根据玩家所站的的位置进行pvs选择，筛选玩家所能看到的部分进行渲染。</p>
+<p>sound加载wav部分代码，解码进行播放</p>
+<p><a href="http://blog.csdn.net/tailiangliang/article/details/6953533"> quake3（雷神之锤3） 是一个血腥暴力，疯狂发泄射击游戏！</a></p>
+<p><a href="https://github.com/barrettcolin/quake3.gpl.old/blob/master/code/game/q_math.c">quake3.gpl.old/code/game/q_math.c</a></p>
+
+
+                <hr>
+
+                
+
+                <ul class="pager">
+                    
+                        <li class="previous">
+                            <a href="/2017/11/01/CMakeLists-txt文件编译C-C-程序/" data-toggle="tooltip" data-placement="top" title="CMakeLists.txt文件编译C/C++程序">&larr; Previous Post</a>
+                        </li>
+                    
+                    
+                        <li class="next">
+                            <a href="/2017/10/27/维基百科著名程序员列表大全/" data-toggle="tooltip" data-placement="top" title="维基百科著名程序员列表大全">Next Post &rarr;</a>
+                        </li>
+                    
+                </ul>
+
+                
+
+                
+
+            </div>
+    <!-- Side Catalog Container -->
+        
+
+    <!-- Sidebar Container -->
+
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                sidebar-container">
+
+                <!-- Featured Tags -->
+                
+                <section>
+                    <!-- no hr -->
+                    <h5><a href="/tags/">FEATURED TAGS</a></h5>
+                    <div class="tags">
+                       
+                    </div>
+                </section>
+                
+
+                <!-- Friends Blog -->
+                
+                <hr>
+                <h5>FRIENDS</h5>
+                <ul class="list-inline">
+
+                    
+                        <li><a href="http://minus.wang" target="_blank">MinusWang&#39;s Diary</a></li>
+                    
+                        <li><a href="http://minus.wang" target="_blank">MinusWang</a></li>
+                    
+                        <li><a href="#" target="_blank">Foo</a></li>
+                    
+                        <li><a href="#" target="_blank">Bar</a></li>
+                    
+                        <li><a href="#" target="_blank">Example Friends</a></li>
+                    
+                        <li><a href="#" target="_blank">It helps SEO</a></li>
+                    
+                </ul>
+                
+            </div>
+
+        </div>
+    </div>
+</article>
+
+
+
+
+
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+<!-- anchor-js, Doc:http://bryanbraun.github.io/anchorjs/ -->
+<script>
+    async("https://cdn.bootcss.com/anchor-js/1.1.1/anchor.min.js",function(){
+        anchors.options = {
+          visible: 'always',
+          placement: 'right',
+          icon: '#'
+        };
+        anchors.add().remove('.intro-header h1').remove('.subheading').remove('.sidebar-container h5');
+    })
+</script>
+<style>
+    /* place left on bigger screen */
+    @media all and (min-width: 800px) {
+        .anchorjs-link{
+            position: absolute;
+            left: -0.75em;
+            font-size: 1.1em;
+            margin-top : -0.1em;
+        }
+    }
+</style>
+
+
+
+    <!-- Footer -->
+    <!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <ul class="list-inline text-center">
+                
+                
+                    <li>
+                        <a target="_blank" href="https://twitter.com/MinusWang">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+                
+                    <li>
+                        <a target="_blank" href="https://www.zhihu.com/people/MinusWang">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa  fa-stack-1x fa-inverse">知</i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+                    <li>
+                        <a target="_blank" href="http://weibo.com/MinusWang">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-weibo fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+                    <li>
+                        <a target="_blank" href="https://www.facebook.com/MinusWang">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-facebook fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+                    <li>
+                        <a target="_blank"  href="https://github.com/MinusWang">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+                    <li>
+                        <a target="_blank"  href="https://www.linkedin.com/in/MinusWang">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-linkedin fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                </ul>
+                <p class="copyright text-muted">
+				    <br>
+					<br>
+                    Copyright &copy; 2024 Minus Wang
+                </p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- jQuery -->
+
+<script src="/js/jquery.min.js"></script>
+
+
+<!-- Bootstrap Core JavaScript -->
+
+<script src="/js/bootstrap.min.js"></script>
+
+
+<!-- Custom Theme JavaScript -->
+
+<script src="/js/hux-blog.min.js"></script>
+
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+<!-- 
+     Because of the native support for backtick-style fenced code blocks 
+     right within the Markdown is landed in Github Pages, 
+     From V1.6, There is no need for Highlight.js, 
+     so Huxblog drops it officially.
+
+     - https://github.com/blog/2100-github-pages-now-faster-and-simpler-with-jekyll-3-0  
+     - https://help.github.com/articles/creating-and-highlighting-code-blocks/    
+-->
+<!--
+    <script>
+        async("http://cdn.bootcss.com/highlight.js/8.6/highlight.min.js", function(){
+            hljs.initHighlightingOnLoad();
+        })
+    </script>
+    <link href="http://cdn.bootcss.com/highlight.js/8.6/styles/github.min.css" rel="stylesheet">
+-->
+
+
+<!-- jquery.tagcloud.js -->
+<script>
+    // only load tagcloud.js in tag.html
+    if($('#tag_cloud').length !== 0){
+        async("http://minus.wang/js/jquery.tagcloud.js",function(){
+            $.fn.tagcloud.defaults = {
+                //size: {start: 1, end: 1, unit: 'em'},
+                color: {start: '#bbbbee', end: '#0085a1'},
+            };
+            $('#tag_cloud a').tagcloud();
+        })
+    }
+</script>
+
+<!--fastClick.js -->
+<script>
+    async("https://cdn.bootcss.com/fastclick/1.0.6/fastclick.min.js", function(){
+        var $nav = document.querySelector("nav");
+        if($nav) FastClick.attach($nav);
+    })
+</script>
+
+
+<!-- Google Analytics -->
+
+
+
+
+<!-- Baidu Tongji -->
+
+
+<!-- Side Catalog -->
+
+
+
+
+
+<!-- Image to hack wechat -->
+<img src="http://minus.wang/img/icon_wechat.png" width="0" height="0" />
+<!-- Migrate from head to bottom, no longer block render and still work -->
+
+</body>
+
+</html>

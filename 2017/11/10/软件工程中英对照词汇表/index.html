@@ -1,0 +1,883 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- Head tag -->
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Minus Wang - a life writer">
+    <meta name="keyword"  content="">
+    <link rel="shortcut icon" href="..//img/favicon.ico">
+
+    <title>
+        
+          软件工程中英对照词汇表 - MinusWang&#39;s Diary | MinusWangの日志
+        
+    </title>
+
+    <link rel="canonical" href="http://minus.wang/2017/11/10/软件工程中英对照词汇表/">
+
+    <!-- Bootstrap Core CSS -->
+    
+<link rel="stylesheet" href="/css/bootstrap.min.css">
+
+
+    <!-- Custom CSS -->
+    
+<link rel="stylesheet" href="/css/hux-blog.min.css">
+
+
+    <!-- Pygments Highlight CSS -->
+    
+<link rel="stylesheet" href="/css/highlight.css">
+
+
+    <!-- Custom Fonts -->
+    <!-- <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css"> -->
+    <!-- Hux change font-awesome CDN to qiniu -->
+    <link href="https://cdn.staticfile.org/font-awesome/4.5.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+
+    <!-- Hux Delete, sad but pending in China
+    <link href='http://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/
+    css'>
+    -->
+
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- ga & ba script hoook -->
+    <script></script>
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+
+<!-- hack iOS CSS :active style -->
+<body ontouchstart="">
+
+    <!-- Navigation -->
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">Minus Wang</a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <!-- Known Issue, found by Hux:
+            <nav>'s height woule be hold on by its content.
+            so, when navbar scale out, the <nav> will cover tags.
+            also mask any touch event of tags, unfortunately.
+        -->
+        <div id="huxblog_navbar">
+            <div class="navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="/">Home</a>
+                    </li>
+
+                    
+
+                        
+                    
+
+                        
+                        <li>
+                            <a href="/about/">About Me</a>
+                        </li>
+                        
+                    
+
+                        
+                        <li>
+                            <a href="/tags/">Tags</a>
+                        </li>
+                        
+                    
+
+                        
+                        <li>
+                            <a href="/archives/">Archives</a>
+                        </li>
+                        
+                    
+
+                        
+                        <li>
+                            <a href="/notes/">Notes</a>
+                        </li>
+                        
+                    
+
+                        
+                        <li>
+                            <a href="/Friends/">Friends</a>
+                        </li>
+                        
+                    
+                    
+                </ul>
+            </div>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container -->
+</nav>
+<script>
+    // Drop Bootstarp low-performance Navbar
+    // Use customize navbar with high-quality material design animation
+    // in high-perf jank-free CSS3 implementation
+    var $body   = document.body;
+    var $toggle = document.querySelector('.navbar-toggle');
+    var $navbar = document.querySelector('#huxblog_navbar');
+    var $collapse = document.querySelector('.navbar-collapse');
+
+    $toggle.addEventListener('click', handleMagic)
+    function handleMagic(e){
+        if ($navbar.className.indexOf('in') > 0) {
+        // CLOSE
+            $navbar.className = " ";
+            // wait until animation end.
+            setTimeout(function(){
+                // prevent frequently toggle
+                if($navbar.className.indexOf('in') < 0) {
+                    $collapse.style.height = "0px"
+                }
+            },400)
+        }else{
+        // OPEN
+            $collapse.style.height = "auto"
+            $navbar.className += " in";
+        }
+    }
+</script>
+
+
+    <!-- Main Content -->
+    
+<!-- Image to hack wechat -->
+<!-- <img src="http://minus.wang/img/icon_wechat.png" width="0" height="0"> -->
+<!-- <img src="{{ site.baseurl }}/{% if page.header-img %}{{ page.header-img }}{% else %}{{ site.header-img }}{% endif %}" width="0" height="0"> -->
+
+<!-- Post Header -->
+<style type="text/css">
+    header.intro-header{
+        background-image: url('/img/home-bg.jpg')
+    }
+</style>
+<header class="intro-header" >
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <div class="post-heading">
+                    <div class="tags">
+                        
+                    </div>
+                    <h1>软件工程中英对照词汇表</h1>
+                    <h2 class="subheading"></h2>
+                    <span class="meta">
+                        Posted by MinusWang on
+                        2017-11-10
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+<!-- Post Content -->
+<article>
+    <div class="container">
+        <div class="row">
+
+    <!-- Post Container -->
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                post-container">
+
+                <hr>
+<p> 软件工程中英对照词汇表</p>
+<p>A </p>
+<p>abstract class 抽象类<br>提供一组子类共有行为的类，但它本身并不具有实例。抽象类表示一个概念，从中派生的类代表对这一概念的实施。 </p>
+<p>Abstraction 抽象<br>对视图或模型的创建，其中忽略了不必要的细节，以便专注于一组特定的相关细节。 </p>
+<p>access modifier存取权限<br>对类、方法或属性进行访问控制的关键字。Java 中的存取权限可以是公有、私有、保护和包装（默认）。 </p>
+<p>accessor methods存取器方法<br>由对象提供的、用于定义连接该对象实例变量的方法。用来返回实例变量值的存取器方法被称为获取方法；用来为实例变量指定值的存取器方法被称为设置方法。 </p>
+<p>acceptance验收<br>客户接受软件产品（作为部分或完整履行合同的结果）所有权的操作。 </p>
+<p>action动作<br>对构成计算过程抽象的可执行语句的规范。动作通常会导致系统状态发生变化，这是通过向一个对象发送消息或是更改链接或属性值来实现。 </p>
+<p>action sequence动作序列<br>解析为一系列先后发生的动作的表达式。 </p>
+<p>action state动作状态<br>表示不可分动作的执行状态，通常指的是调用一个操作。 </p>
+<p>activation激活<br>动作的执行。 </p>
+<p>active class主动类<br>表示系统中控制线程的类。请参见主动对象。 </p>
+<p>activity活动<br>要求角色执行的工作单元。 </p>
+<p>active object主动对象<br>拥有线程并可发起控制活动的对象。主动类的实例。 </p>
+<p>activity graph活动图<br>状态机的特例，用于对涉及一个或多个分类器的进程建模。对比：状态图 (statechart diagram)。同义词：活动图 (activity diagram)。 </p>
+<p>actor主角<br>在系统之外与系统交互的某人或某事物。 </p>
+<p>actor class主角类<br>定义一组主角实例，其中每个主角实例相对于系统而言都担任着同样的角色。<br>在与用例交互时这些用例的用户所担任的一组紧密相关的角色。主角为每个要与其通信的用例都准备了一个角色。 </p>
+<p>actor-generalization主角泛化关系）<br>从一个主角类(后代）到另一个主角类（祖先）的主角泛化关系，表示后代将继承祖先在用例中所能担任的角色。 </p>
+<p>actual parameter实参 </p>
+<p>ad hoc review 临时评审<br>是一种非正式的评审，在这样的评审中，过程的执行者可随时请求其同事帮助发现所正在开发之构件中的问题。 </p>
+<p>Advanced Program-to-Program Communication （APPC）高级程序间通信<br>主要在 IBM 环境下使用的通信协议。 </p>
+<p>aggregate class聚合类<br>在聚合（整体与部分）关系中表示”整体”的类。请参见聚合关系。 </p>
+<p>aggregation聚合关系<br>用于在聚合（整体）及其部分之间建立整体与部分关系的一种关联。<br>一种特殊形式的关联关系，它确定了介于聚合（整体）和组成部分之间的整体与部分关系。请参见组装。 </p>
+<p>American Standard Code for Information Interchange (ASCII) 美国国家信息交换标准代码<br>美国国家信息交换标准代码。由绝大多数 PC 和 UNIX 系统使用的 8 位字符解码方案。它取代了早期的 7 位 ASCII 标准。 </p>
+<p>analysis分析<br>在软件开发过程中，主要任务在于确立问题领域的模型的流程部分。分析侧重于做什么，而设计则侧重于怎样做。请参见设计。 </p>
+<p>analysis class分析类<br>由设计元素在系统中所担任的角色的抽象，通常处于用例实现的环境之下。分析类可以提供若干个角色的抽象，表示这些角色的共有行为。分析类通常会演变为一个或多个设计元素，例如设计类和/或封装体，或者是设计子系统。 </p>
+<p>analysis &amp; design分析设计<br>软件开发的前期阶段，目的在于显示如何通过实施实现系统需求。有关分析设计活动的结果，请参见设计模型。 </p>
+<p>analysis mechanism分析机制<br>在设计过程初期，即在发现和确定关键类和子系统期间所使用的一种结构机制。通常，分析机制记录了解决方案的主要方面，其中并未考虑实施的影响。分析机制一般与问题领域无关，它是一个”计算机科学”的概念。它们为与领域相关的类或构件提供特定的行为，或者对应于类和/或构件之间协作的实施。它们也可作为框架实施。例如处理永久性、进程间通信、错误或故障处理、通知和消息传递等的机制，其他例子不胜枚举。 </p>
+<p>analysis pattern分析模式<br>表示业务建模中的共有构架的一组概念。它可能只与一个领域有关，也可能跨越多个领域。 </p>
+<p>analyst分析员<br>项目团队成员，负责获取并解释涉众需求，并将这些需要传达给整个团队。 </p>
+<p>API<br>应用程序编程接口 </p>
+<p>APPC<br>高级程序间通信 </p>
+<p>application programming interface （API）应用程序编程接口<br>使应用程序能够相互通信的软件接口。API 是一组编程语言结构或语句，可编制为程序代码以获取由基础操作系统或服务程序提供的特定功能和服务。 </p>
+<p>appraisal评估<br>审查组对所审查的产品质量的一种集体判定，包含在跟踪阶段对所要求的返工验证种类的判定。 </p>
+<p>architectural baseline 构架基线<br>处于精化阶段末期的基线，此时系统的基础结构和行为已较稳定。 </p>
+<p>architectural mechanism 构架机制<br>构架机制表示对于常见问题的通用具体解决方案。它们可以指结构模式、行为模式，也可以指这两者。在 Rational Unified Process 中，构架机制是一个涵盖分析机制、设计机制和实施机制的术语。 </p>
+<p>architectural pattern构架模式<br>构架模式表示软件系统的基本结构组织方案。它提供了一组预定义的子系统、指定它们的职责，并且包括用于组织其间关系的规则和指导。可以进一步解释如下：构架模式是一个特定范围的模式（即解决方案模板），并且也是具体软件构架的模板。它涉及整个系统范围内的特征，并且通常涉及子系统范围内（而非类级别）的关系。尽管从原则上说不是不可能以此方式使构架模式更为细化，构架模式就其本质来说似乎与应用程序领域无关（特定领域的词汇似乎与模式说明无关）。请与分析模式作比较。软件构架文档将提供在系统中使用的构架模式。 </p>
+<p>architectural view 构架视图<br>以某一特定角度看到的系统构架，注重于表示结构、模块度、核心构件和主要控制流。 </p>
+<p>architecture构架<br>系统在其所处环境中的最高层次的概念。软件系统的构架是通过接口交互的重要构件（在特定时间点）的组织或结构，这些构件又由一些更小的构件和接口组成。<br>系统的组织结构。构架可以递归解构为通过接口交互的部件、连接部件的关系以及组装部件的一些限制条件。通过接口交互的部件有类、构件和子系统。 </p>
+<p>artifact工件<br>由软件开发过程所生成或使用的文档、模型、说明或软件。同义词：产品 (product)。 </p>
+<p>artifact guidelines工件指南<br>有关如何使用特定工件的说明，包括如何创建和修订工件的说明在内。 </p>
+<p>artifact set工件集<br>体现系统一个方面的一组有关工件。由于在若干核心工作流程中都要用到一些工件，例如风险列表、软件构架文档和迭代计划。 </p>
+<p>ASCII<br>美国国家信息交换标准代码 </p>
+<p>ASP<br>活动服务器页 </p>
+<p>association关联关系<br>对多个实例间的双向语义连接进行建模的关系。<br>在两个或多个分类器（指定其实例间的连接）之间的语义关系。 </p>
+<p>association class关联类<br>同时具有关联关系和类特征的模型元素。关联类可被视作一种具有类特征的关联关系，或是一个还具有关联关系特征的类。 </p>
+<p>association end关联关系端<br>关联关系的端点，它连接关联关系和分类器。 </p>
+<p>asynchronous action异步动作<br>发送对象没有暂停来等待结果的请求。对比：同步动作 (synchronous action)。 </p>
+<p>asynchronous review异步评审<br>一种不需开会，只需评审者在不同时间独立地完成评语的同级评审。 </p>
+<p>attribute属性<br>由类定义的特征，表示类或其对象的指定特征。属性具有类型，用于定义其实例的类型。</p>
+<hr>
+<p> B</p>
+<p>base class基类<br>其他类或 Bean 要从其中派生的类。基类本身也可由其他基类派生而来。请参见抽象类。 </p>
+<p>baseline基线<br>指在特殊的节点已被同意或批准、可作为后继开发工作的基础的一份文档、一段程序或其他工件。只能通过正式程序，例如：变更管理和配置控制才能进行更改。 </p>
+<p>Bean<br>可用于构建应用程序的小构件。请参见 JavaBean。 </p>
+<p>BeanInfo<br>Bean 的伴生类，确定可访问的方法集，这些方法可以检索有关 Bean 的特征、事件和方法。 </p>
+<p>behavior行为<br>操作或事件（包括其结果在内）的可见效果。 </p>
+<p>behavioral feature行为特性<br>模型元素的动态特性，如操作或方法。 </p>
+<p>behavioral model aspect模型的行为侧重面<br>强调系统中实例行为的模型侧重面，包括其方法、协作和状态历史记录。 </p>
+<p>beta testing Beta 测试<br>预先发布的测试，目的在于让一部分抽样选取的目标用户来试用产品。 </p>
+<p>binary association二元关联关系<br>在两个类之间的关联关系。是多元关联关系的特例。 </p>
+<p>binding绑定<br>通过为模板参数提供实参来从模板创建模型元素。 </p>
+<p>boundary class边界类<br>用于在系统环境和其内部运作之间建立通信模型的类。 </p>
+<p>break point断点<br>计算机程序中执行中断的点。 </p>
+<p>build 工作版本<br>工作版本既可以是系统的可操作版本，也可以是展示要在最终产品中提供的部分功能的部分系统。 </p>
+<p>business actor 业务主角<br>在业务之外与业务交互的某人或某事。 </p>
+<p>business actor class 业务主角类<br>定义一个业务主角实例集，其中各个业务主角实例相对于业务而言都担任着相同的角色。 </p>
+<p>business creation 业务创建<br>其目标为创建一个新业务过程、新业务或新组织的业务工程。 </p>
+<p>business engineering 业务工程<br>公司用于根据特定目标来设计其业务的一组方法。业务工程方法可用于业务重建、业务改进，也可用于业务创建。 </p>
+<p>business entity 业务实体<br>表示业务角色处理或使用的”事物”的业务实体。 </p>
+<p>business improvement 业务改进<br>执行业务工程，但其中的变更工作仅限于局部而并不波及整个业务。它涉及到削减成本、缩短交付周期以及监督服务和质量。 </p>
+<p>business object model 业务对象模型<br>说明业务用例实现的对象模型。 </p>
+<p>business modeling 业务建模<br>包含您可用来对业务进行可视化建模的所有建模方法。这些是您可用于执行业务工程的方法的子集。 </p>
+<p>business process 业务过程<br>一组逻辑相关活动，目的在于使用组织资源为支持组织目标提供规定的结果。在 Rational Unified Process 中，我们使用业务用例（显示业务的预期行为）和业务用例实现（通过业务角色和业务实体来显示行为是如何实现的）来定义业务过程。另请参见过程。 </p>
+<p>business process engineering 业务过程工程<br>请参见业务工程。 </p>
+<p>business reengineering 业务重建<br>执行业务重建，其中的变更工作涉及以全面的观点来看待整个现有业务，并彻底想通为什么要这样做。您将置疑所有现存业务过程并努力通过重新构建寻找合理改进的全新方法。同一含义的其他名称还有业务过程重建 (BPR) 和过程创新。 </p>
+<p>business rule 业务规则<br>在业务之中必须满足的策略或条件的声明。 </p>
+<p>business use case 业务用例<br>定义一组业务用例实例的业务用例，其中每个实例都是业务执行的一个操作序列，将生成对特定业务主角来说”有价值的可见结果”。业务用例类包含所有与生成”有价值的可见结果”有关的主工作流程和备用工作流程。 </p>
+<p>business use-case instance 业务用例实例<br>由生成对特定对象来说有价值的可见结果的业务所执行的动作序列。 </p>
+<p>business use-case model 业务用例模型<br>业务既定功能的模型。业务用例模型被用作一种基本输入，用于确定组织的各个角色和可交付工件。 </p>
+<p>business use-case package 业务用例包<br>业务用例包是业务用例、业务主角、关系、图和其他包的集合，通过将其划分为若干个较小部分来建立业务用例模型。 </p>
+<p>business use-case realization 业务用例实现<br>业务用例实现按照协作的业务对象描述了在业务对象模型中如何实现特定业务用例的工作流程。 </p>
+<p>business worker业务角色<br>业务角色表示业务中的一个或一组角色。参与业务用例实现时，一个业务角色和其他业务角色交互并控制业务实体。</p>
+<hr>
+<p> C</p>
+<p>capsule封装体<br>一种特定的设计模式，代表系统中已封装的控制线程。封装体是一个已赋予构造型的类，该类具有一组特定的并且是必需和限定性的关联关系和特征。 </p>
+<p>cardinality基数<br>元素集内的元素数目。对比：多重性(multiplicity)。 </p>
+<p>causal analysis因果分析<br>追查问题的产生原因，并确定解决办法。 </p>
+<p>CBD<br>基于构件的开发 </p>
+<p>CCB<br>变更控制委员会 </p>
+<p>CDR<br>关键设计评审 </p>
+<p>CGI<br>公共网关接口 </p>
+<p>change control board （CCB）变更控制委员会<br>CCB 的作用是提供集中的控制机制，以确保妥当地考虑、批准和协调每个变更请求。 </p>
+<p>change management变更管理<br>控制和跟踪工件变更的活动。另请参见范围管理。 </p>
+<p>change request （CR）变更请求<br>对涉众提出的要变更工件或过程的任何请求的统称。在变更请求中记录的信息是有关当前问题、提议解决方案及其成本的起源和影响的信息。另请参阅扩展请求、缺陷。 </p>
+<p>checklist检查表 </p>
+<p>checkpoints检查点<br>某种组织良好的工件应该具有的一组条件。也可采用应作肯定回答的问答形式。 </p>
+<p>class类<br>对于一组具有共同属性、操作、方法、关系和语义的对象的描述。类可使用一组接口来指定它提供给其环境的操作集合。请参见接口。 </p>
+<p>class diagram 类图<br>显示了一组说明性（静态）模型元素的图,例如类、类型及它们的内容和关系。 </p>
+<p>class hierarchy 类分层结构<br>共享某一单继承的类之间的关系。所有 Java 类都从 Object（对象）类继承。 </p>
+<p>class library 类库<br>类的集合。 </p>
+<p>class method 类方法<br>请参见方法。 </p>
+<p>classifier 分类器<br>描述行为和结构特性的机制。分类器包括接口、类、数据类型和构件。 </p>
+<p>client客户端<br>向其他分类器请求服务的分类器。对比：提供端 (supplier)。 </p>
+<p>client/server 客户机/服务器<br>分布式数据处理中的交互模型，即某一位置的程序向另一位置的程序发出请求并等待响应。发出请求的程序称为客户程序，应答程序称为服务程序。 </p>
+<p>collaboration 协作<br>(1) 对于为在某一环境中实施某种行为而交互的对象集的说明。它说明组合在一起以达到某种目的一组合作对象。(2) 它为网络对象的消息交换中所发生的行为获取了一个更为全面的视图。(3) 协作体现了计算的三个主要基础结构的统一：即数据结构、控制流和数据流。(4) 协作具有动态和静态部分。其中的静态部分说明对象和链接在协作实例化中所担当的角色。而动态部分则由一个或多个动态交互组成，用于显示为执行计算而进行协作的整个过程中所传递的消息流。协作可以具有一组描述其动态行为的消息。(5) 带有消息的协作就是交互。 </p>
+<p>collaboration diagram协作图<br>(1) 协作图说明了对象间进行交互的模式，它通过对象之间的链接及其相互发送的消息显示了参与交互的对象。(2) 它是一个包含分类器角色和关联关系角色而不是分类器和关联关系的类图。(3) 协作图和序列图都显示了交互，但它们各有侧重。序列图明确显示了时间序列，但未明确显示对象关系。协作图明确显示了对象关系，但却必须从序列号中获取时间序列。 </p>
+<p>COM<br>构件对象模型 (Microsoft) </p>
+<p>comment注释<br>附属于一个元素或一组元素的注释说明。注释不具有语义。对比：约束 (constraint)。 </p>
+<p>commit 提交<br>结束一个工作单元的一种操作，该操作将使它对资源（事务或数据）所作的更改永久化。 </p>
+<p>Common Gateway Interface （CGI）公共网关接口<br>一种标准协议，Web 服务器通过该协议可以执行在服务器计算机上运行的程序。CGI 程序是响应来自 Web 客户机浏览器的请求而执行的。 </p>
+<p>Common Object Request Broker Architecture （CORBA）公用对象请求代理程序体系结构<br>确定提供基础结构的软件总线，即对象请求代理程序 (ORB) 的中间件说明。 </p>
+<p>communicate-association通信关联关系<br>介于主角类和用例类之间的关联关系，表示在其实例间存在交互。关联关系的方向可指明通信的发起方。 </p>
+<p>communication association通信关联关系<br>在部署图中，表示通信的节点间的关联关系。请参见部署图。 </p>
+<p>component 构件<br>系统中相当重要的、几乎是独立的可替换部分，它在明确定义的构架环境中实现确切的功能。符合并提供一组接口的物理实现的构件。<br>系统中实际存在的可更换部分，它包含了实施，符合并提供一组接口的实现。构件代表系统中的一部分物理实施，包括软件代码（源代码、二进制代码或可执行代码）或其等价物（如脚本或命令文件）。 </p>
+<p>component diagram构件图<br>显示构件之间的组织和依赖关系的图。 </p>
+<p>component model构件模型<br>构架和 API，允许开发人员确定可组合在一起创建程序的可复用代码段。VisualAge for Java 使用 JavaBean 构件模型。 </p>
+<p>component-based development (CBD）基于构件的开发<br>对由构件组装的软件密集型系统的创建和部署，以及这种构件的开发和收集。 </p>
+<p>composite aggregation组装关系<br>同义词：组装 (composition)。 </p>
+<p>composite bean 组合 Bean<br>由其他 Bean 构成的 Bean。组合 Bean 可以包含可见 Bean、不可见 Bean 或两者都包括。另请参见 Bean、不可见 Bean 和可见 Bean。 </p>
+<p>composite class 组装类<br>通过组装关系与一个或多个类相关的类。请参见组装。 </p>
+<p>composite state 组合状态<br>包含并行（正交）子状态或串行（互斥）子状态的状态。请参见子状态。 </p>
+<p>composite substate 组合子状态<br>可以和包含在同一组合子状态中的其他子状态并存的子状态。同义词：区域 (region)。请参见组合状态。 </p>
+<p>composition 组装<br>一种聚合关系关联关系，它具有很强的归属关系，而且部分与聚合关系体的生存期恰巧相同。具有不固定的多重性部件可在组装本身之后创建，但这之后就与组装同生共死，即它们将具有同样的生命周期。这样的部件也可以在组装消亡之前明确删除。组装可以是递归的。同义词：组装关系 (composite aggregation)。 </p>
+<p>concrete具体<br>配置中的实体，它满足最终使用要求，并且对于特定的引用，它可被唯一确定。 </p>
+<p>concrete class具体类<br>可以直接实例化的类。对比：抽象类 (abstract class)。 </p>
+<p>concurrency并行<br>在同一时间间隔中两个或多个活动同时发生的现象。并行可以通过交替或同时执行两个或多个线程来实现。请参见线程。 </p>
+<p>concurrent substate 并行子状态<br>可以和包含在同一组合状态中的其他子状态并存的子状态。请参见组合子状态。对比：互斥子状态 (disjoint substate)。 </p>
+<p>configuration 配置<br>(1) 一般：由其功能单元的性质、个数、主要特性所确定的系统或网络的安排，可应用于硬件或软件配置。<br>(2) 用于确定系统或系统构件的特定版本的需求、设计和实施。请参见配置管理。 </p>
+<p>configuration item 配置项<br>配置中的实体，它满足最终使用要求，并且对于特定的引用，它可被唯一确定。 </p>
+<p>configuration management 配置管理<br>一个支持过程，其目的是标识、确定项目并建立项目基线；控制这些项目的更改和发布；报告并记录这些项目和更改请求的状态；确保项目的完整性、一致性和正确性；控制存储；处理并交付这些项目。 </p>
+<p>constraint 约束<br>语义条件或限制。特定约束已在 UML 中预定义，其他可由用户定义。约束是 UML 中的三个可扩展性机制之一。请参见标注值、构造型。 </p>
+<p>construction 构建<br>软件开发过程的阶段，在该阶段中，软件从可执行构架基线前进到可准备向用户群过渡的这一点上。 </p>
+<p>constructor构造函数<br>与类同名的特殊类方法，用于构建并可能初始化和它同属一个类的对象。 </p>
+<p>container容器<br>(1) 一个实例，用于包含其他实例，并为访问内容或进行内容迭代提供操作。（例如：数组、列表和集）。(2) 用于包含其他构件的构件。 </p>
+<p>containment hierarchy容器分层结构<br>包含模型元素和其间的包含关系的名字空间分层结构。容器分层结构形成一个非循环图。 </p>
+<p>context环境<br>用于特定目的（如指定操作）的一组相关建模元素的视图。 </p>
+<p>control chart控制图<br>一种通过对某过程的单独执行情况进行观察，而表明该过程稳定性的图。 </p>
+<p>control class控制类<br>用于针对一个或多个用例的行为进行建模的类。 </p>
+<p>conversational会话式<br>一种通信模型，两个分布式的应用程序在其中以会话形式交换信息。通常一个应用程序先开始（或分配）会话，发送一些数据，然后允许其他应用程序来发送一些数据。两个应用程序交替进行会话，直到一方决定结束为止（取消分配）。会话模型是通信的同步形式。 </p>
+<p>Cookie<br>由您的 Web 浏览器根据您所访问的 Web 站点的请求所创建的小文件，浏览器将在随后访问中将该文件的内容发送给相应站点。 </p>
+<p>CORBA<br>公用对象请求代理程序体系结构 </p>
+<p>CR<br>变更请求 </p>
+<p>critical design review （CDR）关键设计评审<br>在瀑布式生命周期中，详细设计结束时进行的主要评审。 </p>
+<p>customer客户<br>生产组织之内或之外的个人或组织，要承担系统在财务方面的责任。在大型系统中，客户可能不是最终用户。他们是开发的产品及其工件的最终接受者。另请参见涉众。 </p>
+<p>cycle周期<br>软件开发的生命周期，如RUP包括：先启、精化、构建和产品化四个阶段。</p>
+<hr>
+<p> D</p>
+<p>database数据库<br>(1) 根据为一个或多个应用程序提供服务的方案存储的相关数据（带有冗余控制）的集合。(2) 存储在系统中的所有数据文件。(3) 存储在一起并由数据库管理系统管理的数据集。 </p>
+<p>database management system （DBMS）数据库管理系统<br>通过为有效访问、完整性、恢复、并行控制、隐私和安全性提供集中控制、数据独立和复杂物理结构等服务来管理数据的计算机程序。 </p>
+<p>datatype数据类型<br>缺乏标识并且操作不带有副作用的一组值的描述符。数据类型包括初始预定义类型和用户可定义类型。预定义类型包括数字、字符串和时间。用户可定义类型可包括各种枚举。 </p>
+<p>DBA<br>数据库管理员 </p>
+<p>DBCS<br>双字节字符集 </p>
+<p>DBMS<br>数据库管理系统 </p>
+<p>DCE<br>分布式计算环境 </p>
+<p>DCOM<br>分布式对象模型 (Microsoft) </p>
+<p>deadlock死锁<br>两个独立控制线程彼此阻塞，相互等待对方采取操作，这种状态称为死锁。死锁常常是由于添加了避免竞争状态的同步机制而引起的。 </p>
+<p>decision rule决策规则<br>指一组人员同意就某一议题给出集体决策的规则或技术，例如多数票决、一致通过、自发协议等。 </p>
+<p>defect缺陷<br>缺陷是已交付产品中的异常情况或瑕疵。缺陷可以是在生命周期的初期发现的遗漏和缺点，也可以是已准备测试或运行的较成熟软件中存在的故障征兆。缺陷可以是您要跟踪并解决的任何种类的问题。另请参见变更请求。 </p>
+<p>defect checklist缺陷检查表<br>某类指定的工件中常见缺陷的列表。 </p>
+<p>defect density缺陷密度<br>每一个单位数量（每页代码或每千行代码）的被评审工作产品中所发现的缺陷的数量。 </p>
+<p>defect log缺陷日志<br>见”问题日志”。 </p>
+<p>defining model定义模型<br>储存库所基于的模型。任意数量的存储库都可以具有相同的定义模型。 </p>
+<p>delegation委托<br>作为对于一个消息的响应，一个对象可以向另一对象发出消息的能力。委托可用作继承的备选方案。对比：(继承 inheritance)。 </p>
+<p>deliverable可交付工件<br>过程中生成的、要交付给客户或其他涉众的具有值、材料或其他信息的输出。 </p>
+<p>de-marshal串行化<br>为使对象可编写为字节流而对对象进行的解构。是串行化 (flatten) 和串行化 (serialize) 的同义词。 </p>
+<p>demilitarized zone （DMZ）隔离带<br>此术语目前在业界常用于描述子网，通常用于使防火墙所保护的 Web 服务器免受外部 Internet 和公司内部网络的破坏。 </p>
+<p>dependency依赖关系<br>介于两个建模元素之间的关系，其中，一个建模元素（独立元素）的变更将会影响到另一建模元素（依赖元素）。 </p>
+<p>deployment部署<br>软件工程过程的一个阶段，其目的在于确保将开发的系统顺利转交给用户。其中包括工件，如培训材料和安装步骤。 </p>
+<p>deployment diagram部署图<br>显示运行时处理节点以及在其上存活的构件、过程和对象的配置的一种图。构件是代码单元在运行时的具体表现形式。请参见构件图。 </p>
+<p>deployment unit部署单元<br>作为一个组分配到一个进程或一个处理器的一组对象或构件。分布单元可由运行时组装或聚合关系表示。 </p>
+<p>deployment view部署视图<br>一种构架视图，描述一个或多个系统配置；软件构件（任务、模块）到这些配置中的计算节点的映射。 </p>
+<p>derived element派生元素<br>可从其他元素计算得到的模型元素。尽管没有增加语义信息，但可能出于澄清的目的要显示派生元素，也可能出于设计目的要包含它。 </p>
+<p>deserialize反串行化<br>从串行化状态构建一个对象。是反串行化 (marshal) 和反串行化 (resurrect) 的同义词。 </p>
+<p>design设计<br>软件开发过程中的一个部分，其首要目的在于决定系统如何实施。在设计期间，制定战略和战术决策以便满足系统的功能和质量需求。请参见分析。 </p>
+<p>design mechanism设计机制<br>在设计过程以及完成细节设计期间中所使用的一种构架机制。它们与关联关系的分析机制有关，它们是所关联关系的分析机制的额外改进，而且它们还可以绑定一种或多种构架和设计模式。分析机制和设计机制之间在规模上不存在泾渭分明的区别，因而以下说法是可能成立的，即在分析层次上的永久性机制和在设计层次上的永久性机制是处于不同改进层次上的同一事物。设计机制假定了实施环境的一些细节，但它并不属于特定的实施（即实施机制）。例如，进程间通信的分析机制可以通过以下若干进程间通信 (IPC) 的设计机制来进一步改进：共享的内存、类似函数调用的 IPC、基于信号量的 IPC 等。每一设计机制都具有特定的优缺点，特定的设计机制是根据使用机制的对象的特征来决定的。 </p>
+<p>design model设计模型<br>描述用例实现的对象模型，用作实施模型及其源代码的抽象。 </p>
+<p>design package设计包<br>设计包是由类、关系、用例实现、图和其他包组成的集合，它可用于将设计模型分成更小的部分，通过此方式来构建设计模型。它是实施子系统的逻辑模拟。 </p>
+<p>design pattern设计模式<br>设计模式为改进软件系统的子系统、构件或其间的关系提供了方案。它描述了在特定环境中解决一般设计问题的通信构件的频繁出现的结构。<br>设计模式是中小规模的模式，其规模比构架模式较小，但通常独立于编程语言。当设计模式的范围界定之后，它将形成一部分具体的设计模型（也可能是设计机制的一部分）。设计模式所在的层次决定了它趋向于可在多个领域中应用。 </p>
+<p>design subsystem设计子系统<br>具有包（可以包含其他元素）和类（具有行为）的语义的模型元素。子系统的行为由它所包含的类或其他子系统提供。子系统实现一个或多个接口，这些接口确定子系统可以执行的行为。对比：设计包 (design package)。 </p>
+<p>developer开发人员<br>负责按照项目采用的标准和步骤开发所需功能的人员。其中可以包括在任意需求、分析设计、实施和测试工作流程中执行的活动。 </p>
+<p>development case开发案例<br>由执行组织所使用的软件工程过程。它是作为 Unified Process 产品的配置或定制来开发的，并且满足项目的需求。 </p>
+<p>development process开发过程<br>在软件开发中，为达到给定目的而执行的部分排序的一组步骤，例如构建模型或实施模型。 </p>
+<p>device设备<br>为处理器提供支持功能的一种节点。尽管可以运行嵌入式程序（驱动程序），但是它无法执行通用的应用程序，它只是为处理器提供运行通用应用程序的服务。 </p>
+<p>diagram图<br>对模型的部分或全部进行说明的图形。 </p>
+<p>disjoint substate互斥子状态<br>无法和包含在同一组合状态中的其他子状态同时保存的子状态。请参见组合状态。对比：并行子状态 (concurrent substate)。 </p>
+<p>Distributed Computing Environment （DCE）分布式计算环境<br>分布式的计算环境。计算机行业用于分布式计算的既成标准。DCE 允许不同供应商的计算机透明通信并共享资源，例如网络中的计算能力、文件、打印机和其他对象。 </p>
+<p>distributed processing分布式处理<br>分布式处理是一种应用程序或系统模式，功能和数据在其中可以跨越 LAN 或 WAN 上连接的多个资源分布。请参见客户机/服务器计算。 </p>
+<p>DLL<br>动态链接库 </p>
+<p>DMZ<br>隔离带 </p>
+<p>DNS<br>域名服务 </p>
+<p>document文档<br>文档是用于在纸张或在暗喻为纸张的介质上表示的一个信息集合。上述暗喻为纸张的介质包括概念上的纸张，但它既可具有内容的隐含序列，也可具有内容的明确序列。信息将采用文本或二维图片的形式。字处理器文档、电子表格、时间表、甘特图表或投射幻灯演示等形式都是纸介暗喻的示例。 </p>
+<p>document description文档说明<br>说明特定文档的内容。 </p>
+<p>document template文档模板<br>一个具体的工具模板，例如 Adobe? FrameMaker? 或 Microsoft? Word? 模板。 </p>
+<p>domain领域<br>以一系列有关系统为其特点的知识或活动区域。 </p>
+<p>domain model领域模型<br>领域模型记录了在领域环境中最重要的对象类型。领域对象代表存在的实体或在系统运作所在的环境中发生的事件。领域模型是业务对象模型的子集。 </p>
+<p>domain name server域名服务器<br>用于翻译域名的系统，例如将 <a href="http://www.software.ibm.com">www.software.ibm.com</a> 翻译为 Internet 协议地址，如 123.45.67.8。 </p>
+<p>double-byte character set （DBCS）双字节字符集<br>每个字符均由 2 个字节表示的字符集。例如汉语、日语、朝鲜语等语言，它们所包含的符号无法完全由 256 个代码点来表示，因而需要使用双字节字符集。可以和单字节字符集进行比较。 </p>
+<p>dynamic classification动态分类<br>泛化关系的语义变化形式，其中对象可以变更类型或角色。对比：静态分类 (static classification）。 </p>
+<p>dynamic information动态信息<br>在用户请求它时创建的信息。动态信息不时变化，因而在用户每次查看动态信息时都将见到不同的内容。 </p>
+<p>dynamic link library （DLL）动态链接库<br>属于运行时程序(而非链接时程序）的可执行代码和数据的文件。C++ Access Builder 生成 Bean 和 C++ 包装程序，以允许 Java 程序可以访问 C++ DLL。</p>
+<hr>
+<p> E</p>
+<p>随着一声『[color=#99FFCC]玉皇大帝到』，从天上掉下一滴甘露正好落在你的嘴唇上！<br>你在恍惚中看见了2两黄金。[/color]<br>e-Business电子商务<br>或者指 (1) 通过 Internet 等电子介质进行的业务交易，或者指 (2) 在其内部业务流程（经由Intranet）中、其业务关系（经由 Extranet）中，以及买卖货物、服务和信息（通过电子商务）的过程中使用 Internet 技术和网络计算的商务运作。 </p>
+<p>EJB<br>Enterprise JavaBean </p>
+<p>elaboration精化<br>软件开发过程中的阶段，产品的前景及其构架即在此阶段确定。 </p>
+<p>element元素<br>模型的不可再分的最小成份。 </p>
+<p>encapsulation封装<br>对于软件对象的内部表示的隐藏。该对象提供了查询并控制数据而无需暴露其基础结构的接口。 </p>
+<p>enclosed document附带文档<br>可由其他文档附带的文档，用于将一组文档组合为一个整体。附带文档和单个附件均可看做独立的工件。 </p>
+<p>enhancement request扩展请求<br>一种涉众请求，它说明系统的新特性或新功能。另请参见变更请求。 </p>
+<p>Enterprise JavaBean (EJB)<br>EJB 是一个不可见的、设计用于在服务器上运行并可由客户机调用的远程对象。EJB 可以从多个不可见的 JavaBean 中创建。EJB 用于在一台计算机上运行，并从其他计算机上远程调用。它们是独立于平台的。Bean 在编写之后，即可用于支持 Java 的任意客户机或服务器平台。 </p>
+<p>entity class实体类<br>用于为已由系统存储并与行为相关联的信息建模的类。一个普通类，可在众多用例中复用，并通常具有永久性特点。实体类定义了一组实体对象，这些对象参与若干用例并通常可在相应用例中存活。 </p>
+<p>entry action进入动作<br>在忽略要达到该状态所采取的转移的条件下，进入状态机中的状态时执行的动作。 </p>
+<p>error错误 </p>
+<p>ERP<br>企业资源规划 </p>
+<p>event事件<br>对于所发生的重要事情（具有时间和空间位置）进行的说明。在状态图的环境下，事件就是可以触发转移的事情。 </p>
+<p>event-to-method connection事件-方法映射<br>从 Bean 所生成的事件到 Bean 的方法的连接。当连接的事件发生之后，即执行此方法。 </p>
+<p>evolution演进<br>软件在其初始开发循环之后的生命期，在产品不断发展期间中的任何后继循环。 </p>
+<p>evolutionary演进方式<br>一种迭代式开发策略，该策略承认并未完全理解用户需要，因而对于需求的理解将在每一后继迭代（精化阶段）中不断完善。 </p>
+<p>executable architecture可执行构架<br>可执行构架是系统的部分实施，它建立用于演示选定的系统功能和特征，尤其是那些满足非功能性需求的功能和特征。该构架是在精化阶段中构建的，它用于降低与性能、吞吐量、容量、可靠性以及其他”某某性”方面有关的风险，从而可以在一个坚实的基础上，向构建阶段中添加系统的全部功能，而不必担心破坏系统。将可执行构架作为一个演进式原型来构建是 Rational Unified Process 的既定意图之一，这样做同时还带有保留有待于进一步开发（满足需求）并使之成为可交付系统的一部分的意图。 </p>
+<p>exit action退出动作<br>在忽略要达到该状态所采取的转移的条件下，退出状态机中的状态时执行的动作。 </p>
+<p>exit criteria准出条件<br>声明一个过程，如审查过程的执行已成功完成所必须满足的条件。 </p>
+<p>export导出<br>在包的环境下，使元素在其所在的名字空间之外可见。请参见可见性。 对比：导出 (export) ，导入 (import)。 </p>
+<p>expression表达式<br>对于特定类型的值求解的字符串。例如，表达式”(7 + 5 * 3)”。 </p>
+<p>extend扩展<br>从扩展用例到基础用例的关系，说明为扩展用例定义的行为如何才可插入到为基础用例定义的行为中。 </p>
+<p>extend-relationship扩展关系<br>从用例类 A 到用例类 B 的扩展关系表示 B 的实例可以包括（受到在扩展中指定的特定条件的限制）由 A 指定的行为。由单一目标用例的若干个扩展对象指定的行为可以在单一用例实例中发生。</p>
+<hr>
+<p> F</p>
+<p>facade外观<br>子系统内一个特殊的包，构造型为 “facade”，用于组织和导出子系统的客户模块所需的所有信息。该包中包括接口（该子系统所特有的一些接口）、与子系统之外接口的实现关系，以及子系统的客户模块要使用该子系统所需的所有文档资料。 </p>
+<p>factory 工厂<br>不可见的 Bean，能够动态创建指定 Bean 的新实例。 </p>
+<p>fault故障<br>一种意外情况，它导致实施模型中的构件无法完成其预期行为。故障是导致一个或多个缺陷的根本原因。 </p>
+<p>feature特性<br>一种从外部可见的服务，它由系统提供并用于直接满足涉众需要。 </p>
+<p>field字段<br>请参见属性。 </p>
+<p>file transfer protocol （FTP）文件传输协议<br>在计算机之间实现文件传输的基本 Internet 功能。借助于它可从远程主机下载文件，也可将文件从本地计算机上载到远程主机。 </p>
+<p>final state最终状态<br>一种特殊状态，表示内含的组合状态或整个状态机已完成。 </p>
+<p>fire击发<br>击发用于执行状态转移。请参见转移。 </p>
+<p>Firewall防火墙<br>具有可根据确定规则限制进出信息的相关软件的计算机或可编程设备。通常施行控制的依据是始发地址或目标地址，以及 TCP/IP 端口号。 </p>
+<p>flatten串行化<br>串行化 (de-marshal) 的同义词。 </p>
+<p>focus of control控制焦点<br>序列图上的一个符号，表示对象直接或通过附属过程执行动作的时段。 </p>
+<p>follow-up跟踪 </p>
+<p>formal review正式评审<br>一种具备下述所有或多数特征的同级评审方式：评审对象被事先定义，参与者是经过特定培训的团队，由一个训练有素的评审组长领导，定义参与者各自的角色和责任，有一个文档化的评审程序，结果向管理层报告，详细描述准入和准出条件，跟踪所有的缺陷直至其关闭，以及记录过程和质量数据。例如审查、小组评审。 </p>
+<p>formal parameter形参<br>同义词：参数 (parameter)。 </p>
+<p>framework框架<br>微型构架，可为特定领域内的应用程序提供可扩展的模板。 </p>
+<p>FTP<br>文件传输协议 </p>
+<p>FURPS<br>功能性、使用性、可靠性、性能和可支持性。该缩写词代表评估产品质量所使用的类别。</p>
+<hr>
+<p> G AND H</p>
+<p>gateway网关<br>连接以不同语言进行通信的网络的主机；例如：网关可将公司的 LAN 连接到 Internet。 </p>
+<p>generalizable element可泛化元素<br>可参与泛化关系的模型元素。请参见泛化关系。 </p>
+<p>generalization泛化关系<br>较为一般的元素与较为特殊的元素之间的一种分类关系。较为特殊的元素除与较为一般的元素完全一致外，还包含其他信息。凡是可以使用较为一般元素的地方，较为特殊的元素的实例都适用。请参见继承。 </p>
+<p>generation代<br>周期结束时的最终发布版。 </p>
+<p>graphical user interface （GUI）图形用户界面<br>一类界面，用户使用它可控制图形化的功能（而不是输入命令）来与程序进行通信。通常，GUI 是图形、定位设备、菜单栏和其他菜单、重叠窗口以及图标的组合。 </p>
+<p>green-field development零起点开发<br>“从无到有”的开发，相对于”现有系统的演进”或”遗留系统重建”。该词源自于在杂草丛生的处女地上建立新工厂时所发生的转变。 </p>
+<p>guard condition警戒条件<br>要击发关联关系的转移而必须满足的条件。 </p>
+<p>GUI<br>图形用户界面 </p>
+<p>home page主页<br>请参见起始页。 </p>
+<p>HTML<br>超文本标记语言 </p>
+<p>HTML browser HTML 浏览器<br>请参见 Web 浏览器。 </p>
+<p>HTTP<br>超文本传输协议 </p>
+<p>HTTP request HTTP 请求<br>通过 Web 浏览器发出的事务，它遵循 HTTP。服务器通常以 HTML 数据响应，但也可以发送其他类型的对象。 </p>
+<p>hyperlinks超链接<br>Web 页上的区域，点击后即可连接到该页的其他区域或其他 Web 页。 </p>
+<p>hypertext超文本<br>具有指向其他文本的隐藏链接的文档中的文本。使用鼠标单击超文本词语即可转至相应链接指向的文本。在 Windows 帮助程序和 CD 百科全书中使用超文本，可跳转到位于同一文档的其他位置上的有关参考信息。超文本的最奇妙之处还是在于：它能够通过 HTTP 链接 Web 上的任何 Web 文档。当然，要在 Web 上四处遨游还需单击鼠标。 </p>
+<p>hypertext markup language （HTML）超文本标记语言<br>用于构建万维网上的超文本文档的基本语言。它在基本的、纯 ASCII 文本文档中使用。但一经 Netscape 之类的 Web 浏览器解释（称为呈现），该文档即可显示格式化的文本、颜色、各种字体、图形图像、特殊效果、链接到 Internet 其他位置的超文本跳转，以及信息表格。</p>
+<hr>
+<p> I AND J</p>
+<p>IT<br>信息技术 </p>
+<p>IDE<br>集成开发环境 </p>
+<p>Idiom代码模式<br>代码模式是一种编程语言专用的低级模式。代码模式说明如何利用给定语言的特性来实施构件的某些特定方面或实施构件之间的关系，亦称作实施模式。例如采用 UML 表示的具体设计，并要在 Java 中实施它，则可能需要重现 UML 语言的实施模式。因而在设计和实施中都将使用代码模式。 </p>
+<p>IEEE<br>电气及电子工程师协会 </p>
+<p>IIOP<br>Internet ORB 间协议 </p>
+<p>IMAP4<br>因特网报文访问协议第 4 版 </p>
+<p>implementation实施<br>软件工程过程中的一个活动，包括编码和测试。 </p>
+<p>implementation inheritance实施继承<br>较为特殊的元素的实施的继承。包括对接口的继承。对比：接口继承 (interface inheritance）。 </p>
+<p>implementation mechanism实施机制<br>实施过程中使用的构架机制。实施机制是对设计机制的改进，这种机制指定确切的机制实施模式，而且在其构建过程中很可能运用多种实施模式（代码模式）。再次重申，设计机制与实施机制在规模上不一定存在差异。 </p>
+<p>例如，对进程间通信分析机制的特定实施即是利用特定操作系统的共享内存函数调用的共享内存设计机制。并行冲突（不适当地对共享内存进行同时访问）可使用依赖其他实施机制的信标或闩锁机制来避免。 </p>
+<p>implementation model实施模型<br>实施模型是构件与包含这些构件的实施子系统的集合。 </p>
+<p>implementation pattern实施模式<br>请参见代码模式。 </p>
+<p>implementation subsystem实施子系统<br>构件和其他实施子系统的集合，通过细分实施模型对其进行构建。请注意：在 RUP 中，实施模型和实施子系统是实施视图中的目标，因此在开发阶段意义重大。它是设计包的物理模拟。”实施子系统”这个名称反映了”子系统”这一术语的通常用法，即指比构件范围更大的对象。但是，在 UML 术语中，赋予它的构造型是包，而不是子系统。 </p>
+<p>implementation view实施视图<br>一种构架视图，它就打包和分层以及配置管理（所有权、发布策略等）等方面对开发环境中静态软件元素（代码、数据和其他补充工件）的组织进行说明。在 Unified Process 中，实施视图是和实施模型有关的视图。 </p>
+<p>import导入<br>在包的环境中的一种依赖关系，表明那些其类可以在特定包（包含以递归方式嵌入到其中的包）中引用的包。对比：导出。 </p>
+<p>import-dependency导入依赖关系<br>设计中的一种赋予构造型的依赖关系，以某一设计包为源，以另一设计包为目标。导入依赖关系允许目标包的公共内容可由源包引用。 </p>
+<p>inception先启<br>软件开发的一个阶段。在此阶段中，上一代的基本构想（方案征求）已至少在内部得到拨款，准备工作就绪，可以进入精化阶段。 </p>
+<p>include包含<br>从基本用例到包含用例的关系，指定如何将为包含用例定义的行为插入到为基本用例定义的行为中。 </p>
+<p>include-relationship包含关系<br>包含关系是从基本用例到包含用例的关系，它指定如何采用显式方式，将为包含用例定义的行为插入到为基本用例定义的行为中。 </p>
+<p>increment增量<br>在后续迭代结束后，两个发布版之间存在的差异（差值）。 </p>
+<p>incremental递增<br>一种符合迭代式开发策略的构建方式，采用此方式构建系统时，将在每次迭代过程中逐渐增加更多的功能。 </p>
+<p>informal review非正式评审<br>一种缺乏正式评审的多项特征的同级评审方式。例如临时评审、同级检查，以及轮查等。 </p>
+<p>inheritance继承<br>实现泛化关系的机制，也是从单个类片段中提炼出完整类说明所采用的机制。请参见泛化关系。 </p>
+<p>injection rate缺陷率<br>一个工作产品在其开发过程中创建的每单元规模内（每页代码或每千行代码）的缺陷数量。 </p>
+<p>input输入<br>流程所使用的工件。请参见静态工件。 </p>
+<p>inspection审查<br>一种正式的评审方法，此方法规定一些工件（模型、文档、软件）由创始人之外的个人或小组审核，旨在检测故障、找出违反开发标准的情况以及其他问题。 </p>
+<p>inspection effectiveness审查有效性<br>由审查所发现的一个工作产品的缺陷占该工作产品固有的缺陷的百分比。 </p>
+<p>inspection efficiency审查效率<br>每个审查人工小时所发现的平均缺陷数量。 </p>
+<p>inspection package审查包<br>由工作产品的作者和评审组长在审查会之前分发给审查人员的一组材料，包括被审查的工作产品及定义其规格要求的文档、标准、必要的表单、检查表或规则集，以及测试文档等。 </p>
+<p>inspection summary report审查总结报告<br>一份关于被审查的工作产品描述、审查参与人员及其角色分配、对该工作产品的评价及关于审查持续时间、所耗费成本数据的总结报告。 </p>
+<p>inspector审查者<br>在一个审查过程中担当检查工作产品缺陷的人。他（她）可能还担当诸如读者、记录者或评审组长等指定的角色。工作产品的作者也是一个审查者。 </p>
+<p>issue问题<br>在开发过程中提出的尚未确定为缺陷的事项，如疑问、需澄清的注意点等。 </p>
+<p>issue log问题日志<br>所发现的可能缺陷及其改进建议、其他问题的列表 </p>
+<p>instance实例<br>满足类或类型说明的单个实体。请参见对象。 </p>
+<p>integrated development environment （IDE）集成开发环境<br>包含编辑器、编译器和调试器的软件程序。 </p>
+<p>integration集成<br>将单独的软件构件组装为可执行的整体系统的软件开发活动。 </p>
+<p>integration build plan集成构建计划<br>定义在特定的迭代中实施和集成构件所要采用的顺序。附带在迭代计划中。 </p>
+<p>interaction交互<br>交互说明如何在实例间发送激励来执行特定任务。交互是在协作环境中定义的。请参见协作。 </p>
+<p>interaction diagram交互图<br>用于强调对象交互的若干种图的统称。这些图包括：协作图、序列图和活动图。 </p>
+<p>interface接口/界面<br>用于指定类或构件服务的操作的集合。 </p>
+<p>interface inheritance接口继承<br>对较为特殊的元素的接口的继承。不包含对实施的继承。对比：实施继承。 </p>
+<p>internal transition内部转移<br>表示响应事件但并未改变对象状态的转移。 </p>
+<p>Internet互联网<br>使用 TCP/IP 协议的众多互连网络的集合，演变自二十世纪六十年代末、七十年代初的 ARPANET。 </p>
+<p>Internet Inter-ORB Protocol（IIOP）Internet ORB 间协议<br>业界标准协议，定义如何通过 TCP/IP 网络交换通用 ORB 间协议 (GIOP) 消息。IIOP 使得 Internet 本身即可用作骨干 ORB，其他 ORB 可借此进行连接。 </p>
+<p>Internet Protocol（IP）Internet 协议<br>提供基本 Internet 功能的协议。 </p>
+<p>Internet protocol address Internet 协议地址<br>一个数字地址，可唯一标识每台连接网络的计算机。例如，123.45.67.8。 </p>
+<p>Intranet内部网<br>公司或组织内部的专用网络，使用与公用 Internet 相同种类的软件，不过只供内部使用。随着 Internet 的日益普及，专用网中使用了许多 Internet 上使用的工具。例如，许多公司的 Web 服务器只供内部员工使用。 </p>
+<p>IP<br>Internet 协议<br>IP number IP 号码<br>以唯一号码表示的 Internet 地址，由四段组成，各段间以圆点（有时称为点分四元组）分隔，例如：198.204.112.1。每台 Internet 计算机都有一个 IP 号码，而且多数计算机还具备一个或多个作为点分四元组映射的域名。 </p>
+<p>IPSec<br>IP 安全协议 </p>
+<p>IP Security Protocol（IPSec）IP 安全协议<br>提供网络层上的加密安全服务。 </p>
+<p>ISAPI<br>Internet 服务器 API </p>
+<p>ISO<br>国际标准化组织。 </p>
+<p>ISP<br>因特网服务提供商 </p>
+<p>iteration迭代<br>带有已建立基线的计划和评估准则的独特活动序列，迭代生成发布版（内部或外部）。 </p>
+<p>JAR<br>Java 档案文件 </p>
+<p>Java<br>Java 是由 Sun Microsystems 开发的一种新的编程语言。 </p>
+<p>Java archive（JAR）Java 档案文件<br>独立于平台的、可将多个文件归为一组的文件格式。JAR 文件用于压缩、缩短下载时间和确保安全性。JAR 格式是以 Java 编写的，因而 JAR 文件可完全扩展。 </p>
+<p>Java Database Connectivity （JDBC）Java 数据库连接<br>JDK 1.1 中的规约，它定义了使程序能够访问符合该标准的数据库的 API。 </p>
+<p>Java Development Kit（JDK）Java 开发工具包 </p>
+<p>Java Foundation Classes（JFC）Java 基础类<br>JFC 由 Netscape、Sun 和 IBM 共同开发，是有助于开发 Java 应用程序接口的构建块。借助于 JFC，Java 应用程序得以更全面地与现有操作系统进行交互。 </p>
+<p>JavaBean<br>JavaBean 是一种构件，它可与其他单独开发的 Bean 一同集成到应用程序中。这一应用程序可在浏览器内独立使用，还可用作 ActiveX 构件。对单个进程而言，JavaBean 应在本地运行，而且通常在运行时可见。 </p>
+<p>JDBC<br>Java 数据库连接 </p>
+<p>JDK<br>Java 开发工具包 </p>
+<p>JFC<br>Java 基础类 </p>
+<p>JIT<br>刚好、及时 </p>
+<p>JVM<br>Java 虚拟机</p>
+<hr>
+<p> K AND L</p>
+<p>随着一声『[color=#00FF00]财神爷爷到』，从天上掉下一滴甘露正好落在你的嘴唇上！<br>你在恍惚中看见了3两黄金。[/color]<br>K </p>
+<p>key mechanism关键机制<br>对如何根据系统元素间的交互模式实现构架模式的说明。 详见软件构架文档。 </p>
+<p>keyword关键字<br>为 Java 保留的预定义字，例如：return，此类字不能用作标识符。 </p>
+<p>L </p>
+<p>LAN<br>局域网 </p>
+<p>layer层<br>对模型中同一抽象层次上的包进行分组的一种特定方式。层是对构架的横向划分，而分区是对构架的纵向划分。对比：分区( partition)。 </p>
+<p>LDAP<br>轻量目录存取协议 </p>
+<p>link链接<br>对象元组之间的语义连接。关联关系的一个实例。请参见关联关系。 </p>
+<p>link end链接端<br>关联关系端的一个实例。请参见关联关系端。 </p>
+<p>listener监听程序<br>JDK 1.1 中接收并处理事件的一个类。 </p>
+<p>Local Area Network (LAN）局域网，<br>位于限定地理区域范围内的用户组织或机构处的计算机网络。LAN 通常由一台或多台服务器组成，可向多台客户机工作站提供服务。 </p>
+<p>logical view逻辑视图<br>用于对系统设计中的主要类进行说明的构架视图，包含：与业务相关的关键类，以及定义关键行为和结构机制（永久性、通信、容错、用户界面）的类。在 Unified Process 中，逻辑视图是设计模型的视图。</p>
+<hr>
+<p> M</p>
+<p>major defect主要缺陷<br>一个工作产品中所存在的那些严重影响产品功能的正确表现、且若在产品开发周期的后期发现将可能比在产品开发前期发现更加难以改正的故障。 </p>
+<p>management管理<br>软件工程过程中的核心支持工作流程，其目的在于计划和管理开发项目。 </p>
+<p>marshal反串行化<br>反串行化 (deserialize) 的同义词。 </p>
+<p>measurement dysfunction 测量混乱<br>由于人们改变了他们的行为以便使得对某过程的测量给出一些人们喜好或避免受到惩处的结果，使得对该过程的测量出现一种不期望的结果的情形。 </p>
+<p>mechanism机制<br>机制是模式的一个实例。要成为特定模型中的协作，机制还需进一步的改进。因而可将机制看作是在单一环境中针对重复出现问题的一种特定解决方案。可以说机制与模式是相适应或相符的。任何协作均可称作机制，但该术语常指能够解决软件应用中频繁出现问题的那些协作。例如，为处理永久性问题以及可应用模式提供解决方案的协作。在分析设计中，可以将机制的概念用作”占位符”。举例来说，如果已确定需要永久性，分析员和设计员就可以说将要使用永久性机制，这样就可使问题得到系统且一致的解决。 </p>
+<p>message消息<br>实例间进行信息传递的规约，并具有引起相应活动的期望。消息中可指定发出信号或调用操作。 </p>
+<p>messaging消息传递<br>分布式应用程序借以相互传送消息进行通信所用的通信模型。消息通常是一个较短的信息包，它不一定需要答复。消息传递使用的是异步通信方法。消息也可是类中的一段 Java 代码，它可以被激活并传递用于执行特定任务的一组参数。 </p>
+<p>metaclass元类<br>实例均为类的一个类。元类通常用于构建元模型。 </p>
+<p>meta-metamodel元-元模型<br>定义表示元模型所用语言的模型。元-元模型与元模型之间的关系类似于元模型与模型之间的关系。 </p>
+<p>metamodel元模型<br>对表述模型的语言进行定义的模型。 </p>
+<p>metaobject元对象<br>元建模语言中所有元实体的统称。例如，元类型、元类、元属性以及元关联关系。 </p>
+<p>method方法<br>(1) 经常用来完成某项任务的系统化方式；完成任务或实现目标所遵循的详尽的、组织有序的计划或步骤。(2) 操作的实施。它指定与操作相关联的算法或过程。 </p>
+<p>method call方法调用<br>消息 (message)的同义词。 </p>
+<p>metric度量<br>对软件构件或过程的某一属性所给出的量化值，它由一个或多个直接测量的数据项提取。例如缺陷密度以及准备速度等。 </p>
+<p>MIB<br>管理信息库 </p>
+<p>milestone里程碑<br>迭代正式结束的时间点；与发布时间点相对应。 </p>
+<p>MIME<br>多用 Internet 邮件扩展 </p>
+<p>minor defect次要缺陷<br>一个工作产品中所存在的那些不会对使用者产生严重的结果，且若在产品开发周期的后期发现将不会比在产品开发前期发现更加难以改正的故障。 </p>
+<p>model 模型<br>以完整的语义表示系统的抽象概念。在 Unified Process 中，表示从特定角度对系统作出的完整说明（这里的”完整”是指从该角度理解系统时无需补充其他信息）；一组模型元素。两个模型不能重叠。请参见系统。 </p>
+<p>model aspect模型侧重面<br>建模的某一方面，用于强调元模型的某些特性。例如：模型的结构侧重面强调的是元模型的结构特性。 </p>
+<p>model elaboration模型精化<br>从已发布的模型生成储存库类型的过程。在此过程中要生成接口和实施方案，以便根据已精化的模型对储存库进行实例化和填充。 </p>
+<p>model element模型元素<br>模型元素用于表示从正在建模的系统中提取的抽象概念。对比：视图元素 (view element)。 </p>
+<p>Model View Controller (MVC）模型视图控制器，<br>用于分解应用程序构件的应用程序构架： 模型代表业务逻辑或数据；视图代表用户界面；控制器用于管理用户输入，或者在某些情况下管理应用程序流。 </p>
+<p>modeling conventions建模约定<br>表述概念的方式，以及项目团队管理层已决定对建模语言施加的限制。这些限制即指一些声明，如：”不要在子系统之间使用继承”；”不要在用例模型中使用扩展或包含关联关系”；”不要在 C++ 中使用友元构造”。建模约定在软件构架文档中提供。 </p>
+<p>moderator评审组长<br>领导审查或其他正式评审活动的人，也称作评审领导。他（她）负责同作者一起计划该活动，制定进度、布置会议，从其领导的审查活动中收集和报告测量数据，并且可能参与验证作者的返工结果。作者不应充当该角色。 </p>
+<p>module模块<br>软件的存储和操作单元。模块包括源代码模块、二进制代码模块和可执行代码模块。请参见构件。 </p>
+<p>MOM<br>面向消息的中间件 </p>
+<p>multiple classification多重分类<br>泛化关系的一种语义变化形式，其中一个对象可以直接属于多个类。请参见动态分类。 </p>
+<p>multiple inheritance多重继承<br>泛化关系的一种语义变化形式，其中一个类型可以具有多个超类型。对比：单继承 (single inheritance)。 </p>
+<p>multiplicity多重性<br>用于指定某个集可能采用的可允许基数范围。可以为关联关系角色、组合部件、重复以及其他目的指定多重性。多重性基本上是非负整数的子集（可能是无穷子集）。对比：基数 (cardinality)。 </p>
+<p>Multipurpose Internet Mail Extension （MIME）多用 Internet 邮件扩展<br>支持文本、图像、音频和视频的邮件所遵循的 Internet 标准。 </p>
+<p>multi-valued多值<br>定义了多重性的模型元素，其 Multiplicity Type:: upper 属性被设为大于 1 的数值。”多值”一词在任何时候都与属性、参数等具有的值个数无关。对比：单值 (single-valued)。 </p>
+<p>mutator methods存取器方法<br>对象提供来定义其实例变量接口的方法。用于返回实例变量值的存取器方法称为获取方法；用于为实例变量赋值的存取器方法称为设置方法。 </p>
+<p>MVC<br>模型视图控制器 </p>
+<p>MVS<br>多重虚拟存储器</p>
+
+
+                <hr>
+
+                
+
+                <ul class="pager">
+                    
+                        <li class="previous">
+                            <a href="/2017/11/15/转载-MD5算法原理/" data-toggle="tooltip" data-placement="top" title="转载-MD5算法原理">&larr; Previous Post</a>
+                        </li>
+                    
+                    
+                        <li class="next">
+                            <a href="/2017/11/10/一个Quicksort究竟可以写到多么短/" data-toggle="tooltip" data-placement="top" title="一个Quicksort究竟可以写到多么短">Next Post &rarr;</a>
+                        </li>
+                    
+                </ul>
+
+                
+
+                
+
+            </div>
+    <!-- Side Catalog Container -->
+        
+
+    <!-- Sidebar Container -->
+
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                sidebar-container">
+
+                <!-- Featured Tags -->
+                
+                <section>
+                    <!-- no hr -->
+                    <h5><a href="/tags/">FEATURED TAGS</a></h5>
+                    <div class="tags">
+                       
+                    </div>
+                </section>
+                
+
+                <!-- Friends Blog -->
+                
+                <hr>
+                <h5>FRIENDS</h5>
+                <ul class="list-inline">
+
+                    
+                        <li><a href="http://minus.wang" target="_blank">MinusWang&#39;s Diary</a></li>
+                    
+                        <li><a href="http://minus.wang" target="_blank">MinusWang</a></li>
+                    
+                        <li><a href="#" target="_blank">Foo</a></li>
+                    
+                        <li><a href="#" target="_blank">Bar</a></li>
+                    
+                        <li><a href="#" target="_blank">Example Friends</a></li>
+                    
+                        <li><a href="#" target="_blank">It helps SEO</a></li>
+                    
+                </ul>
+                
+            </div>
+
+        </div>
+    </div>
+</article>
+
+
+
+
+
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+<!-- anchor-js, Doc:http://bryanbraun.github.io/anchorjs/ -->
+<script>
+    async("https://cdn.bootcss.com/anchor-js/1.1.1/anchor.min.js",function(){
+        anchors.options = {
+          visible: 'always',
+          placement: 'right',
+          icon: '#'
+        };
+        anchors.add().remove('.intro-header h1').remove('.subheading').remove('.sidebar-container h5');
+    })
+</script>
+<style>
+    /* place left on bigger screen */
+    @media all and (min-width: 800px) {
+        .anchorjs-link{
+            position: absolute;
+            left: -0.75em;
+            font-size: 1.1em;
+            margin-top : -0.1em;
+        }
+    }
+</style>
+
+
+
+    <!-- Footer -->
+    <!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <ul class="list-inline text-center">
+                
+                
+                    <li>
+                        <a target="_blank" href="https://twitter.com/MinusWang">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+                
+                    <li>
+                        <a target="_blank" href="https://www.zhihu.com/people/MinusWang">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa  fa-stack-1x fa-inverse">知</i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+                    <li>
+                        <a target="_blank" href="http://weibo.com/MinusWang">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-weibo fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+                    <li>
+                        <a target="_blank" href="https://www.facebook.com/MinusWang">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-facebook fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+                    <li>
+                        <a target="_blank"  href="https://github.com/MinusWang">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+                    <li>
+                        <a target="_blank"  href="https://www.linkedin.com/in/MinusWang">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-linkedin fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                </ul>
+                <p class="copyright text-muted">
+				    <br>
+					<br>
+                    Copyright &copy; 2024 Minus Wang
+                </p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- jQuery -->
+
+<script src="/js/jquery.min.js"></script>
+
+
+<!-- Bootstrap Core JavaScript -->
+
+<script src="/js/bootstrap.min.js"></script>
+
+
+<!-- Custom Theme JavaScript -->
+
+<script src="/js/hux-blog.min.js"></script>
+
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+<!-- 
+     Because of the native support for backtick-style fenced code blocks 
+     right within the Markdown is landed in Github Pages, 
+     From V1.6, There is no need for Highlight.js, 
+     so Huxblog drops it officially.
+
+     - https://github.com/blog/2100-github-pages-now-faster-and-simpler-with-jekyll-3-0  
+     - https://help.github.com/articles/creating-and-highlighting-code-blocks/    
+-->
+<!--
+    <script>
+        async("http://cdn.bootcss.com/highlight.js/8.6/highlight.min.js", function(){
+            hljs.initHighlightingOnLoad();
+        })
+    </script>
+    <link href="http://cdn.bootcss.com/highlight.js/8.6/styles/github.min.css" rel="stylesheet">
+-->
+
+
+<!-- jquery.tagcloud.js -->
+<script>
+    // only load tagcloud.js in tag.html
+    if($('#tag_cloud').length !== 0){
+        async("http://minus.wang/js/jquery.tagcloud.js",function(){
+            $.fn.tagcloud.defaults = {
+                //size: {start: 1, end: 1, unit: 'em'},
+                color: {start: '#bbbbee', end: '#0085a1'},
+            };
+            $('#tag_cloud a').tagcloud();
+        })
+    }
+</script>
+
+<!--fastClick.js -->
+<script>
+    async("https://cdn.bootcss.com/fastclick/1.0.6/fastclick.min.js", function(){
+        var $nav = document.querySelector("nav");
+        if($nav) FastClick.attach($nav);
+    })
+</script>
+
+
+<!-- Google Analytics -->
+
+
+
+
+<!-- Baidu Tongji -->
+
+
+<!-- Side Catalog -->
+
+
+
+
+
+<!-- Image to hack wechat -->
+<img src="http://minus.wang/img/icon_wechat.png" width="0" height="0" />
+<!-- Migrate from head to bottom, no longer block render and still work -->
+
+</body>
+
+</html>

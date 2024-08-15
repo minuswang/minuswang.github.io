@@ -1,0 +1,592 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- Head tag -->
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Minus Wang - a life writer">
+    <meta name="keyword"  content="">
+    <link rel="shortcut icon" href="..//img/favicon.ico">
+
+    <title>
+        
+          Android.mk学习笔记 - MinusWang&#39;s Diary | MinusWangの日志
+        
+    </title>
+
+    <link rel="canonical" href="http://minus.wang/2019/08/06/Android-mk学习笔记/">
+
+    <!-- Bootstrap Core CSS -->
+    
+<link rel="stylesheet" href="/css/bootstrap.min.css">
+
+
+    <!-- Custom CSS -->
+    
+<link rel="stylesheet" href="/css/hux-blog.min.css">
+
+
+    <!-- Pygments Highlight CSS -->
+    
+<link rel="stylesheet" href="/css/highlight.css">
+
+
+    <!-- Custom Fonts -->
+    <!-- <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css"> -->
+    <!-- Hux change font-awesome CDN to qiniu -->
+    <link href="https://cdn.staticfile.org/font-awesome/4.5.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+
+    <!-- Hux Delete, sad but pending in China
+    <link href='http://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/
+    css'>
+    -->
+
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- ga & ba script hoook -->
+    <script></script>
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+
+<!-- hack iOS CSS :active style -->
+<body ontouchstart="">
+
+    <!-- Navigation -->
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">Minus Wang</a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <!-- Known Issue, found by Hux:
+            <nav>'s height woule be hold on by its content.
+            so, when navbar scale out, the <nav> will cover tags.
+            also mask any touch event of tags, unfortunately.
+        -->
+        <div id="huxblog_navbar">
+            <div class="navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="/">Home</a>
+                    </li>
+
+                    
+
+                        
+                    
+
+                        
+                        <li>
+                            <a href="/about/">About Me</a>
+                        </li>
+                        
+                    
+
+                        
+                        <li>
+                            <a href="/tags/">Tags</a>
+                        </li>
+                        
+                    
+
+                        
+                        <li>
+                            <a href="/archives/">Archives</a>
+                        </li>
+                        
+                    
+
+                        
+                        <li>
+                            <a href="/notes/">Notes</a>
+                        </li>
+                        
+                    
+
+                        
+                        <li>
+                            <a href="/Friends/">Friends</a>
+                        </li>
+                        
+                    
+                    
+                </ul>
+            </div>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container -->
+</nav>
+<script>
+    // Drop Bootstarp low-performance Navbar
+    // Use customize navbar with high-quality material design animation
+    // in high-perf jank-free CSS3 implementation
+    var $body   = document.body;
+    var $toggle = document.querySelector('.navbar-toggle');
+    var $navbar = document.querySelector('#huxblog_navbar');
+    var $collapse = document.querySelector('.navbar-collapse');
+
+    $toggle.addEventListener('click', handleMagic)
+    function handleMagic(e){
+        if ($navbar.className.indexOf('in') > 0) {
+        // CLOSE
+            $navbar.className = " ";
+            // wait until animation end.
+            setTimeout(function(){
+                // prevent frequently toggle
+                if($navbar.className.indexOf('in') < 0) {
+                    $collapse.style.height = "0px"
+                }
+            },400)
+        }else{
+        // OPEN
+            $collapse.style.height = "auto"
+            $navbar.className += " in";
+        }
+    }
+</script>
+
+
+    <!-- Main Content -->
+    
+<!-- Image to hack wechat -->
+<!-- <img src="http://minus.wang/img/icon_wechat.png" width="0" height="0"> -->
+<!-- <img src="{{ site.baseurl }}/{% if page.header-img %}{{ page.header-img }}{% else %}{{ site.header-img }}{% endif %}" width="0" height="0"> -->
+
+<!-- Post Header -->
+<style type="text/css">
+    header.intro-header{
+        background-image: url('/img/home-bg.jpg')
+    }
+</style>
+<header class="intro-header" >
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <div class="post-heading">
+                    <div class="tags">
+                        
+                    </div>
+                    <h1>Android.mk学习笔记</h1>
+                    <h2 class="subheading"></h2>
+                    <span class="meta">
+                        Posted by MinusWang on
+                        2019-08-06
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+<!-- Post Content -->
+<article>
+    <div class="container">
+        <div class="row">
+
+    <!-- Post Container -->
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                post-container">
+
+                <p> hardware\led\led\Android.mk</p>
+<p>LOCAL_PATH := $(call my-dir)<br>{<br>    首先需要指定LOCAL_PATH变量，用于查找源文件<br>    上面的语句的意思是将LOCAL_PATH变量定义成本文件所在目录路径<br>}</p>
+<p>#Android.mk中可以定义多个编译模块，每个编译模块都是以include $(CLEAR_VARS)开始<br>#以include $(BUILD_XXX)结束。<br>include $(CLEAR_VARS) //开始<br>{<br>    问： CLEAR_VARS是什么？？<br>    答： CLEAR_VARS由编译系统提供，指定让GNU MAKEFILE为你清除除LOCAL_PATH以外的所有LOCAL_XXX变量，<br>    如LOCAL_MODULE，LOCAL_SRC_FILES，LOCAL_SHARED_LIBRARIES，LOCAL_STATIC_LIBRARIES等。<br>}<br>#包含的头文件<br>LOCAL_C_INCLUDES += <br>    hardware/led/include/</p>
+<p>LOCAL_PRELINK_MODULE := false  // :=是赋值的意思<br>LOCAL_MODULE_PATH := $(TARGET_OUT_SHARED_LIBRARIES)/hw<br>{<br>    //LOCAL_MODULE_PATH: 最后的目标安装路径</p>
+<pre><code>问： TARGET_OUT_SHARED_LIBRARIES是什么？
+答： 在build/core/envsetup.mk中定义。TARGET_OUT_SHARED_LIBRARIES:= $(TARGET_OUT)/lib
+TARGET_ROOT_OUT：表示根文件系统。
+TARGET_OUT：表示system文件系统。
+TARGET_OUT_DATA：表示data文件系统。</code></pre><p>}<br>LOCAL_SHARED_LIBRARIES := liblog  //LOCAL_SHARED_LIBRARIES中加入所需要链接的动态库（*.so）的名称<br>LOCAL_SRC_FILES := led.cpp<br>LOCAL_MODULE :=led.default   //LOCAL_MODULE表示模块最终的名称<br>#LOCAL_MODULE的定义规则，led后面跟有default，led.default能够保证我们的模块总能被硬象抽象层加载到<br>LOCAL_MODULE_TAGS := eng<br>include $(BUILD_SHARED_LIBRARY) // 结束<br>{<br>    include $(BUILD_STATIC_LIBRARY)表示编译成静态库<br>    include $(BUILD_SHARED_LIBRARY)表示编译成动态库。<br>    include $(BUILD_EXECUTABLE)表示编译成可执行程序<br>}</p>
+<p>LOCAL_SRC_FILES中加入源文件路径，LOCAL_C_INCLUDES 中加入所需要包含的头文件路径，<br>LOCAL_STATIC_LIBRARIES加入所需要链接的静态库（<em>.a）的名称，<br>LOCAL_SHARED_LIBRARIES中加入所需要链接的动态库（</em>.so）的名称，<br>LOCAL_MODULE表示模块最终的名称，BUILD_EXECUTABLE表示以一个可执行程序的方式进行编译。</p>
+<p>hardware\led\Android.mk<br>include $(call all-subdir-makefiles)</p>
+<p>frameworks\base\services\forlinx_led_jni\LedService.cpp<br>frameworks\base\services\forlinx_led_jni\Android.mk<br>{</p>
+<pre><code>LOCAL_PATH:= $(call my-dir) //LOCAL_PATH变量定义成本文件所在目录路径
+include $(CLEAR_VARS)
+
+# [optional, user, eng] 
+# eng = required
+# optinal = no install on target
+LOCAL_MODULE_TAGS := eng
+&#123;
+    LOCAL_MODULE_TAGS :=optional --&gt;&gt; out/target/product/OK6410/symbols/system/
+    LOCAL_MODULE_TAGS :=eng    --&gt;&gt; out/target/product/Ok6410/system/
+&#125;
+
+# This is the target being built.
+LOCAL_MODULE:= libforlinx_runtime
+
+# Target install path.
+LOCAL_MODULE_PATH := $(TARGET_OUT_SHARED_LIBRARIES)
+
+# All of the source files that we will compile.
+LOCAL_SRC_FILES:= \
+    LedService.cpp
+
+# All of the shared libraries we link against.
+LOCAL_SHARED_LIBRARIES := \
+    libandroid_runtime \
+    libcutils \
+    libhardware \
+    libhardware_legacy \
+    libnativehelper \
+        libsystem_server \
+    libutils \
+    libui \
+        libsurfaceflinger_client
+
+
+# Also need the JNI headers.
+LOCAL_C_INCLUDES += \
+    $(JNI_H_INCLUDE) \
+        hardware/led/include
+
+
+# No specia compiler flags.
+LOCAL_CFLAGS +=
+&#123;
+    LOCAL_CFLAGS += -O3 -fstrict-aliasing -fprefetch-loop-arrays
+    通过设定编译器操作，优化级别，-O0表示没有优化,-O1为缺省值，-O3优化级别最高
+    LOCAL_CFLAGS += -W -Wall
+    LOCAL_CFLAGS += -fPIC -DPIC
+    LOCAL_CFLAGS += -O2 -g -DADB_HOST=1 -Wall -Wno-unused-parameter
+    LOCAL_CFLAGS += -D_XOPEN_SOURCE -D_GNU_SOURCE -DSH_HISTORY
+    LOCAL_CFLAGS += -DUSEOVERLAY2
+    根据条件选择相应的编译参数
+&#125;
+
+# Don&apos;t prelink this library.  For more efficient code, you may want
+# to add this library to the prelink map and set this to true.
+LOCAL_PRELINK_MODULE := false
+&#123;
+    Prelink利用事先链接代替运行时链接的方法来加速共享库的加载，它不仅可以加快起动速度，还可以减少部分内存开销，
+    是各种Linux架构上用于减少程序加载时间、缩短系统启动时间和加快应用程序启动的很受欢迎的一个工具。程序运行时的
+    动态链接尤其是重定位(relocation)的开销对于大型系统来说是很大的。
+    动态链接和加载的过程开销很大，并且在大多数的系统上, 函数库并不会常常被更动, 每次程序被执行时所进行的链接
+    动作都是完全相同的，对于嵌入式系统来说尤其如此。因此，这一过程可以改在运行时之前就可以预先处理好，即花一些时间
+    利用Prelink工具对动态共享库和可执行文件进行处理，修改这些二进制文件并加入相应的重定位等信息，节约了本来在程序
+    启动时的比较耗时的查询函数地址等工作，这样可以减少程序启动的时间，同时也减少了内存的耗用。 
+    Prelink的这种做法当然也有代价：每次更新动态共享库时，相关的可执行文件都需要重新执行一遍Prelink才能保
+    证有效，因为新的共享库中的符号信息、地址等很可能与原来的已经不同了，这就是为什么 android framework代码一改动，
+    这时候就会导致相关的应用程序重新被编译。
+    这种代价对于嵌入式系统的开发者来说可能稍微带来一些复杂度，不过好在对用户来说几乎是可以忽略的。
+&#125;
+
+include $(BUILD_SHARED_LIBRARY)</code></pre><p>}</p>
+<p>今天添加一个feature时，import了IPackageManager类，编译时提示找不到这个类。而这个类确实已经在编译好的源码中存在，并且在其他项目中引用时编译通过。只有一个项目不通过。后来通过对比发现这个项目的Android.mk文件中有这么一行，注释之后，编译通过。<br>/# 若是添加，编译时会忽略源码隐藏的API，导致编译失败<br>LOCAL_SDK_VERSION := current</p>
+<p>拓展一下，android sdk中的两类特殊的API<br>Internal API<br>Hide API</p>
+<p>1 . Internal API</p>
+<p>翻译为内部API，理解为供sdk内部使用的API。<br>这类接口最初打算就是不对外公开的，有点private的意思。</p>
+<p>2 . Hide API</p>
+<p>在源码中看到使用@hide 标记的方法或类，就是hide的。<br>这类接口本意是要公开，但是当前阶段仍然不稳定或未开发完成。所以暂时不推荐开发者调用。但是，他们都可以被使用</p>
+<p>两种方式：</p>
+<p>通过反射<br>使用这些接口的情况是：目标接口已经编译进framework.jar(或其它对应的jar包)中，但是自己应用在编译时会报错。所以只要自己应用编译时同样添加相关jar包的引用，便可以编译通过。</p>
+
+
+                <hr>
+
+                
+
+                <ul class="pager">
+                    
+                        <li class="previous">
+                            <a href="/2019/08/09/单例模式-静态内部类实现/" data-toggle="tooltip" data-placement="top" title="单例模式--静态内部类实现">&larr; Previous Post</a>
+                        </li>
+                    
+                    
+                        <li class="next">
+                            <a href="/2019/07/25/Android-mk-and-so-issue/" data-toggle="tooltip" data-placement="top" title="Android mk and so issue">Next Post &rarr;</a>
+                        </li>
+                    
+                </ul>
+
+                
+
+                
+
+            </div>
+    <!-- Side Catalog Container -->
+        
+
+    <!-- Sidebar Container -->
+
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                sidebar-container">
+
+                <!-- Featured Tags -->
+                
+                <section>
+                    <!-- no hr -->
+                    <h5><a href="/tags/">FEATURED TAGS</a></h5>
+                    <div class="tags">
+                       
+                    </div>
+                </section>
+                
+
+                <!-- Friends Blog -->
+                
+                <hr>
+                <h5>FRIENDS</h5>
+                <ul class="list-inline">
+
+                    
+                        <li><a href="http://minus.wang" target="_blank">MinusWang&#39;s Diary</a></li>
+                    
+                        <li><a href="http://minus.wang" target="_blank">MinusWang</a></li>
+                    
+                        <li><a href="#" target="_blank">Foo</a></li>
+                    
+                        <li><a href="#" target="_blank">Bar</a></li>
+                    
+                        <li><a href="#" target="_blank">Example Friends</a></li>
+                    
+                        <li><a href="#" target="_blank">It helps SEO</a></li>
+                    
+                </ul>
+                
+            </div>
+
+        </div>
+    </div>
+</article>
+
+
+
+
+
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+<!-- anchor-js, Doc:http://bryanbraun.github.io/anchorjs/ -->
+<script>
+    async("https://cdn.bootcss.com/anchor-js/1.1.1/anchor.min.js",function(){
+        anchors.options = {
+          visible: 'always',
+          placement: 'right',
+          icon: '#'
+        };
+        anchors.add().remove('.intro-header h1').remove('.subheading').remove('.sidebar-container h5');
+    })
+</script>
+<style>
+    /* place left on bigger screen */
+    @media all and (min-width: 800px) {
+        .anchorjs-link{
+            position: absolute;
+            left: -0.75em;
+            font-size: 1.1em;
+            margin-top : -0.1em;
+        }
+    }
+</style>
+
+
+
+    <!-- Footer -->
+    <!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <ul class="list-inline text-center">
+                
+                
+                    <li>
+                        <a target="_blank" href="https://twitter.com/MinusWang">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+                
+                    <li>
+                        <a target="_blank" href="https://www.zhihu.com/people/MinusWang">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa  fa-stack-1x fa-inverse">知</i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+                    <li>
+                        <a target="_blank" href="http://weibo.com/MinusWang">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-weibo fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+                    <li>
+                        <a target="_blank" href="https://www.facebook.com/MinusWang">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-facebook fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+                    <li>
+                        <a target="_blank"  href="https://github.com/MinusWang">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+                    <li>
+                        <a target="_blank"  href="https://www.linkedin.com/in/MinusWang">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-linkedin fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                </ul>
+                <p class="copyright text-muted">
+				    <br>
+					<br>
+                    Copyright &copy; 2024 Minus Wang
+                </p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- jQuery -->
+
+<script src="/js/jquery.min.js"></script>
+
+
+<!-- Bootstrap Core JavaScript -->
+
+<script src="/js/bootstrap.min.js"></script>
+
+
+<!-- Custom Theme JavaScript -->
+
+<script src="/js/hux-blog.min.js"></script>
+
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+<!-- 
+     Because of the native support for backtick-style fenced code blocks 
+     right within the Markdown is landed in Github Pages, 
+     From V1.6, There is no need for Highlight.js, 
+     so Huxblog drops it officially.
+
+     - https://github.com/blog/2100-github-pages-now-faster-and-simpler-with-jekyll-3-0  
+     - https://help.github.com/articles/creating-and-highlighting-code-blocks/    
+-->
+<!--
+    <script>
+        async("http://cdn.bootcss.com/highlight.js/8.6/highlight.min.js", function(){
+            hljs.initHighlightingOnLoad();
+        })
+    </script>
+    <link href="http://cdn.bootcss.com/highlight.js/8.6/styles/github.min.css" rel="stylesheet">
+-->
+
+
+<!-- jquery.tagcloud.js -->
+<script>
+    // only load tagcloud.js in tag.html
+    if($('#tag_cloud').length !== 0){
+        async("http://minus.wang/js/jquery.tagcloud.js",function(){
+            $.fn.tagcloud.defaults = {
+                //size: {start: 1, end: 1, unit: 'em'},
+                color: {start: '#bbbbee', end: '#0085a1'},
+            };
+            $('#tag_cloud a').tagcloud();
+        })
+    }
+</script>
+
+<!--fastClick.js -->
+<script>
+    async("https://cdn.bootcss.com/fastclick/1.0.6/fastclick.min.js", function(){
+        var $nav = document.querySelector("nav");
+        if($nav) FastClick.attach($nav);
+    })
+</script>
+
+
+<!-- Google Analytics -->
+
+
+
+
+<!-- Baidu Tongji -->
+
+
+<!-- Side Catalog -->
+
+
+
+
+
+<!-- Image to hack wechat -->
+<img src="http://minus.wang/img/icon_wechat.png" width="0" height="0" />
+<!-- Migrate from head to bottom, no longer block render and still work -->
+
+</body>
+
+</html>

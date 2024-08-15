@@ -1,0 +1,689 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- Head tag -->
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Minus Wang - a life writer">
+    <meta name="keyword"  content="">
+    <link rel="shortcut icon" href="..//img/favicon.ico">
+
+    <title>
+        
+          Github 简明教程 - MinusWang&#39;s Diary | MinusWangの日志
+        
+    </title>
+
+    <link rel="canonical" href="http://minus.wang/2018/01/17/Github-简明教程/">
+
+    <!-- Bootstrap Core CSS -->
+    
+<link rel="stylesheet" href="/css/bootstrap.min.css">
+
+
+    <!-- Custom CSS -->
+    
+<link rel="stylesheet" href="/css/hux-blog.min.css">
+
+
+    <!-- Pygments Highlight CSS -->
+    
+<link rel="stylesheet" href="/css/highlight.css">
+
+
+    <!-- Custom Fonts -->
+    <!-- <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css"> -->
+    <!-- Hux change font-awesome CDN to qiniu -->
+    <link href="https://cdn.staticfile.org/font-awesome/4.5.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+
+    <!-- Hux Delete, sad but pending in China
+    <link href='http://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/
+    css'>
+    -->
+
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- ga & ba script hoook -->
+    <script></script>
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+
+<!-- hack iOS CSS :active style -->
+<body ontouchstart="">
+
+    <!-- Navigation -->
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">Minus Wang</a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <!-- Known Issue, found by Hux:
+            <nav>'s height woule be hold on by its content.
+            so, when navbar scale out, the <nav> will cover tags.
+            also mask any touch event of tags, unfortunately.
+        -->
+        <div id="huxblog_navbar">
+            <div class="navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="/">Home</a>
+                    </li>
+
+                    
+
+                        
+                    
+
+                        
+                        <li>
+                            <a href="/about/">About Me</a>
+                        </li>
+                        
+                    
+
+                        
+                        <li>
+                            <a href="/tags/">Tags</a>
+                        </li>
+                        
+                    
+
+                        
+                        <li>
+                            <a href="/archives/">Archives</a>
+                        </li>
+                        
+                    
+
+                        
+                        <li>
+                            <a href="/notes/">Notes</a>
+                        </li>
+                        
+                    
+
+                        
+                        <li>
+                            <a href="/Friends/">Friends</a>
+                        </li>
+                        
+                    
+                    
+                </ul>
+            </div>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container -->
+</nav>
+<script>
+    // Drop Bootstarp low-performance Navbar
+    // Use customize navbar with high-quality material design animation
+    // in high-perf jank-free CSS3 implementation
+    var $body   = document.body;
+    var $toggle = document.querySelector('.navbar-toggle');
+    var $navbar = document.querySelector('#huxblog_navbar');
+    var $collapse = document.querySelector('.navbar-collapse');
+
+    $toggle.addEventListener('click', handleMagic)
+    function handleMagic(e){
+        if ($navbar.className.indexOf('in') > 0) {
+        // CLOSE
+            $navbar.className = " ";
+            // wait until animation end.
+            setTimeout(function(){
+                // prevent frequently toggle
+                if($navbar.className.indexOf('in') < 0) {
+                    $collapse.style.height = "0px"
+                }
+            },400)
+        }else{
+        // OPEN
+            $collapse.style.height = "auto"
+            $navbar.className += " in";
+        }
+    }
+</script>
+
+
+    <!-- Main Content -->
+    
+<!-- Image to hack wechat -->
+<!-- <img src="http://minus.wang/img/icon_wechat.png" width="0" height="0"> -->
+<!-- <img src="{{ site.baseurl }}/{% if page.header-img %}{{ page.header-img }}{% else %}{{ site.header-img }}{% endif %}" width="0" height="0"> -->
+
+<!-- Post Header -->
+<style type="text/css">
+    header.intro-header{
+        background-image: url('/img/home-bg.jpg')
+    }
+</style>
+<header class="intro-header" >
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <div class="post-heading">
+                    <div class="tags">
+                        
+                    </div>
+                    <h1>Github 简明教程</h1>
+                    <h2 class="subheading"></h2>
+                    <span class="meta">
+                        Posted by MinusWang on
+                        2018-01-17
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+<!-- Post Content -->
+<article>
+    <div class="container">
+        <div class="row">
+
+    <!-- Post Container -->
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                post-container">
+
+                <p><a href="http://www.runoob.com/w3cnote/git-guide.html">原文链接</a></p>
+<p>参考资料：</p>
+<p><a href="http://rogerdudler.github.io/git-guide/index.zh.html">Github 简明指南</a></p>
+<p><a href="http://www.runoob.com/w3cnote/git-guide.html">如何高效利用GitHub</a></p>
+<p>如果你是一枚Coder，但是你不知道Github，那么我觉的你就不是一个菜鸟级别的Coder，因为你压根不是真正Coder，你只是一个Code搬运工。<br>但是你如果已经在读这篇文章了，我觉的你已经知道Github了。<code>正是Github，让社会化编程成为现实</code></p>
+<h2 id="什么是-Github"><a href="#什么是-Github" class="headerlink" title="什么是 Github?"></a>什么是 Github?</h2><p>github是一个基于git的代码托管平台，付费用户可以建私人仓库，我们一般的免费用户只能使用公共仓库，也就是代码要公开。Github 由Chris Wanstrath, PJ Hyett 与Tom Preston-Werner三位开发者在2008年4月创办。迄今拥有59名全职员工，主要提供基于git的版本托管服务。目前看来，GitHub这场冒险已经胜出。根据来自维基百科关于GitHub的描述，我们可以形象地看出GitHub的增长速度：</p>
+<p><img src="http://www.runoob.com/wp-content/uploads/2014/05/github-repos.png" alt=""></p>
+<p>今天，GitHub已是：</p>
+<ol>
+<li><p>一个拥有143万开发者的社区。其中不乏Linux发明者Torvalds这样的顶级黑客，以及Rails创始人DHH这样的年轻极客。</p>
+</li>
+<li><p>这个星球上最流行的开源托管服务。目前已托管431万git项目，不仅越来越多知名开源项目迁入GitHub，比如Ruby on Rails、jQuery、Ruby、Erlang/OTP；近三年流行的开源库往往在GitHub首发，例如：BootStrap、Node.js、CoffeScript等</p>
+</li>
+<li><p>alexa全球排名414的网站</p>
+</li>
+</ol>
+<h2 id="注册账户以及创建仓库"><a href="#注册账户以及创建仓库" class="headerlink" title="注册账户以及创建仓库"></a>注册账户以及创建仓库</h2><p>要想使用github第一步当然是注册github账号了， github官网地址：<a href="https://github.com/。">https://github.com/。</a> 之后就可以创建仓库了（免费用户只能建公共仓库），Create a New Repository，填好名称后Create，之后会出现一些仓库的配置信息，这也是一个git的简单教程。</p>
+<h2 id="Github-安装"><a href="#Github-安装" class="headerlink" title="Github 安装"></a>Github 安装</h2><p>下载 git OSX 版<br>下载 git Windows 版<br>下载 git Linux 版</p>
+<h2 id="配置Git"><a href="#配置Git" class="headerlink" title="配置Git"></a>配置Git</h2><p>首先在本地创建ssh key</p>
+<p><code>$ ssh-keygen -t rsa -C &quot;your_email@youremail.com&quot;</code></p>
+<p>后面的<a href="mailto:your_email@youremail.com">your_email@youremail.com</a>改为你在github上注册的邮箱，之后会要求确认路径和输入密码，我们这使用默认的一路回车就行。成功的话会在~/下生成.ssh文件夹，进去，打开id_rsa.pub，复制里面的key。</p>
+<p>回到github上，进入 Account Settings（账户配置），左边选择SSH Keys，Add SSH Key,title随便填，粘贴在你电脑上生成的key。</p>
+<p><img src="http://www.runoob.com/wp-content/uploads/2014/05/github-account.jpg" alt=""></p>
+<p>为了验证是否成功，在git bash下输入：</p>
+<p><code>$ ssh -T git@github.com</code></p>
+<p>如果是第一次的会提示是否continue，输入yes就会看到：You’ve successfully authenticated, but GitHub does not provide shell access 。这就表示已成功连上github。</p>
+<p>接下来我们要做的就是把本地仓库传到github上去，在此之前还需要设置username和email，因为github每次commit都会记录他们。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ git config --global user.name &quot;your name&quot;</span><br><span class="line">$ git config --global user.email &quot;your_email@youremail.com&quot;</span><br></pre></td></tr></table></figure>
+
+<p>进入要上传的仓库，右键git bash，添加远程地址：</p>
+<p><code>$ git remote add origin git@github.com:yourName/yourRepo.git</code></p>
+<p>后面的yourName和yourRepo表示你在github的用户名和刚才新建的仓库，加完之后进入.git，打开config，这里会多出一个remote “origin”内容，这就是刚才添加的远程地址，也可以直接修改config来配置远程地址。</p>
+<p>创建新文件夹，打开，然后执行 <code>git init</code> 以创建新的 git 仓库。</p>
+<h2 id="检出仓库"><a href="#检出仓库" class="headerlink" title="检出仓库"></a>检出仓库</h2><p>执行如下命令以创建一个本地仓库的克隆版本：</p>
+<p><code>git clone /path/to/repository</code></p>
+<p>如果是远端服务器上的仓库，你的命令会是这个样子：</p>
+<p><code>git clone username@host:/path/to/repository</code></p>
+<h2 id="工作流"><a href="#工作流" class="headerlink" title="工作流"></a>工作流</h2><blockquote>
+<p>你的本地仓库由 git 维护的三棵”树”组成。</p>
+</blockquote>
+<ol>
+<li><p>第一个是你的 工作目录，它持有实际文件；</p>
+</li>
+<li><p>第二个是 暂存区（Index），它像个缓存区域，临时保存你的改动；</p>
+</li>
+<li><p>最后是 HEAD，它指向你最后一次提交的结果。</p>
+</li>
+</ol>
+<p>你可以提出更改（把它们添加到暂存区），使用如下命令：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">git add &lt;filename&gt;</span><br><span class="line"></span><br><span class="line">git add *</span><br></pre></td></tr></table></figure>
+
+<p>这是 git 基本工作流程的第一步；</p>
+<p>使用如下命令以实际提交改动：</p>
+<p><code>git commit -m &quot;代码提交信息&quot;</code></p>
+<p>现在，你的改动已经提交到了 HEAD，但是还没到你的远端仓库。</p>
+<p><img src="http://www.runoob.com/wp-content/uploads/2014/05/trees.png" alt=""></p>
+<h2 id="推送改动"><a href="#推送改动" class="headerlink" title="推送改动"></a>推送改动</h2><p>你的改动现在已经在本地仓库的 HEAD 中了。执行如下命令以将这些改动提交到远端仓库：</p>
+<p><code>git push origin master</code></p>
+<p>可以把 master 换成你想要推送的任何分支。 </p>
+<p>如果你还没有克隆现有仓库，并欲将你的仓库连接到某个远程服务器，你可以使用如下命令添加：</p>
+<p>git remote add origin <server></p>
+<p>如此你就能够将你的改动推送到所添加的服务器上去了。</p>
+<h2 id="分支"><a href="#分支" class="headerlink" title="分支"></a>分支</h2><p>分支是用来将特性开发绝缘开来的。在你创建仓库的时候，master 是”默认的”分支。在其他分支上进行开发，完成后再将它们合并到主分支上。</p>
+<p><img src="http://www.runoob.com/wp-content/uploads/2014/05/branches.png" alt=""></p>
+<p>创建一个叫做”feature_x”的分支，并切换过去：</p>
+<p><code>git checkout -b feature_x</code></p>
+<p>切换回主分支：</p>
+<p><code>git checkout master</code></p>
+<p>再把新建的分支删掉：</p>
+<p><code>git branch -d feature_x</code></p>
+<p>除非你将分支推送到远端仓库，不然该分支就是 不为他人所见的：</p>
+<p><code>git push origin &lt;branch&gt;</code></p>
+<h2 id="更新与合并"><a href="#更新与合并" class="headerlink" title="更新与合并"></a>更新与合并</h2><p>要更新你的本地仓库至最新改动，执行：</p>
+<p><code>git pull</code></p>
+<p>以在你的工作目录中 获取（fetch） 并 合并（merge） 远端的改动。</p>
+<p>要合并其他分支到你的当前分支（例如 master），执行：<br><code>git merge &lt;branch&gt;</code></p>
+<p>在这两种情况下，git 都会尝试去自动合并改动。遗憾的是，这可能并非每次都成功，并可能出现冲突（conflicts）。 这时候就需要你修改这些文件来手动合并这些冲突（conflicts）。改完之后，你需要执行如下命令以将它们标记为合并成功：</p>
+<p><code>git add &lt;filename&gt;</code></p>
+<p>在合并改动之前，你可以使用如下命令预览差异：</p>
+<p><code>git diff &lt;source_branch&gt; &lt;target_branch&gt;</code></p>
+<h2 id="标签"><a href="#标签" class="headerlink" title="标签"></a>标签</h2><p>为软件发布创建标签是推荐的。这个概念早已存在，在 SVN 中也有。你可以执行如下命令创建一个叫做 1.0.0 的标签：</p>
+<p><code>git tag 1.0.0 1b2e1d63ff</code></p>
+<p>1b2e1d63ff 是你想要标记的提交 ID 的前 10 位字符。可以使用下列命令获取提交 ID：</p>
+<p><code>git log</code></p>
+<p>你也可以使用少一点的提交 ID 前几位，只要它的指向具有唯一性。</p>
+<h2 id="log"><a href="#log" class="headerlink" title="log"></a>log</h2><p>如果你想了解本地仓库的历史记录，最简单的命令就是使用: </p>
+<p><code>git log</code></p>
+<p>你可以添加一些参数来修改他的输出，从而得到自己想要的结果。 只看某一个人的提交记录:</p>
+<p><code>git log --author=bob</code></p>
+<p>一个压缩后的每一条提交记录只占一行的输出:</p>
+<p><code>git log --pretty=oneline</code></p>
+<p>或者你想通过 ASCII 艺术的树形结构来展示所有的分支, 每个分支都标示了他的名字和标签: </p>
+<p><code>git log --graph --oneline --decorate --all</code></p>
+<p>看看哪些文件改变了: </p>
+<p><code>git log --name-status</code></p>
+<p>这些只是你可以使用的参数中很小的一部分。更多的信息，参考：</p>
+<p><code>git log --help</code></p>
+<h2 id="替换本地改动"><a href="#替换本地改动" class="headerlink" title="替换本地改动"></a>替换本地改动</h2><p>假如你操作失误（当然，这最好永远不要发生），你可以使用如下命令替换掉本地改动：</p>
+<p><code>git checkout -- &lt;filename&gt;</code></p>
+<p>此命令会使用 HEAD 中的最新内容替换掉你的工作目录中的文件。已添加到暂存区的改动以及新文件都不会受到影响。</p>
+<p>假如你想丢弃你在本地的所有改动与提交，可以到服务器上获取最新的版本历史，并将你本地主分支指向它：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git fetch origin</span><br><span class="line">git reset --hard origin/master</span><br></pre></td></tr></table></figure>
+
+<h2 id="实用小贴士"><a href="#实用小贴士" class="headerlink" title="实用小贴士"></a>实用小贴士</h2><p>内建的图形化 git：</p>
+<p><code>gitk</code></p>
+<p>彩色的 git 输出：</p>
+<p><code>git config color.ui true</code></p>
+<p>显示历史记录时，每个提交的信息只显示一行：</p>
+<p><code>git config format.pretty oneline</code></p>
+<p>交互式添加文件到暂存区：</p>
+<p><code>git add -i</code></p>
+<p>Git中从远程的分支获取最新的版本到本地有这样2个命令：</p>
+<blockquote>
+<p>git fetch：相当于是从远程获取最新版本到本地，不会自动merge</p>
+</blockquote>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">git fetch origin master</span><br><span class="line">git log -p master..origin/master</span><br><span class="line">git merge origin/master</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>以上命令的含义：</p>
+<ol>
+<li><p>首先从远程的origin的master主分支下载最新的版本到origin/master分支上</p>
+</li>
+<li><p>然后比较本地的master分支和origin/master分支的差别</p>
+</li>
+<li><p>最后进行合并</p>
+</li>
+</ol>
+<p>上述过程其实可以用以下更清晰的方式来进行：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">git fetch origin master:tmp</span><br><span class="line"></span><br><span class="line">git diff tmp </span><br><span class="line"></span><br><span class="line">git merge tmp</span><br></pre></td></tr></table></figure>
+
+<p>从远程获取最新的版本到本地的test分支上，之后再进行比较合并</p>
+<blockquote>
+<p>git pull：相当于是从远程获取最新版本并merge到本地</p>
+</blockquote>
+<p><code>git pull origin master</code></p>
+<p>上述命令其实相当于git fetch 和 git merge</p>
+<p>在实际使用中，git fetch更安全一些，因为在merge前，我们可以查看更新情况，然后再决定是否合并</p>
+<p>要讲清楚git fetch，git pull,必须要附加讲清楚git remote，git merge 、远程repo， branch 、 commit-id 以及 FETCH_HEAD。</p>
+<ol>
+<li>【git remote】首先， git是一个分布式的结构，这意味着本地和远程是一个相对的名称。</li>
+</ol>
+<p>本地的repo仓库要与远程的repo配合完成版本对应必须要有 git remote子命令，通过git remote add来添加当前本地仓库的远程repo， 有了这个动作本地的repo就知道了当遇到git push 的时候应该往哪里提交代码。</p>
+<ol start="2">
+<li><p>【git branch】其次，git天生就是为了多版本分支管理而创造的，因此分支一说，不得不提， 分支就相当于是为了单独记录软件的某一个发布版本而存在的，既然git是分布式的，便有了本地分支和远程分支一说，git branch 可以查看本地分支， git branch -r  可以用来查看远程分支。 本地分支和远程分支在git push 的时候可以随意指定，交错对应，只要不出现版本从图即可。</p>
+</li>
+<li><p>【git merge】再者，git的分布式结构也非常适合多人合作开发不同的功能模块，此时如果每个人都在其各自的分支上开发一个相对独立的模块的话，在每次release制作时都需先将各成员的模块做一个合并操作，用于合并各成员的工作成果，完成集成。 此时需要的就是git merge.</p>
+</li>
+<li><p>【git push 和 commit-id】在每次本地工作完成后，都会做一个git commit 操作来保存当前工作到本地的repo， 此时会产生一个commit-id，这是一个能唯一标识一个版本的序列号。 在使用git push后，这个序列号还会同步到远程repo。</p>
+</li>
+</ol>
+<p>在理解了以上git要素之后，分析git fetch 和 git pull 就不再困难了。 </p>
+<p>首先，git fetch 有四种基本用法</p>
+<ol>
+<li><p>git fetch            →→ 这将更新git remote 中所有的远程repo 所包含分支的最新commit-id, 将其记录到.git/FETCH_HEAD文件中</p>
+</li>
+<li><p>git fetch remote_repo         →→ 这将更新名称为remote_repo 的远程repo上的所有branch的最新commit-id，将其记录。 </p>
+</li>
+<li><p>git fetch remote_repo remote_branch_name        →→ 这将这将更新名称为remote_repo 的远程repo上的分支： remote_branch_name</p>
+</li>
+<li><p>git fetch remote_repo remote_branch_name:local_branch_name       →→ 这将这将更新名称为remote_repo 的远程repo上的分支： remote_branch_name ，并在本地创建local_branch_name 本地分支保存远端分支的所有数据。</p>
+</li>
+</ol>
+<p>FETCH_HEAD： 是一个版本链接，记录在本地的一个文件中，指向着目前已经从远程仓库取下来的分支的末端版本。</p>
+<p>git pull 的运行过程：</p>
+<p>git pull : 首先，基于本地的FETCH_HEAD记录，比对本地的FETCH_HEAD记录与远程仓库的版本号，然后git fetch 获得当前指向的远程分支的后续版本的数据，然后再利用git merge将其与本地的当前分支合并。</p>
+<blockquote>
+<p>git查看某个文件的修改历史</p>
+</blockquote>
+<p>有时候在比对代码时，看到某些改动，但不清楚这个改动的作者和原因，也不知道对应的BUG号，也就是说无从查到这些改动的具体原因了～</p>
+<p>【注】：某个文件的改动是有限次的，而且每次代码修改的提交都会有commit描述，我们可以从这里进行入手；</p>
+<p>一：切换到目录<br>首先切换到要查看的文件所在的目录：</p>
+<p>cd packages/apps/Mms/src/com/android/mms/ui/<br>或者是使用编辑器（例如：vscode）右键在终端打开。</p>
+<h2 id="二、git-log-–pretty"><a href="#二、git-log-–pretty" class="headerlink" title="二、git log –pretty"></a>二、git log –pretty</h2><p>然后使用下面的命令可列出文件的所有改动历史，注意，这里着眼于具体的一个文件，而不是git库，如果是库，那改动可多了去了～</p>
+<p>git log –pretty=oneline 文件名</p>
+<p>如：<br>root@ubuntu:android_src/packages/apps/Mms/src/com/android/mms/ui# git log –pretty=oneline MessageItem.java<br>27209385caf678abe878375a470f4edd67a2d806 fix to process force close when empty address contained in card<br>0e04b16f1dad7dc0a36e2235f7337bc656c365c7 display for 1970-1-1<br>e4abf3a213197491e0855e101117b59b5dc0160d HREF#13954 receive, store, and display wap push<br>356f6def9d3fb7f3b9032ff5aa4b9110d4cca87e HREF#16265_uim_show_time_error<br>350f9d34c35ab50bdb4b2d43fb3ff9780e6c73fa fix xxxx<br>715e32f97bd9d8ce4b5ba650b97ba4b137150456 Fix ANR from calling Contact.get()<br>fd8357ff5febab0141e1beb8dd3b26f70416b108 Fix missing From field<br>d130e2e6dc448fd80ecb70f0d31e3affb9888b9a fix bug 2112925: don’t display zip file garbage content in MMS.<br>0e19f738c114f86d0d88825ee48966015fb48b6d Don’t always show sent timestamp<br>52f854cbb75e8f9975c7e33216b828eb2f981095 Don’t show Anonymous as the MMS sender<br>331864544ec51ba6807fc5471cc6d537b7fef198 add search capability<br>33a87f96f8c625aa10131a77a3968c97c4ec5a62 Remove all references to ContactInfoCache except those in Contact.<br>70c73e05a792832aa28da751cdaf3fa83a7b8113 Begin moving all conversation data behind a data model with a cache.<br>48da875f1beea835c6771977e5bd8a9aa3d4bc10 Begin adding UI unit tests to the Mms app.<br>66dde9460badebf8e740275cabde9cca256006eb Stop requiring a Context to be passed in to ContactInfoCache.<br>591d17e9a51bb9f829d6860dc7aa0bad25062cd5 auto import from //branches/cupcake_rel/…@138607<br>72735c62aba8fd2a9420a0f9f83d22543e3c164f auto import from //depot/cupcake/@135843<br>892f2c5bf965b1431ae107b602444a93f4aad4a3 auto import from //depot/cupcake/@135843<br>153ae99e0a7d626a24d61475eeb133249deb448c auto import from //depot/cupcake/@132589<br>abd7b2d90f7491075f1daba4b4cccdfc82f8ddd1 auto import from //depot/cupcake/@137055<br>59d72c57ce9c319b6cd43ce2ab36b7076c9e821f auto import from //branches/cupcake/…@132276<br>44cea74dc55e2459262d0d765ef4a69267dd09b0 auto import from //branches/cupcake/…@131421<br>0f236f55349f070ac94e12cca963847173393da8 Code drop from //branches/cupcake/…@124589<br>8eed706474910ccb978acda03e85d3261037da6e Initial Contribution</p>
+<h2 id="三：git-show"><a href="#三：git-show" class="headerlink" title="三：git show"></a>三：git show</h2><p>如上所示，打印出来的就是针对文件MessageItem.java的所有的改动历史，每一行最前面的那一长串数字就是每次提交形成的哈希值，接下来使用git show即可显示具体的某次的改动的修改～</p>
+<p>git show 356f6def9d3fb7f3b9032ff5aa4b9110d4cca87e</p>
+<p>结果如下：<br>root@ubuntu:/android_src/packages/apps/Mms/src/com/android/mms/ui# </p>
+<blockquote>
+<p>git show 356f6def9d3fb7f3b9032ff5aa4b9110d4cca87e</p>
+</blockquote>
+<p>commit 356f6def9d3fb7f3b9032ff5aa4b9110d4cca87e<br>Author: 某某某 &lt;某某某的邮箱&gt;<br>Date:   Thu Jan 6 01:50:31 2011 +0800</p>
+<pre><code>修改的描述（是该代码commit时所填）
+
+Signed-off-by: 某某某 &lt;某某某的邮箱&gt;</code></pre><p>diff –git a/src/com/android/mms/ui/MessageItem.java b/src/com/android/mms/ui/MessageItem.java<br>index 0a0c4b7..55c3b27 100644<br>— a/src/com/android/mms/ui/MessageItem.java<br>+++ b/src/com/android/mms/ui/MessageItem.java<br>+</p>
+<ul>
+<li>列出具体的改动</li>
+</ul>
+<p>这样就可以知道是谁做了修改，以及具体的修改代码～   那接下来不管是直接去找他交流还是研究代码，都有依据了～</p>
+<p>—————————————分界线———————————————<br>git log -p 文件名  # 查看某个文件的提交记录以及对此文件的修改。中途如果想要终止查看，请按 Q键</p>
+
+
+                <hr>
+
+                
+
+                <ul class="pager">
+                    
+                        <li class="previous">
+                            <a href="/2018/01/25/STH-about-RDP/" data-toggle="tooltip" data-placement="top" title="STH about RDP">&larr; Previous Post</a>
+                        </li>
+                    
+                    
+                        <li class="next">
+                            <a href="/2018/01/17/Git-删除远程仓库中误传的文件/" data-toggle="tooltip" data-placement="top" title="Git 删除远程仓库中误传的文件">Next Post &rarr;</a>
+                        </li>
+                    
+                </ul>
+
+                
+
+                
+
+            </div>
+    <!-- Side Catalog Container -->
+        
+
+    <!-- Sidebar Container -->
+
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                sidebar-container">
+
+                <!-- Featured Tags -->
+                
+                <section>
+                    <!-- no hr -->
+                    <h5><a href="/tags/">FEATURED TAGS</a></h5>
+                    <div class="tags">
+                       
+                    </div>
+                </section>
+                
+
+                <!-- Friends Blog -->
+                
+                <hr>
+                <h5>FRIENDS</h5>
+                <ul class="list-inline">
+
+                    
+                        <li><a href="http://minus.wang" target="_blank">MinusWang&#39;s Diary</a></li>
+                    
+                        <li><a href="http://minus.wang" target="_blank">MinusWang</a></li>
+                    
+                        <li><a href="#" target="_blank">Foo</a></li>
+                    
+                        <li><a href="#" target="_blank">Bar</a></li>
+                    
+                        <li><a href="#" target="_blank">Example Friends</a></li>
+                    
+                        <li><a href="#" target="_blank">It helps SEO</a></li>
+                    
+                </ul>
+                
+            </div>
+
+        </div>
+    </div>
+</article>
+
+
+
+
+
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+<!-- anchor-js, Doc:http://bryanbraun.github.io/anchorjs/ -->
+<script>
+    async("https://cdn.bootcss.com/anchor-js/1.1.1/anchor.min.js",function(){
+        anchors.options = {
+          visible: 'always',
+          placement: 'right',
+          icon: '#'
+        };
+        anchors.add().remove('.intro-header h1').remove('.subheading').remove('.sidebar-container h5');
+    })
+</script>
+<style>
+    /* place left on bigger screen */
+    @media all and (min-width: 800px) {
+        .anchorjs-link{
+            position: absolute;
+            left: -0.75em;
+            font-size: 1.1em;
+            margin-top : -0.1em;
+        }
+    }
+</style>
+
+
+
+    <!-- Footer -->
+    <!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <ul class="list-inline text-center">
+                
+                
+                    <li>
+                        <a target="_blank" href="https://twitter.com/MinusWang">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+                
+                    <li>
+                        <a target="_blank" href="https://www.zhihu.com/people/MinusWang">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa  fa-stack-1x fa-inverse">知</i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+                    <li>
+                        <a target="_blank" href="http://weibo.com/MinusWang">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-weibo fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+                    <li>
+                        <a target="_blank" href="https://www.facebook.com/MinusWang">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-facebook fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+                    <li>
+                        <a target="_blank"  href="https://github.com/MinusWang">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+                    <li>
+                        <a target="_blank"  href="https://www.linkedin.com/in/MinusWang">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-linkedin fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                </ul>
+                <p class="copyright text-muted">
+				    <br>
+					<br>
+                    Copyright &copy; 2024 Minus Wang
+                </p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- jQuery -->
+
+<script src="/js/jquery.min.js"></script>
+
+
+<!-- Bootstrap Core JavaScript -->
+
+<script src="/js/bootstrap.min.js"></script>
+
+
+<!-- Custom Theme JavaScript -->
+
+<script src="/js/hux-blog.min.js"></script>
+
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+<!-- 
+     Because of the native support for backtick-style fenced code blocks 
+     right within the Markdown is landed in Github Pages, 
+     From V1.6, There is no need for Highlight.js, 
+     so Huxblog drops it officially.
+
+     - https://github.com/blog/2100-github-pages-now-faster-and-simpler-with-jekyll-3-0  
+     - https://help.github.com/articles/creating-and-highlighting-code-blocks/    
+-->
+<!--
+    <script>
+        async("http://cdn.bootcss.com/highlight.js/8.6/highlight.min.js", function(){
+            hljs.initHighlightingOnLoad();
+        })
+    </script>
+    <link href="http://cdn.bootcss.com/highlight.js/8.6/styles/github.min.css" rel="stylesheet">
+-->
+
+
+<!-- jquery.tagcloud.js -->
+<script>
+    // only load tagcloud.js in tag.html
+    if($('#tag_cloud').length !== 0){
+        async("http://minus.wang/js/jquery.tagcloud.js",function(){
+            $.fn.tagcloud.defaults = {
+                //size: {start: 1, end: 1, unit: 'em'},
+                color: {start: '#bbbbee', end: '#0085a1'},
+            };
+            $('#tag_cloud a').tagcloud();
+        })
+    }
+</script>
+
+<!--fastClick.js -->
+<script>
+    async("https://cdn.bootcss.com/fastclick/1.0.6/fastclick.min.js", function(){
+        var $nav = document.querySelector("nav");
+        if($nav) FastClick.attach($nav);
+    })
+</script>
+
+
+<!-- Google Analytics -->
+
+
+
+
+<!-- Baidu Tongji -->
+
+
+<!-- Side Catalog -->
+
+
+
+
+
+<!-- Image to hack wechat -->
+<img src="http://minus.wang/img/icon_wechat.png" width="0" height="0" />
+<!-- Migrate from head to bottom, no longer block render and still work -->
+
+</body>
+
+</html>

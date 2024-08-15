@@ -1,0 +1,620 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- Head tag -->
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Minus Wang - a life writer">
+    <meta name="keyword"  content="">
+    <link rel="shortcut icon" href="..//img/favicon.ico">
+
+    <title>
+        
+          一个Quicksort究竟可以写到多么短 - MinusWang&#39;s Diary | MinusWangの日志
+        
+    </title>
+
+    <link rel="canonical" href="http://minus.wang/2017/11/10/一个Quicksort究竟可以写到多么短/">
+
+    <!-- Bootstrap Core CSS -->
+    
+<link rel="stylesheet" href="/css/bootstrap.min.css">
+
+
+    <!-- Custom CSS -->
+    
+<link rel="stylesheet" href="/css/hux-blog.min.css">
+
+
+    <!-- Pygments Highlight CSS -->
+    
+<link rel="stylesheet" href="/css/highlight.css">
+
+
+    <!-- Custom Fonts -->
+    <!-- <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css"> -->
+    <!-- Hux change font-awesome CDN to qiniu -->
+    <link href="https://cdn.staticfile.org/font-awesome/4.5.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+
+    <!-- Hux Delete, sad but pending in China
+    <link href='http://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/
+    css'>
+    -->
+
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- ga & ba script hoook -->
+    <script></script>
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+
+<!-- hack iOS CSS :active style -->
+<body ontouchstart="">
+
+    <!-- Navigation -->
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">Minus Wang</a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <!-- Known Issue, found by Hux:
+            <nav>'s height woule be hold on by its content.
+            so, when navbar scale out, the <nav> will cover tags.
+            also mask any touch event of tags, unfortunately.
+        -->
+        <div id="huxblog_navbar">
+            <div class="navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="/">Home</a>
+                    </li>
+
+                    
+
+                        
+                    
+
+                        
+                        <li>
+                            <a href="/about/">About Me</a>
+                        </li>
+                        
+                    
+
+                        
+                        <li>
+                            <a href="/tags/">Tags</a>
+                        </li>
+                        
+                    
+
+                        
+                        <li>
+                            <a href="/archives/">Archives</a>
+                        </li>
+                        
+                    
+
+                        
+                        <li>
+                            <a href="/notes/">Notes</a>
+                        </li>
+                        
+                    
+
+                        
+                        <li>
+                            <a href="/Friends/">Friends</a>
+                        </li>
+                        
+                    
+                    
+                </ul>
+            </div>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container -->
+</nav>
+<script>
+    // Drop Bootstarp low-performance Navbar
+    // Use customize navbar with high-quality material design animation
+    // in high-perf jank-free CSS3 implementation
+    var $body   = document.body;
+    var $toggle = document.querySelector('.navbar-toggle');
+    var $navbar = document.querySelector('#huxblog_navbar');
+    var $collapse = document.querySelector('.navbar-collapse');
+
+    $toggle.addEventListener('click', handleMagic)
+    function handleMagic(e){
+        if ($navbar.className.indexOf('in') > 0) {
+        // CLOSE
+            $navbar.className = " ";
+            // wait until animation end.
+            setTimeout(function(){
+                // prevent frequently toggle
+                if($navbar.className.indexOf('in') < 0) {
+                    $collapse.style.height = "0px"
+                }
+            },400)
+        }else{
+        // OPEN
+            $collapse.style.height = "auto"
+            $navbar.className += " in";
+        }
+    }
+</script>
+
+
+    <!-- Main Content -->
+    
+<!-- Image to hack wechat -->
+<!-- <img src="http://minus.wang/img/icon_wechat.png" width="0" height="0"> -->
+<!-- <img src="{{ site.baseurl }}/{% if page.header-img %}{{ page.header-img }}{% else %}{{ site.header-img }}{% endif %}" width="0" height="0"> -->
+
+<!-- Post Header -->
+<style type="text/css">
+    header.intro-header{
+        background-image: url('/img/home-bg.jpg')
+    }
+</style>
+<header class="intro-header" >
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <div class="post-heading">
+                    <div class="tags">
+                        
+                    </div>
+                    <h1>一个Quicksort究竟可以写到多么短</h1>
+                    <h2 class="subheading"></h2>
+                    <span class="meta">
+                        Posted by MinusWang on
+                        2017-11-10
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+<!-- Post Content -->
+<article>
+    <div class="container">
+        <div class="row">
+
+    <!-- Post Container -->
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                post-container">
+
+                <p><a href="http://www.cnblogs.com/figure9/archive/2010/12/10/1902711.html">原文转载自-博客园</a></p>
+<p>说实话，我从来没有能一次写对一个快速排序，总是有各种各样的错误。快排麻烦就麻烦在，没办法去调试它，因为它是生成递归的，只能去静态调试，或者是不断的打印数组的状态以推测错误的可能性。 然而快排的基本思想却是极其简单的：接收一个数组，挑一个数，然后把比它小的那一摊数放在它的左边，把比它大的那一摊数放在它的右边，然后再对这个数左右两摊数递归的执行快排过程，直到子数组只剩一个数为止。下面我先用最常用的C语言来写一个快速排序：</p>
+<p>首先可以先写出一些伪代码：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">void</span> <span class="title function_">quicksort</span><span class="params">(<span class="type">int</span> <span class="built_in">array</span>[], <span class="type">int</span> left, <span class="type">int</span> right)</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="comment">//Do nothing if left &lt;= right</span></span><br><span class="line">    <span class="comment">//p &lt;- Get a number from array</span></span><br><span class="line">    <span class="comment">//Put elements &lt;= p to the left side</span></span><br><span class="line">    <span class="comment">//Put elements &gt;= p to the right side</span></span><br><span class="line">    <span class="comment">//Put p in the middle slot which index is pivot</span></span><br><span class="line">    <span class="comment">//Recursive quicksort the left parts and right parts</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>然后慢慢的把这些伪代码转化成<code>C code</code>：</p>
+<blockquote>
+<p>Step 1:</p>
+</blockquote>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">void</span> <span class="title function_">quicksort</span><span class="params">(<span class="type">int</span> <span class="built_in">array</span>[], <span class="type">int</span> left, <span class="type">int</span> right)</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">if</span>(left&lt;right)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="comment">//p &lt;- Get a number from array</span></span><br><span class="line">        <span class="comment">//Put elements &lt;= p to the left side</span></span><br><span class="line">        <span class="comment">//Put elements &gt;= p to the right side</span></span><br><span class="line">        <span class="comment">//Put p in the middle slot which index is pivot</span></span><br><span class="line">        <span class="comment">//Recursive quicksort the left parts and right parts</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>Step 2:获得数组中的某个元素，在这里总是获取最左边的元素</p>
+</blockquote>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">void</span> <span class="title function_">quicksort</span><span class="params">(<span class="type">int</span> <span class="built_in">array</span>[], <span class="type">int</span> left, <span class="type">int</span> right)</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">if</span>(left&lt;right)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="type">int</span> p=<span class="built_in">array</span>[left];</span><br><span class="line">        <span class="comment">//Put elements &lt;= p to the left side</span></span><br><span class="line">        <span class="comment">//Put elements &gt;= p to the right side</span></span><br><span class="line">        <span class="comment">//Put p in the middle slot which index is pivot</span></span><br><span class="line">        <span class="comment">//Recursive quicksort the left parts and right parts</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>Step 3:这是比较麻烦的一步，可以遍历数组，如果碰到比标记值小的数，就把它与前面的数字交换，这样遍历一遍之后，小的数字就被移到了前面</p>
+</blockquote>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">void</span> <span class="title function_">quicksort</span><span class="params">(<span class="type">int</span> <span class="built_in">array</span>[], <span class="type">int</span> left, <span class="type">int</span> right)</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="comment">//Do nothing if left &lt;= right</span></span><br><span class="line">    <span class="keyword">if</span>(left&lt;right)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="comment">//p &lt;- Get a number from array</span></span><br><span class="line">        <span class="type">int</span> p=<span class="built_in">array</span>[left];</span><br><span class="line">        <span class="comment">//Put elements &lt; p to the left side</span></span><br><span class="line">        <span class="comment">//Put elements &gt;= p to the right side</span></span><br><span class="line">        <span class="type">int</span> i=left,j;</span><br><span class="line">        <span class="keyword">for</span>(j=left+<span class="number">1</span>;j&lt;=right;j++)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">if</span>(<span class="built_in">array</span>[j]&lt;p)</span><br><span class="line">            &#123;</span><br><span class="line">                i++;</span><br><span class="line">                swap(<span class="built_in">array</span>,i,j);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">//Put p in the middle slot which index is pivot</span></span><br><span class="line">        swap(<span class="built_in">array</span>,i,left);</span><br><span class="line">        <span class="comment">//Recursive quicksort the left parts and right parts</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>Step 4:容易发现之前所做的步骤是一个划分数组的过程，为了便于理解，可以把它提升成一个函数。与此同时递归的快排左右两部分就可以了。</p>
+</blockquote>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">void</span> <span class="title function_">partition</span><span class="params">(<span class="type">int</span> <span class="built_in">array</span>[],<span class="type">int</span> left, <span class="type">int</span> right)</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="comment">//p &lt;- Get a number from array</span></span><br><span class="line">    <span class="type">int</span> p=<span class="built_in">array</span>[left];</span><br><span class="line">    <span class="comment">//Put elements &lt; p to the left side</span></span><br><span class="line">    <span class="comment">//Put elements &gt;= p to the right side</span></span><br><span class="line">    <span class="type">int</span> i=left,j;</span><br><span class="line">    <span class="keyword">for</span>(j=left+<span class="number">1</span>;j&lt;=right;j++)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">if</span>(<span class="built_in">array</span>[j]&lt;p)</span><br><span class="line">        &#123;</span><br><span class="line">            i++;</span><br><span class="line">            swap(<span class="built_in">array</span>,i,j);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//Put p in the middle slot which index is pivot</span></span><br><span class="line">    swap(<span class="built_in">array</span>,i,left);</span><br><span class="line">    <span class="keyword">return</span> i;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">void</span> <span class="title function_">quicksort</span><span class="params">(<span class="type">int</span> <span class="built_in">array</span>[], <span class="type">int</span> left, <span class="type">int</span> right)</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="comment">//Do nothing if left &lt;= right</span></span><br><span class="line">    <span class="keyword">if</span>(left&lt;right)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="type">int</span> pivot=partition(<span class="built_in">array</span>,left,right);</span><br><span class="line">        <span class="comment">//Recursive quicksort the left parts and right parts</span></span><br><span class="line">        quicksort(<span class="built_in">array</span>,left,pivot<span class="number">-1</span>);</span><br><span class="line">        quicksort(<span class="built_in">array</span>,pivot+<span class="number">1</span>,right);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>Step 5: 最后套一个wrapper，就完成了一个基本的qsort</p>
+</blockquote>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">void</span> <span class="title function_">q_sort</span><span class="params">(<span class="type">int</span> <span class="built_in">array</span>[], <span class="type">int</span> size)</span></span><br><span class="line">&#123;</span><br><span class="line">    quicksort(<span class="built_in">array</span>, <span class="number">0</span>, size<span class="number">-1</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>当然上面的步骤省去了很多的测试及调试过程，之前我也提到过了，我做不到一下子写一个正确的快排，但一步一步来的话，还是可以写出来的。 接下来回到标题：quicksort能够写多短？ 拿之前的C程序来说，把它弄短的途径无非是展开函数，去除大括号等山寨方法。</p>
+<blockquote>
+<p>Step 1：展开partition函数并去除注释</p>
+</blockquote>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">void quicksort(int array[], int left, int right)</span><br><span class="line">&#123;</span><br><span class="line">    if(left&lt;right)</span><br><span class="line">    &#123;</span><br><span class="line">        int p=array[left];</span><br><span class="line">        int pivot=left,j;</span><br><span class="line">        for(j=left+1;j&lt;=right;j++)</span><br><span class="line">        &#123;</span><br><span class="line">            if(array[j]&lt;p)</span><br><span class="line">            &#123;</span><br><span class="line">                pivot++;</span><br><span class="line">                swap(array,pivot,j);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        swap(array,pivot,left);</span><br><span class="line">        quicksort(array,left,pivot-1);</span><br><span class="line">        quicksort(array,pivot+1,right);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>Step 2：去除临时变量，大括号并把自增自减操作放在一个语句里</p>
+</blockquote>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">void quicksort(int array[], int left, int right)</span><br><span class="line">&#123;</span><br><span class="line">    if(left&lt;right)&#123;</span><br><span class="line">        int pivot=left,j;</span><br><span class="line">        for(j=left+1;j&lt;=right;j++)</span><br><span class="line">            if(array[j]&lt;array[left])</span><br><span class="line">                swap(array,++pivot,j);</span><br><span class="line">        swap(array,pivot,left);</span><br><span class="line">        quicksort(array,left,pivot-1);</span><br><span class="line">        quicksort(array,pivot+1,right);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>Step 3：利用C的指针算术，去掉多余的参数</p>
+</blockquote>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">void quicksort(int *array, int n)</span><br><span class="line">&#123;</span><br><span class="line">    if(n&gt;1)&#123;</span><br><span class="line">        int pivot=0,j;</span><br><span class="line">        for(j=1;j&lt;n;j++)</span><br><span class="line">            if(array[j]&lt;array[0])</span><br><span class="line">                swap(array,++pivot,j);</span><br><span class="line">        swap(array,0,pivot);</span><br><span class="line">        quicksort(array,pivot);</span><br><span class="line">        quicksort(array+pivot+1,n-pivot-1);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>这样的话可以把原本20多行的快排缩减到10行，但是这样有什么意义呢，程序的可读性大为下降，而且运行效率也没有丝毫的提升。此外，指针算术很可能会导致各种越界错误。 况且C语言的话，再短也短不了多少了，接下来可以看看快排在其它的语言中的实现，鉴于<code>Java</code>,<code>C#</code>之类的语言实际上和<code>C</code>是一个系列的（都是基于<code>Von-Neuman</code>体系的<code>Imperative Language</code>）。我来展示如何用<code>Declarative Language</code>中来编写<code>quicksort</code>，在这里我使用<code>Scheme</code>（函数式语言）和<code>Python</code>（脚本语言）来演示。</p>
+<p>接下来展示如何用Scheme编写的quicksort</p>
+<p><code>Scheme是MIT的Guy Steele和Jay Sussman开发的一种函数式编程语言</code>，大名鼎鼎的Sicp（Structure and Intepretation of Computer Programs）和Htdp（How to design programs）采用的就是Scheme语言，它的语法非常简单，但功能很强大，mit的6.001课程就选用scheme作为计算机专业学生的入门语言。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">;; define x as value 1</span><br><span class="line">(define x 1)</span><br><span class="line">;; define l as a list of 1 2 3</span><br><span class="line">(define x (list 1 2 3))</span><br><span class="line">;; define f as a square function</span><br><span class="line">(define (f x) (* x x))</span><br><span class="line">;; define a function use lambda</span><br><span class="line">(define f (lambda (x) (* x x)))</span><br><span class="line">;; use a high-order function filter, will return (list 1 2 3)</span><br><span class="line">(filter (lambda (x) (&lt;= x 3)) (list 1 2 3 4 5))</span><br></pre></td></tr></table></figure>
+
+<p>关于Scheme语言的更多内容可以参考The little schemer或是网上的specification，在这里就不赘述了。<br>让我们回到快速排序这个话题，按照之前的思路，首先写一下伪码：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">;; Sort a number list via quicksort algorithm</span><br><span class="line">;; list of numbers -&gt; list of numbers</span><br><span class="line">(define (q-sort l)</span><br><span class="line">  ;;get a number p from l</span><br><span class="line">  ;;get numbers&lt;=p from l-&#123;p&#125; as small part</span><br><span class="line">  ;;get number&gt;p from l-&#123;p&#125; as bigger part</span><br><span class="line">  ;;recursively quicksort on small part and bigger part</span><br><span class="line">  ;;combine small part, p, bigger part together as the sorted list</span><br><span class="line">  )</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>Step 1: 首先获得序列中的某个数，在这里取第一个数</p>
+</blockquote>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">;; Sort a number list via quicksort algorithm</span><br><span class="line">;; list of numbers -&gt; list of numbers</span><br><span class="line">(define (q-sort l)</span><br><span class="line">  ;;get a number p from l</span><br><span class="line">  (let ((p (first l)))</span><br><span class="line">      ;;get numbers&lt;=p from l-&#123;p&#125; as small part</span><br><span class="line">      ;;get number&gt;p from l-&#123;p&#125; as bigger part</span><br><span class="line">      ;;recursively quicksort on small part and bigger part</span><br><span class="line">      ;;combine small part, p, bigger part together as the sorted list</span><br><span class="line">     )</span><br><span class="line">  )</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>Step 2: 从序列中提取出比标记值小的一摊数和大的一摊数，然后对其进行递归的快排调用</p>
+</blockquote>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">;; Sort a number list via quicksort algorithm</span><br><span class="line">;; list of numbers -&gt; list of numbers</span><br><span class="line">(define (q-sort l)</span><br><span class="line">  (cond</span><br><span class="line">    [(empty? l) empty]</span><br><span class="line">    [(empty? (rest l)) (list (first l))]</span><br><span class="line">    [else</span><br><span class="line">    ;;get a number p from l</span><br><span class="line">    ;;get numbers&lt;=p from l-&#123;p&#125; as small part</span><br><span class="line">    ;;get number&gt;p from l-&#123;p&#125; as bigger part</span><br><span class="line">     (let ((small-part (filter (lambda (x) (&lt;= x (first l))) (rest l)))</span><br><span class="line">           (big-part (filter (lambda (x) (&gt; x (first l))) (rest l))))</span><br><span class="line">        ;;recursively quicksort on small part and bigger part</span><br><span class="line">       )]</span><br><span class="line">    )</span><br><span class="line">  )</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>Step 3:为这个递归函数加上终止条件</p>
+</blockquote>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">;; Sort a number list via quicksort algorithm</span><br><span class="line">;; list of numbers -&gt; list of numbers</span><br><span class="line">(define (q-sort l)</span><br><span class="line">  (cond</span><br><span class="line">    [(empty? l) empty]</span><br><span class="line">    [(empty? (rest l)) (list (first l))]</span><br><span class="line">    [else</span><br><span class="line">    ;;get a number p from l</span><br><span class="line">    ;;get numbers&lt;=p from l-&#123;p&#125; as small part</span><br><span class="line">    ;;get number&gt;p from l-&#123;p&#125; as bigger part</span><br><span class="line">     (let ((small-part (filter (lambda (x) (&lt;= x (first l))) (rest l)))</span><br><span class="line">           (big-part (filter (lambda (x) (&gt; x (first l))) (rest l))))</span><br><span class="line">        ;;recursively quicksort on small part and bigger part</span><br><span class="line">       (append (q-sort small-part)</span><br><span class="line">               (list (first l))</span><br><span class="line">               (q-sort big-part)))]</span><br><span class="line">    )</span><br><span class="line">  )</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>可以发现<code>scheme</code>程序的一大特点就是声明性，你只需告诉它<code>what to do</code>，而C程序的话则强调<code>How to do</code>，实际上，上面的程序根本不需要注释，它自己的代码已经足够说明自己的用途了。<br>最终的Scheme程序：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">;; Sort a number list via quicksort algorithm</span><br><span class="line">;; list of numbers -&gt; list of numbers</span><br><span class="line">(define (q-sort l)</span><br><span class="line">  (cond</span><br><span class="line">    [(empty? l) empty]</span><br><span class="line">    [(empty? (rest l)) (list (first l))]</span><br><span class="line">    [else</span><br><span class="line">     (let ((small-part (filter (lambda (x) (&lt;= x (first l))) (rest l)))</span><br><span class="line">           (big-part (filter (lambda (x) (&gt; x (first l))) (rest l))))</span><br><span class="line">       (append (q-sort small-part)(list (first l))(q-sort big-part)))]</span><br><span class="line">    )</span><br><span class="line">  )</span><br></pre></td></tr></table></figure>
+
+
+<h3 id="最后我们看看如何用Python来构建一个快速排序："><a href="#最后我们看看如何用Python来构建一个快速排序：" class="headerlink" title="最后我们看看如何用Python来构建一个快速排序："></a>最后我们看看如何用<code>Python</code>来构建一个快速排序：</h3><p>需要注意的是，<code>Python</code>和前面的<code>C、Scheme</code>语言不一样，它是一个<code>multi-paradigm programming language</code>，换句话说，用<code>python</code>既可以procedural programming ,也可以oop甚至是fp。 首先用C的思想来写一个python版的快排：</p>
+<h3 id="Step-1-列出伪代码，要实现的步骤"><a href="#Step-1-列出伪代码，要实现的步骤" class="headerlink" title="Step 1: 列出伪代码，要实现的步骤"></a>Step 1: 列出伪代码，要实现的步骤</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">q_sort</span>(<span class="params">l</span>):</span><br><span class="line">    <span class="comment">#get first number p from l</span></span><br><span class="line">    <span class="comment">#move elements&lt;p to the left side</span></span><br><span class="line">    <span class="comment">#move elements&gt;=p to the right side</span></span><br><span class="line">    <span class="comment">#recursively quicksort left and right part</span></span><br><span class="line">    <span class="comment">#combine them together</span></span><br></pre></td></tr></table></figure>
+<h3 id="Step-2-进一步细化，这里利用了Python支持在函数内部定义函数的性质"><a href="#Step-2-进一步细化，这里利用了Python支持在函数内部定义函数的性质" class="headerlink" title="Step 2: 进一步细化，这里利用了Python支持在函数内部定义函数的性质"></a>Step 2: 进一步细化，这里利用了Python支持在函数内部定义函数的性质</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">q_sort</span>(<span class="params">l</span>):</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">quicksort</span>(<span class="params">l,left,right</span>):</span><br><span class="line">        <span class="comment">#get first number p from left end</span></span><br><span class="line">        <span class="comment">#move elements&lt;p to the left side</span></span><br><span class="line">        <span class="comment">#move elements&gt;=p to the right side</span></span><br><span class="line">        <span class="comment">#recursively quicksort left and right part</span></span><br><span class="line">        <span class="comment">#combine them together</span></span><br><span class="line">    quicksort(l,<span class="number">0</span>,<span class="built_in">len</span>(l)-<span class="number">1</span>)</span><br></pre></td></tr></table></figure>
+
+<h3 id="Step-3-再一步细化移动list元素的过程，就完成了这个函数，Python支持多重赋值，所以交换元素非常方便"><a href="#Step-3-再一步细化移动list元素的过程，就完成了这个函数，Python支持多重赋值，所以交换元素非常方便" class="headerlink" title="Step 3: 再一步细化移动list元素的过程，就完成了这个函数，Python支持多重赋值，所以交换元素非常方便"></a>Step 3: 再一步细化移动list元素的过程，就完成了这个函数，Python支持多重赋值，所以交换元素非常方便</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">q_sort</span>(<span class="params">l</span>):</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">quicksort</span>(<span class="params">l,left,right</span>):</span><br><span class="line">        <span class="keyword">if</span> right&gt;left:</span><br><span class="line">            <span class="comment">#get first number p from left end</span></span><br><span class="line">            pivot,j,tmp=left,left+<span class="number">1</span>,l[left]</span><br><span class="line">            <span class="comment">#move elements&lt;p to the left side</span></span><br><span class="line">            <span class="comment">#move elements&gt;=p to the right side</span></span><br><span class="line">            <span class="keyword">while</span> j&lt;=right:</span><br><span class="line">                <span class="keyword">if</span> l[j]&lt;tmp:</span><br><span class="line">                    pivot=pivot+<span class="number">1</span></span><br><span class="line">                    l[pivot],l[j]=l[j],l[pivot]</span><br><span class="line">                j=j+<span class="number">1</span></span><br><span class="line">            l[left],l[pivot]=l[pivot],l[left]</span><br><span class="line">            <span class="comment">#recursively quicksort left and right part</span></span><br><span class="line">            quicksort(l,left,pivot-<span class="number">1</span>)</span><br><span class="line">            quicksort(l,pivot+<span class="number">1</span>,right)</span><br><span class="line">    quicksort(l,<span class="number">0</span>,<span class="built_in">len</span>(l)-<span class="number">1</span>)</span><br></pre></td></tr></table></figure>
+<p><code>python</code>有一个很好用的特性就是<code>list comprehension</code>，利用这个特性可以写出声明性很强的代码，比如说：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Get all even numbers between 1 and 100</span></span><br><span class="line">[x <span class="keyword">for</span> x <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">1</span>,<span class="number">101</span>) <span class="keyword">if</span> x%<span class="number">2</span>==<span class="number">1</span>]</span><br><span class="line"><span class="comment"># Get all line which start with &#x27;From&#x27;</span></span><br><span class="line">[line <span class="keyword">for</span> line <span class="keyword">in</span> lines <span class="keyword">if</span> line.startwith(<span class="string">&#x27;From&#x27;</span>)]</span><br></pre></td></tr></table></figure>
+
+<h3 id="我们可以直接使用这个特性来构建一个更易懂的quicksort，回到之前的第一步："><a href="#我们可以直接使用这个特性来构建一个更易懂的quicksort，回到之前的第一步：" class="headerlink" title="我们可以直接使用这个特性来构建一个更易懂的quicksort，回到之前的第一步："></a>我们可以直接使用这个特性来构建一个更易懂的quicksort，回到之前的第一步：</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">q_sort</span>(<span class="params">l</span>):</span><br><span class="line">    <span class="comment">#get first number p from l</span></span><br><span class="line">    <span class="comment">#move elements&lt;p to the left side</span></span><br><span class="line">    <span class="comment">#move elements&gt;=p to the right side</span></span><br><span class="line">    <span class="comment">#recursively quicksort left and right part</span></span><br><span class="line">    <span class="comment">#combine them together</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="Step-2-利用python的list-slice和list-comprehension，很容易得到比标记值大和小的两部分，然后把它们拼接起来即可"><a href="#Step-2-利用python的list-slice和list-comprehension，很容易得到比标记值大和小的两部分，然后把它们拼接起来即可" class="headerlink" title="Step 2: 利用python的list slice和list comprehension，很容易得到比标记值大和小的两部分，然后把它们拼接起来即可"></a>Step 2: 利用<code>python</code>的<code>list slice</code>和<code>list comprehension</code>，很容易得到比标记值大和小的两部分，然后把它们拼接起来即可</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">q_sort</span>(<span class="params">l</span>):</span><br><span class="line">    <span class="comment">#get first number p from l</span></span><br><span class="line">    p=l[<span class="number">0</span>]</span><br><span class="line">    <span class="comment">#move elements&lt;p in l-&#123;p&#125; to the left side</span></span><br><span class="line">    small_part=[x <span class="keyword">for</span> x <span class="keyword">in</span> l[<span class="number">1</span>:] <span class="keyword">if</span> x&lt;p]</span><br><span class="line">    <span class="comment">#move elements&gt;=p in l-&#123;p&#125; to the right side</span></span><br><span class="line">    big_part=[x <span class="keyword">for</span> x <span class="keyword">in</span> l[<span class="number">1</span>:] <span class="keyword">if</span> x&gt;=p]</span><br><span class="line">    <span class="comment">#recursively quicksort left and right part and combine them together</span></span><br><span class="line">    <span class="keyword">return</span> q_sort(small_part)+[p]+q_sort(big_part)</span><br></pre></td></tr></table></figure>
+
+<p>执行程序，<code>oops</code>，进入死循环了。</p>
+<h3 id="Step-3-增加终止条件"><a href="#Step-3-增加终止条件" class="headerlink" title="Step 3: 增加终止条件"></a>Step 3: 增加终止条件</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">q_sort</span>(<span class="params">l</span>):</span><br><span class="line">    <span class="keyword">if</span> <span class="built_in">len</span>(l)&lt;=<span class="number">1</span>:</span><br><span class="line">        <span class="keyword">return</span> l</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        <span class="comment">#get first number p from l</span></span><br><span class="line">        p=l[<span class="number">0</span>]</span><br><span class="line">        <span class="comment">#move elements&lt;p in l-&#123;p&#125; to the left side</span></span><br><span class="line">        small_part=[x <span class="keyword">for</span> x <span class="keyword">in</span> l[<span class="number">1</span>:] <span class="keyword">if</span> x&lt;p]</span><br><span class="line">        <span class="comment">#move elements&gt;=p in l-&#123;p&#125; to the right side</span></span><br><span class="line">        big_part=[x <span class="keyword">for</span> x <span class="keyword">in</span> l[<span class="number">1</span>:] <span class="keyword">if</span> x&gt;=p]</span><br><span class="line">        <span class="comment">#recursively quicksort left and right part and combine them together</span></span><br><span class="line">        <span class="keyword">return</span> q_sort(small_part)+[p]+q_sort(big_part)</span><br></pre></td></tr></table></figure>
+
+<p>这次运行结果正常了，需要注意的是，这个q_sort并不是进行原地排序，而是不断的生成新的list，当list的元素很多时会对性能造成很大的负面影响，这里只是为了演示python的特性才这么写。 如何把它变得更短呢？首先去掉注释试试</p>
+<h3 id="Step-4-去除注释"><a href="#Step-4-去除注释" class="headerlink" title="Step 4: 去除注释"></a>Step 4: 去除注释</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">q_sort</span>(<span class="params">l</span>):</span><br><span class="line">    <span class="keyword">if</span> <span class="built_in">len</span>(l)&lt;=<span class="number">1</span>:</span><br><span class="line">        <span class="keyword">return</span> l</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        p=l[<span class="number">0</span>]</span><br><span class="line">        small_part=[x <span class="keyword">for</span> x <span class="keyword">in</span> l[<span class="number">1</span>:] <span class="keyword">if</span> x&lt;p]</span><br><span class="line">        big_part=[x <span class="keyword">for</span> x <span class="keyword">in</span> l[<span class="number">1</span>:] <span class="keyword">if</span> x&gt;=p]</span><br><span class="line">        <span class="keyword">return</span> q_sort(small_part)+[p]+q_sort(big_part)</span><br></pre></td></tr></table></figure>
+
+<p>去除注释之后的<code>q_sort</code>函数只剩下8行了，还可以更短些吗？答案是肯定的。 注意到q_sort里面用了不少的临时变量，可以把它们去除掉</p>
+<h3 id="Step-5-去除临时变量"><a href="#Step-5-去除临时变量" class="headerlink" title="Step 5: 去除临时变量"></a>Step 5: 去除临时变量</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">q_sort</span>(<span class="params">l</span>):</span><br><span class="line">    <span class="keyword">if</span> <span class="built_in">len</span>(l)&lt;=<span class="number">1</span>:</span><br><span class="line">        <span class="keyword">return</span> l</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        <span class="keyword">return</span> q_sort([x <span class="keyword">for</span> x <span class="keyword">in</span> l[<span class="number">1</span>:] <span class="keyword">if</span> x&lt;l[<span class="number">0</span>]])+[l[<span class="number">0</span>]]+q_sort([x <span class="keyword">for</span> x <span class="keyword">in</span> l[<span class="number">1</span>:] <span class="keyword">if</span> x&gt;=l[<span class="number">0</span>]])</span><br></pre></td></tr></table></figure>
+
+<p>只剩下5行了！</p>
+<h3 id="Step-6-利用Python的3元表达式-if-else-来改写上面的函数，注意此处的逻辑是相同的"><a href="#Step-6-利用Python的3元表达式-if-else-来改写上面的函数，注意此处的逻辑是相同的" class="headerlink" title="Step 6: 利用Python的3元表达式 if else 来改写上面的函数，注意此处的逻辑是相同的"></a>Step 6: 利用Python的3元表达式 if else 来改写上面的函数，注意此处的逻辑是相同的</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">q_sort</span>(<span class="params">l</span>):</span><br><span class="line">    <span class="keyword">return</span> l <span class="keyword">if</span> <span class="built_in">len</span>(l)&lt;=<span class="number">1</span> <span class="keyword">else</span> q_sort([x <span class="keyword">for</span> x <span class="keyword">in</span> l[<span class="number">1</span>:] <span class="keyword">if</span> x&lt;l[<span class="number">0</span>]])+[l[<span class="number">0</span>]]+q_sort([x <span class="keyword">for</span> x <span class="keyword">in</span> l[<span class="number">1</span>:] <span class="keyword">if</span> x&gt;=l[<span class="number">0</span>]])</span><br></pre></td></tr></table></figure>
+
+<p>现在只剩下2行了，需要注意的是python也提供了lambda表达式，因此q_sort可以被进一步简化：</p>
+<h3 id="Final-Step-利用lambda表达式，再次简化"><a href="#Final-Step-利用lambda表达式，再次简化" class="headerlink" title="Final Step: 利用lambda表达式，再次简化"></a>Final Step: 利用lambda表达式，再次简化</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">q_sort= <span class="keyword">lambda</span> l: l <span class="keyword">if</span> <span class="built_in">len</span>(l)&lt;=<span class="number">1</span> <span class="keyword">else</span> q_sort([x <span class="keyword">for</span> x <span class="keyword">in</span> l[<span class="number">1</span>:] <span class="keyword">if</span> x&lt;l[<span class="number">0</span>]])+[l[<span class="number">0</span>]]+q_sort([x <span class="keyword">for</span> x <span class="keyword">in</span> l[<span class="number">1</span>:] <span class="keyword">if</span> x&gt;=l[<span class="number">0</span>]])</span><br></pre></td></tr></table></figure>
+<p>一个Quicksort究竟可以写到多么短呢？上面的代码给出了答案，1行就足够了。</p>
+<blockquote>
+<p>总结：</p>
+</blockquote>
+<p>我们可以看到不同的语言在处理同样的问题时所采用的方案也是截然不同的，C语言强调的是how to do，而Scheme、Python则强调的是what to do。使用C的话要注重细节，因为每一个小失误都可能会使程序down掉，这是imperative language的通性，而诸如scheme、python这样的语言，所注重的则不是实现的细节，而是解决问题的逻辑，我们只需要告诉电脑what to do，而compiler将会为你生成对应的代码，这样我们就不需要把大把的精力花费在调试程序的细节方面了。 </p>
+<p>一些人认为程序语言只是表述思想的一种方式，换句话说，他们认为语言无关紧要，重要的是所谓的思想。甚至有一些人认为掌握一门主流语言（诸如C/C++/Java/C#等）就足够了，因为语言都是相通的。 的确，C语言的熟手学Java语法，可能也就是两三天的功夫，而C++的熟手学C#的使用的话顶多就是一上午不到。但需要注意的是，知道一门语言的语法和熟练使用一门语言是很不一样的，每一种语言都有它独到的一面，而这些成分需要使用此语言相当长的时间才能够体会到。</p>
+<p>Steve McConnel曾说过，要<code>Program into a language</code>而不是<code>Program on a language</code>[4]，打个比方，<code>假设我熟悉C，然后花了两天学会了Java的语法，但这不代表我就能写出像样的Java程序了，因为我不知道GC，不知道Spring, Hibernate等一系列框架，也不熟悉OOP。</code> 换个说法，我们从初中开始学英语学到现在也有十年多了，但我们说的English还是被外国人称为Chinglish，why？我认为这不是我们发音不够好或是不够流利，而是我们一直都是thinking in the Chinese way，在这种情况下是不可能说出纯正的English来的。 </p>
+<p>所以我认为诸如语言无关论的观点都是错误的，一方面持有这些观点的人的眼光一般很狭窄，只是限定在命令式程序设计语言语言的圈子里（因为根本不知道其它范式的程序设计语言的存在，所以他们自然认为所有语言都是相通的了）；另外一方面，这些观点的持有者认为语言并不会影响思想，但实际上并不是如此，一个Lisp程序员和一个C程序员去处理同一个问题的思路肯定相差甚远，抛开程序设计语言，<code>即使是不同的语言，比如说汉语和英语，也会影响人的思路</code>（著名的Sapir-Whorf假设），这也就是我们常说的东方人思维和西方人思维的产生原因之一[5]。</p>
+<p><code>Eric Raymond</code>在他的<code>How to become a hacker</code>一文中就曾提到过作为一个<code>Hacker</code>应该掌握<code>Python, C/C++, Java, Perl</code>这5种语言[6]，因为它们各自代表了一种截然不同的编程方式：</p>
+<blockquote>
+<p>It’s best, actually, to learn all five of Python, C/C++, Java, Perl, and LISP. Besides being the most important hacking languages, they represent very different approaches to programming, and each will educate you in valuable ways.</p>
+</blockquote>
+<p><code>Peter Norvig</code>则更加直接[7]：</p>
+<blockquote>
+<p>Learn at least a half dozen programming languages. Include one language that supports class abstractions (like Java or C++), one that supports functional abstraction (like Lisp or ML), one that supports syntactic abstraction (like Lisp), one that supports declarative specifications (like Prolog or C++ templates), one that supports coroutines (like Icon or Scheme), and one that supports parallelism (like Sisal)</p>
+</blockquote>
+<p>所以他说才会说<code>Teach Yourself Programming in Ten Years</code></p>
+<blockquote>
+<p>References</p>
+</blockquote>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">[1] The practice of Programming. Brian W Kernighan and Rob Pike. Addison Wisley </span><br><span class="line"></span><br><span class="line">[2] How to design programs. MIT Press. </span><br><span class="line"></span><br><span class="line">[3] Learning Python 3rd edition. O&#x27;Reilly Press </span><br><span class="line"></span><br><span class="line">[4] Code complete 2nd edition. Microsoft Press </span><br><span class="line"></span><br><span class="line">[5] Linguistic Relativity. Wikipedia </span><br><span class="line"></span><br><span class="line">[6] How to become a hacker. Eric S Raymond </span><br><span class="line"></span><br><span class="line">[7] Learning programming in Ten Years. Peter Norvig</span><br></pre></td></tr></table></figure>
+
+                <hr>
+
+                
+
+                <ul class="pager">
+                    
+                        <li class="previous">
+                            <a href="/2017/11/10/软件工程中英对照词汇表/" data-toggle="tooltip" data-placement="top" title="软件工程中英对照词汇表">&larr; Previous Post</a>
+                        </li>
+                    
+                    
+                        <li class="next">
+                            <a href="/2017/11/09/内存泄露自动探测神器—LeakCanary/" data-toggle="tooltip" data-placement="top" title="内存泄露自动探测神器—LeakCanary">Next Post &rarr;</a>
+                        </li>
+                    
+                </ul>
+
+                
+
+                
+
+            </div>
+    <!-- Side Catalog Container -->
+        
+
+    <!-- Sidebar Container -->
+
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                sidebar-container">
+
+                <!-- Featured Tags -->
+                
+                <section>
+                    <!-- no hr -->
+                    <h5><a href="/tags/">FEATURED TAGS</a></h5>
+                    <div class="tags">
+                       
+                    </div>
+                </section>
+                
+
+                <!-- Friends Blog -->
+                
+                <hr>
+                <h5>FRIENDS</h5>
+                <ul class="list-inline">
+
+                    
+                        <li><a href="http://minus.wang" target="_blank">MinusWang&#39;s Diary</a></li>
+                    
+                        <li><a href="http://minus.wang" target="_blank">MinusWang</a></li>
+                    
+                        <li><a href="#" target="_blank">Foo</a></li>
+                    
+                        <li><a href="#" target="_blank">Bar</a></li>
+                    
+                        <li><a href="#" target="_blank">Example Friends</a></li>
+                    
+                        <li><a href="#" target="_blank">It helps SEO</a></li>
+                    
+                </ul>
+                
+            </div>
+
+        </div>
+    </div>
+</article>
+
+
+
+
+
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+<!-- anchor-js, Doc:http://bryanbraun.github.io/anchorjs/ -->
+<script>
+    async("https://cdn.bootcss.com/anchor-js/1.1.1/anchor.min.js",function(){
+        anchors.options = {
+          visible: 'always',
+          placement: 'right',
+          icon: '#'
+        };
+        anchors.add().remove('.intro-header h1').remove('.subheading').remove('.sidebar-container h5');
+    })
+</script>
+<style>
+    /* place left on bigger screen */
+    @media all and (min-width: 800px) {
+        .anchorjs-link{
+            position: absolute;
+            left: -0.75em;
+            font-size: 1.1em;
+            margin-top : -0.1em;
+        }
+    }
+</style>
+
+
+
+    <!-- Footer -->
+    <!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <ul class="list-inline text-center">
+                
+                
+                    <li>
+                        <a target="_blank" href="https://twitter.com/MinusWang">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+                
+                    <li>
+                        <a target="_blank" href="https://www.zhihu.com/people/MinusWang">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa  fa-stack-1x fa-inverse">知</i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+                    <li>
+                        <a target="_blank" href="http://weibo.com/MinusWang">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-weibo fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+                    <li>
+                        <a target="_blank" href="https://www.facebook.com/MinusWang">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-facebook fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+                    <li>
+                        <a target="_blank"  href="https://github.com/MinusWang">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+                    <li>
+                        <a target="_blank"  href="https://www.linkedin.com/in/MinusWang">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-linkedin fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                </ul>
+                <p class="copyright text-muted">
+				    <br>
+					<br>
+                    Copyright &copy; 2024 Minus Wang
+                </p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- jQuery -->
+
+<script src="/js/jquery.min.js"></script>
+
+
+<!-- Bootstrap Core JavaScript -->
+
+<script src="/js/bootstrap.min.js"></script>
+
+
+<!-- Custom Theme JavaScript -->
+
+<script src="/js/hux-blog.min.js"></script>
+
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+<!-- 
+     Because of the native support for backtick-style fenced code blocks 
+     right within the Markdown is landed in Github Pages, 
+     From V1.6, There is no need for Highlight.js, 
+     so Huxblog drops it officially.
+
+     - https://github.com/blog/2100-github-pages-now-faster-and-simpler-with-jekyll-3-0  
+     - https://help.github.com/articles/creating-and-highlighting-code-blocks/    
+-->
+<!--
+    <script>
+        async("http://cdn.bootcss.com/highlight.js/8.6/highlight.min.js", function(){
+            hljs.initHighlightingOnLoad();
+        })
+    </script>
+    <link href="http://cdn.bootcss.com/highlight.js/8.6/styles/github.min.css" rel="stylesheet">
+-->
+
+
+<!-- jquery.tagcloud.js -->
+<script>
+    // only load tagcloud.js in tag.html
+    if($('#tag_cloud').length !== 0){
+        async("http://minus.wang/js/jquery.tagcloud.js",function(){
+            $.fn.tagcloud.defaults = {
+                //size: {start: 1, end: 1, unit: 'em'},
+                color: {start: '#bbbbee', end: '#0085a1'},
+            };
+            $('#tag_cloud a').tagcloud();
+        })
+    }
+</script>
+
+<!--fastClick.js -->
+<script>
+    async("https://cdn.bootcss.com/fastclick/1.0.6/fastclick.min.js", function(){
+        var $nav = document.querySelector("nav");
+        if($nav) FastClick.attach($nav);
+    })
+</script>
+
+
+<!-- Google Analytics -->
+
+
+
+
+<!-- Baidu Tongji -->
+
+
+<!-- Side Catalog -->
+
+
+
+
+
+<!-- Image to hack wechat -->
+<img src="http://minus.wang/img/icon_wechat.png" width="0" height="0" />
+<!-- Migrate from head to bottom, no longer block render and still work -->
+
+</body>
+
+</html>

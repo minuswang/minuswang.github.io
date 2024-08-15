@@ -1,0 +1,630 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- Head tag -->
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Minus Wang - a life writer">
+    <meta name="keyword"  content="">
+    <link rel="shortcut icon" href="..//img/favicon.ico">
+
+    <title>
+        
+          Android常见知识点以及流行框架梳理 - MinusWang&#39;s Diary | MinusWangの日志
+        
+    </title>
+
+    <link rel="canonical" href="http://minus.wang/2018/12/14/Android常见知识点以及流行框架梳理/">
+
+    <!-- Bootstrap Core CSS -->
+    
+<link rel="stylesheet" href="/css/bootstrap.min.css">
+
+
+    <!-- Custom CSS -->
+    
+<link rel="stylesheet" href="/css/hux-blog.min.css">
+
+
+    <!-- Pygments Highlight CSS -->
+    
+<link rel="stylesheet" href="/css/highlight.css">
+
+
+    <!-- Custom Fonts -->
+    <!-- <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css"> -->
+    <!-- Hux change font-awesome CDN to qiniu -->
+    <link href="https://cdn.staticfile.org/font-awesome/4.5.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+
+    <!-- Hux Delete, sad but pending in China
+    <link href='http://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/
+    css'>
+    -->
+
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- ga & ba script hoook -->
+    <script></script>
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+
+<!-- hack iOS CSS :active style -->
+<body ontouchstart="">
+
+    <!-- Navigation -->
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">Minus Wang</a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <!-- Known Issue, found by Hux:
+            <nav>'s height woule be hold on by its content.
+            so, when navbar scale out, the <nav> will cover tags.
+            also mask any touch event of tags, unfortunately.
+        -->
+        <div id="huxblog_navbar">
+            <div class="navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="/">Home</a>
+                    </li>
+
+                    
+
+                        
+                    
+
+                        
+                        <li>
+                            <a href="/about/">About Me</a>
+                        </li>
+                        
+                    
+
+                        
+                        <li>
+                            <a href="/tags/">Tags</a>
+                        </li>
+                        
+                    
+
+                        
+                        <li>
+                            <a href="/archives/">Archives</a>
+                        </li>
+                        
+                    
+
+                        
+                        <li>
+                            <a href="/notes/">Notes</a>
+                        </li>
+                        
+                    
+
+                        
+                        <li>
+                            <a href="/Friends/">Friends</a>
+                        </li>
+                        
+                    
+                    
+                </ul>
+            </div>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container -->
+</nav>
+<script>
+    // Drop Bootstarp low-performance Navbar
+    // Use customize navbar with high-quality material design animation
+    // in high-perf jank-free CSS3 implementation
+    var $body   = document.body;
+    var $toggle = document.querySelector('.navbar-toggle');
+    var $navbar = document.querySelector('#huxblog_navbar');
+    var $collapse = document.querySelector('.navbar-collapse');
+
+    $toggle.addEventListener('click', handleMagic)
+    function handleMagic(e){
+        if ($navbar.className.indexOf('in') > 0) {
+        // CLOSE
+            $navbar.className = " ";
+            // wait until animation end.
+            setTimeout(function(){
+                // prevent frequently toggle
+                if($navbar.className.indexOf('in') < 0) {
+                    $collapse.style.height = "0px"
+                }
+            },400)
+        }else{
+        // OPEN
+            $collapse.style.height = "auto"
+            $navbar.className += " in";
+        }
+    }
+</script>
+
+
+    <!-- Main Content -->
+    
+<!-- Image to hack wechat -->
+<!-- <img src="http://minus.wang/img/icon_wechat.png" width="0" height="0"> -->
+<!-- <img src="{{ site.baseurl }}/{% if page.header-img %}{{ page.header-img }}{% else %}{{ site.header-img }}{% endif %}" width="0" height="0"> -->
+
+<!-- Post Header -->
+<style type="text/css">
+    header.intro-header{
+        background-image: url('/img/home-bg.jpg')
+    }
+</style>
+<header class="intro-header" >
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <div class="post-heading">
+                    <div class="tags">
+                        
+                          <a class="tag" href="/tags/#Android" title="Android">Android</a>
+                        
+                    </div>
+                    <h1>Android常见知识点以及流行框架梳理</h1>
+                    <h2 class="subheading"></h2>
+                    <span class="meta">
+                        Posted by MinusWang on
+                        2018-12-14
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+<!-- Post Content -->
+<article>
+    <div class="container">
+        <div class="row">
+
+    <!-- Post Container -->
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                post-container">
+
+                <h2 id="BAT大咖助力-全面升级Android面试"><a href="#BAT大咖助力-全面升级Android面试" class="headerlink" title="BAT大咖助力 全面升级Android面试"></a>BAT大咖助力 全面升级Android面试</h2><blockquote>
+<p>第1章 课程介绍（本课程专为初中级同学面试复习）</p>
+</blockquote>
+<p>本课程专为初中级程度同学面试准备的系统复习指南，本章带你了解面试过程中会遇到的问题，个人应该摆正的心态，以及面试官最为看重你的解决问题的思路。关于框架面试专题课程请移步到：<a href="http://coding.imooc.com/class/157.html">http://coding.imooc.com/class/157.html</a><br>1-1 课前必读（不看会错过一个亿）<br>1-2 课程介绍</p>
+<blockquote>
+<p>第2章 Android开发岗位技术要求和面试前的准备</p>
+</blockquote>
+<p>本章对各个级别Android开发工程师的招聘需求进行深入分析，并带大家清晰完整的了解面试复习与准备思路，做到有的放矢，有侧重点的进行复习与准备。<br>2-1 Android开发岗位技术要求和面试前的准备</p>
+<blockquote>
+<p>第3章 Android基础相关面试问题</p>
+</blockquote>
+<p>Android基础虽然简单，但长时间不梳理，如果被问到，却回答不上了，会丢分又丢人，所以本章主要就为大家梳理Android基础相关的面试问题与答案，主旨就是能了解其中的原理，从而在面试中遇到同类问题能给出相应的思路。</p>
+<p>3-1 Activity先导：lifeCycle、通信、启动模式、源码<br>3-2 Activity任务栈&amp;4种形态<br>3-3 Activity正常情况下生命周期回调方法<br>3-4 Activity异常情况下生命周期分析<br>3-5 Activity之间数据通信3种方式<br>3-6 Activity向Fragment传递数据：Bundle／定义方法<br>3-7 Fragment传递数据给Activity：接口回调<br>3-8 Activity与Service通信：利用serviceConnection<br>3-9 Activity和Service通信：intent／callback+handler<br>3-10 Activity启动模式：标准／singleTop应用场景<br>3-11 Activity启动模式：SingleTask应用场景<br>3-12 Activity启动模式：SingleInstance应用场景<br>3-13 Service先导：线程、IntentService、Binder等<br>3-14 Service和线程的区别和应用场景<br>3-15 如何管理Service生命周期<br>3-16 IntentService 和Service的异同：handlerThread<br>3-17 启动和绑定Service服务先后次序问题<br>3-18 序列化：Parcelable和Serializable差异<br>3-19 binder应用：AIDL如何创建<br>3-20 binder机制通信：AIDL生成java文件详细分析<br>3-21 静态&amp;动态注册使用、特点、应用场景<br>3-22 webview安全漏洞面试问题讲解</p>
+<blockquote>
+<p>第4章 异步消息处理机制相关面试问题</p>
+</blockquote>
+<p>异步消息处理在面试中是一定会被问到的，在实战过程中也是非常重要的一个开发手段，我们会从Handler、Asynctask给大家详细讲解，主旨就是能了解其中的原理，从而在面试中遇到同类问题能给出相应的思路。</p>
+<p>4-1 异步消息-Handler的四大组件和运作机制<br>4-2 异步消息-Handler源码：looper、handler、消息队列如何捆绑？<br>4-3 异步消息-looper如何管理MessageQueue<br>4-4 异步消息-Handler机制总结&amp;面试要点<br>4-5 异步消息-Asynctask的使用和4点注意事项<br>4-6 异步消息-Asynctask源码：线程池&amp;SerialExecutor创建<br>4-7 异步消息-并发编程：FutureTask&amp;Callable补充<br>4-8 异步消息-Asynctask源码：postResult方法<br>4-9 异步消息-Asynctask源码：Asynctask如何实例化<br>4-10 异步消息-Asynctask源码：线程池的execute&amp;executeOnExecutor</p>
+<blockquote>
+<p>第5章 开源框架相关面试问题</p>
+</blockquote>
+<p>开源框架可以说是一个面试的试金石，如果对于主流框架比较熟悉，并能画出流程图，会让面试官对你刮目相看。本章主要带大家分析的开源框架有网络框架：okhttp retrofit ,图片加载框架gilde，主旨就是能了解其中的原理，从而在面试中遇到同类问题能给出相应的思路。…<br>5-1 okhttp同步请求：RealCall、拦截器、dispatcher调度器<br>5-2 okhttp异步请求：AsyncCall、线程池、双向队列<br>5-3 okhttp内部线程池创建：SynchronousQueue和ThreadPoolExecutor<br>5-4 okhttp调度器：dispatcher、AsyncCall、promoteCalls<br>5-5 retrofit数据解析器、url、网络请求适配器等<br>5-6 retrofit源码解读：serviceMethod、工厂模式、回调执行器等<br>5-7 retrofit源码解读：callAdapter、GsonConverter等<br>5-8 retrofit源码解读：网络请求接口实例创建<br>5-9 retrofit源码解读：serviceMethod和retrofit核心代码<br>5-10 retrofit源码解读：serviceMethod域赋值¶meterHander<br>5-11 retrofit源码解读：OKhttpCall和Rxjava平台适配<br>5-12 retrofit源码解读：静态代理&amp;封装OKhttp&amp;总结<br>5-13 rxjava观察者模式、基本使用<br>5-14 rxjava+retrofit实现轮询&amp;handler的实现方式<br>5-15 rxjava缓存读取&amp;Lrucache源码解读<br>5-16 rxjava如何实现从内存、磁盘缓存中读取数据<br>5-17 glide创建实例、error、load等<br>5-18 glide压缩图片、两种裁剪图片区别<br>5-19 glide内存、磁盘缓存，优先级使用<br>5-20 butterknife注解框架面试问题讲解</p>
+<blockquote>
+<p>第6章 View绘制相关面试问题</p>
+</blockquote>
+<p>本章主要从view的绘制、listview绘制和缓存来给大家进行讲解面试套路，主旨就是能了解其中的原理，从而在面试中遇到同类问题能给出相应的思路。</p>
+<p>6-1 view绘制：decorview、Window、surface等概念<br>6-2 view绘制：测量过程&amp;measureSpec<br>6-3 view绘制：layout布局阶段&amp;FrameLayout<br>6-4 view绘制：draw阶段&amp;dispatchDraw实现<br>6-5 listview绘制和缓存原理：convertview／viewHolder<br>6-6 listview的RecycleBin机制：缓存scrapView、fillActiveViews等<br>6-7 listview性能优化5个关键点</p>
+<blockquote>
+<p>第7章 Android项目构建相关面试问题（适合初级工程师）</p>
+</blockquote>
+<p>本章内容适合：初级工程师，开发过程中项目的构建是很重要一环，也是检验你是不是一个合格的android开发工程师的标志，面试中也会经常问到，在这里我们主要通过Android的编译打包、Proguard混淆、git的使用、gradle、渠道包这五个部分给大家分析，带大家了解Android构建的全过程，从而轻松应对这类问题的各种面试与开发。…</p>
+<p>7-1 android studio目录结构面试问题讲解<br>7-2 android项目构建面试问题讲解<br>7-3 git版本控制面试问题讲解<br>7-4 gradle面试问题讲解<br>7-5 proguard代码混淆面试问题讲解</p>
+<blockquote>
+<p>第8章 Android异常与性能优化相关面试问题（适合中级工程师）</p>
+</blockquote>
+<p>本章内容适合：中级工程师，随着现在的android开发业务逻辑不断扩大，对于手机的性能也提出了很高的要求，所以一款app在性能上如果能区别其他app也将脱颖而出，同样如果候选人能对性能优化很熟悉，也将在面试中脱颖而出，本章主要从UI卡顿、内存管理、内存泄漏这几个角度带大家分析性能优化。…</p>
+<p>8-1 anr异常面试问题讲解<br>8-2 oom异常面试问题讲解<br>8-3 bitmap面试问题讲解<br>8-4 ui卡顿面试问题讲解<br>8-5 内存泄漏：内存溢出、原因、Android4种内存泄漏<br>8-6 内存泄漏：handler、单例造成的内存泄漏<br>8-7 内存泄漏：总结<br>8-8 内存管理面试问题讲解<br>8-9 冷启动优化面试问题讲解<br>8-10 其他优化面试问题讲解</p>
+<blockquote>
+<p>第9章 热门前沿知识相关面试问题（适合中级工程师）</p>
+</blockquote>
+<p>本章内容适合：中级工程师，现在Android发展越来越快，对于一些前沿的知识，在面试中我们也是需要做到了解，这章从Android的插件化、热更新、rxjava、进程保活，组件化，签名过程，应用沙盒等方面给大家讲解，主要想做到扩大大家的知识面，让面试官看到你对android的热爱。…</p>
+<p>9-1 MVC架构设计模式面试问题讲解<br>9-2 MVP架构设计模式面试问题讲解<br>9-3 MVVM架构设计模式面试问题讲解<br>9-4 android插件化面试问题讲解<br>9-5 android热更新面试问题讲解<br>9-6 进程保活相关面试问题<br>9-7 UIL面试问题讲解<br>9-8 lint检查面试问题讲解<br>9-9 koltin面试问题讲解</p>
+<blockquote>
+<p>第10章 Java高级技术点面试问题（适合初中级工程师）</p>
+</blockquote>
+<p>本章内容适合：初中级工程师，在Android的面试中，面试官通常缺少不了会问一下Java高级技术，本章就会为大家讲解Java相关高级技术面试点，包括GC/回收算法／堆栈／、反射／编译时vs运行时、注解（结合android annotation库）、范型、线程池／并发编程、Socket、IO/NIO、集合框架、类加载器、异常、继承／组合／多态、引用…</p>
+<p>10-1 IO相关面试问题-Socket<br>10-2 IO相关面试问题-BIO／NIO<br>10-3 多线程相关面试问题1<br>10-4 多线程相关面试问题2<br>10-5 多线程相关面试问题3<br>10-6 异常相关面试问题<br>10-7 注解相关面试问题-基本概念<br>10-8 注解相关面试问题-注解分类<br>10-9 注解相关面试问题-Android Annotation<br>10-10 Java中类加载器相关面试问题-ClassLoader<br>10-11 Java中堆与栈相关面试问题<br>10-12 Java中反射相关面试问题1<br>10-13 Android中反射相关面试问题2</p>
+<blockquote>
+<p>第11章 设计模式相关面试问题（适合中级工程师）</p>
+</blockquote>
+<p>本章内容适合：中级工程师，设计模式是高级开发者的必备知识，面试中也是经常被问到，本章将结合Android使用场景，讲解常用的设计模式，让大家既掌握Android下设计模式的使用，又可轻松应对面试中关于设计模式的面试问题。包括观察者模式、动态代理 、工厂、策略类、装饰、桥接、单例等常用设计模式。…</p>
+<p>11-1 设计模式相关面试问题-单例-概念<br>11-2 设计模式相关面试问题-单例-饿汉<br>11-3 设计模式相关面试问题-单例-懒汉／懒汉线程安全<br>11-4 设计模式相关面试问题-单例–Dcl<br>11-5 设计模式相关面试问题-单例-静态内部类<br>11-6 设计模式相关面试问题-单例-枚举<br>11-7 设计模式相关面试问题-单例-Application<br>11-8 设计模式相关面试问题-Builder基础详解与代码解读<br>11-9 设计模式相关面试问题-Builder-Android运用Alertdialog<br>11-10 设计模式相关面试问题-适配器-类适配器<br>11-11 设计模式相关面试问题-适配器-对象适配器<br>11-12 设计模式相关面试问题-适配器-Listview中Adapter的运用<br>11-13 设计模式相关面试问题-装饰模式-概念和代码讲解<br>11-14 设计模式相关面试问题-装饰模式-Android中的运用<br>11-15 设计模式相关面试问题-外观-代码讲解<br>11-16 设计模式相关面试问题-外观-Android中外观设计模式的运用<br>11-17 设计模式相关面试问题-组合-代码讲解<br>11-18 设计模式相关面试问题-组合-Viewgroup源码<br>11-19 设计模式相关面试问题-策略-代码讲解<br>11-20 设计模式相关面试问题-策略-Httpstack的应用<br>11-21 设计模式相关面试问题-模板方法-代码讲解<br>11-22 设计模式相关面试问题-模板方法-asynctask应用<br>11-23 设计模式相关面试问题-观察者1<br>11-24 设计模式相关面试问题-观察者2<br>11-25 设计模式相关面试问题-观察者-回调函数<br>11-26 设计模式相关面试问题-观察者-notifyDataSetChanged方法<br>11-27 设计模式相关面试问题-责任链-代码讲解<br>11-28 设计模式相关面试问题-责任链-try／catch和有序广播<br>11-29 设计模式相关面试问题-责任链-viewgroup事件分发</p>
+<blockquote>
+<p>第12章 网络协议相关面试问题（适合中级工程师）</p>
+</blockquote>
+<p>本章内容适合：中级工程师，网络编程无论在开发中还是在面试中都是非常重要的，在面试中尤其对网络协议问的比较多，本章将会对网络协议进行讲解，包括https／http、dns、tcp／ip以及加密算法。</p>
+<p>12-1 http协议相关面试问题-基本概念<br>12-2 http协议相关面试问题-response与request<br>12-3 http协议相关面试问题-http1.0与http1.1的区别，get与post的区别<br>12-4 http协议相关面试问题-cookie与session的区别<br>12-5 https协议相关面试问题-TLS与SSL握手<br>12-6 TCP与IP相关面试问题1<br>12-7 TCP与IP相关面试问题2<br>12-8 DNS相关面试问题<br>12-9 https加密算法相关面试问题</p>
+<blockquote>
+<p>第13章 算法相关面试问题（适合初中级工程师）</p>
+</blockquote>
+<p>本章内容适合：初中级工程师，算法作为编程的重要部分，在BAT等大公司基本是必考项，本章将结合案例为大家讲解常用常考的算法面试问题，帮助大家提高算法能力的同时轻松应对算法相关的面试。</p>
+<p>13-1 链表相关算法面试问题讲解-链表相减<br>13-2 链表相关算法面试问题讲解-单链表数值<br>13-3 链表相关算法面试问题讲解-单链表重复数值<br>13-4 链表相关算法面试问题讲解-链表相加<br>13-5 链表相关算法面试问题讲解-回文结构<br>13-6 链表相关算法面试问题讲解-倒数结点删除<br>13-7 链表相关算法面试问题讲解-用栈实现队列<br>13-8 栈相关算法面试问题讲解-设计含最小函数min()的栈，要求min、push、pop的时间复杂度都是O(1)<br>13-9 二叉树相关算法面试问题讲解-分层遍历及变体应用<br>13-10 二叉树相关算法面试问题讲解-前序遍历（递归，迭代）<br>13-11 二叉树遍历算法面试问题讲解-中序遍历（递归，迭代)<br>13-12 二叉树遍历算法面试问题讲解-后序遍历（迭代）</p>
+<blockquote>
+<p>第14章 课程总结</p>
+</blockquote>
+<p>本章主要总结面试过程的相关技术点。同时也将面试的内容做一个归纳总结，最后非常感谢大家的支持，课程中遇到任何问题都可以在问答区提问，我在那里等着大家，有问必答，也祝愿大家都能尽早的获得一份心仪的offer。<br>14-1 课程总结</p>
+<h2 id="BAT大牛带你深度剖析Android-十大开源框架"><a href="#BAT大牛带你深度剖析Android-十大开源框架" class="headerlink" title="BAT大牛带你深度剖析Android 十大开源框架"></a>BAT大牛带你深度剖析Android 十大开源框架</h2><blockquote>
+<p>第1章 课程介绍</p>
+</blockquote>
+<p>编程最好的学习方法是阅读顶级工程师的源码！本课程将带你深度剖析Android主流开源框架的源码，让你全面掌握框架的使用场景、内部机制、构造原理、核心类、架构与设计思想等，提升你的代码阅读与分析能力、提高代码设计能力及改造能力，快速突破技术瓶颈，轻松应对Android高级面试与技术难题！ …</p>
+<p>1-1 课前必读（不看会错过一个亿）<br>1-2 课程导学</p>
+<blockquote>
+<p>第2章 Okhttp网络库深入解析和相关面试题分析</p>
+</blockquote>
+<p>本章主要先通过分析OKhttp的简单使用，对于OKhttp的调度器、拦截器、缓存策略、连接池等进行了相应的源码和原理分析，并对于socket、websocket、http缓存、多线程下载、文件下载、https等经典Android面试题进行分析。</p>
+<p>2-1 okhttp框架流程分析<br>2-2 okhttp同步请求方法<br>2-3 okhttp异步请求方法<br>2-4 okhttp同步请求流程和源码分析<br>2-5 okhttp异步请求流程和源码分析-1<br>2-6 okhttp异步请求流程和源码分析-2<br>2-7 okhttp任务调度核心类dispatcher解析-1<br>2-8 okhttp任务调度核心类dispatcher解析-2<br>2-9 okhttp拦截器流程<br>2-10 okhttp拦截器链介绍<br>2-11 okhttp之RetryAndFollowUpInterceptor解析<br>2-12 okhttp之BridgeInterceptor解析<br>2-13 okhttp缓存策略源码分析：put方法<br>2-14 okhttp缓存策略源码分析：get方法<br>2-15 okhttp拦截器之CacheInterceptor解析<br>2-16 okhttp拦截器之ConnectInterceptor解析-1<br>2-17 okhttp拦截器之ConnectInterceptor解析-2<br>2-18 okhttp连接池：put,get方法<br>2-19 okhttp连接池：connection回收<br>2-20 okhttp拦截器之CallServerInterceptor解析<br>2-21 okhttp面试: Socket-1<br>2-22 okhttp面试: Socket-2<br>2-23 okhttp面试: HttpClient&amp;HttpUrlConnection<br>2-24 okhttp面试: OkHttp来实现WebSocket连接<br>2-25 okhttp面试: WebSocket&amp;轮询相关<br>2-26 okhttp面试: Http缓存、Etag等标示作用<br>2-27 okhttp面试: 断点续传原理&amp;Okhttp如何实现<br>2-28 okhttp面试：多线程下载<br>2-29 okhttp面试：文件上传&amp;Okhttp如何处理文件上传<br>2-30 okhttp面试：如何解析Json类型数据<br>2-31 okhttp面试：Https／对称加密&amp;不对称加密</p>
+<blockquote>
+<p>第3章 Retrofit网络库深入解析和相关面试题分析</p>
+</blockquote>
+<p>本章主要先通过分析retrofit的使用，对于retrofit的接口、动态代理、适配工厂、数据转换等进行相应的源码和原理分析，并对于retrofit的设计模式、线程切换、Hook、MVC和MVP架构、SP跨进程问题等经典Android面试题进行分析。</p>
+<p>3-1 retrofit流程分析<br>3-2 retrofit概述<br>3-3 retrofit官网例子解析<br>3-4 retrofit请求过程7步骤详解<br>3-5 静态代理模式讲解<br>3-6 动态代理模式讲解<br>3-7 retrofit网络通信流程8步骤&amp;7个关键成员变量解析<br>3-8 retrofit中builder构建者模式&amp;builder内部类解析<br>3-9 retrofit中baseurl／converter／calladapter解析<br>3-10 retrofit中build方法完成retrofit对象创建流程解析<br>3-11 retrofit中RxjavaCallAdapterFactory内部构造与工作原理解析<br>3-12 retrofit中网络请求接口实例解析<br>3-13 retrofit中serviceMethod对象解析<br>3-14 retrofit中okHttpCall对象和adapt返回对象解析<br>3-15 retrofit中同步请求&amp;重要参数解析<br>3-16 retrofit中异步请求解析<br>3-17 retrofit设计模式解析-1：构建者模式<br>3-18 retrofit设计模式解析-2：工厂模式<br>3-19 retrofit设计模式解析-3：外观模式<br>3-20 retrofit设计模式解析-4：策略模式<br>3-21 retrofit设计模式解析-5：适配器模式<br>3-22 retrofit设计模式解析-6：动态代理模式／观察者<br>3-23 retrofit面试题：retfrofit线程切换（异步机制Looper)<br>3-24 retrofit面试题：rxjava和retrofit如何结合进行网络请求<br>3-25 retrofit面试题：Hook与动态代理<br>3-26 retrofit面试题：Android MVC架构优势和缺点<br>3-27 retrofit面试题：MVP优点和缺点<br>3-28 retrofit面试题：sp跨进程&amp;apply和commit方法</p>
+<blockquote>
+<p>第4章 Glide图片库深入解析和相关面试题分析</p>
+</blockquote>
+<p>本章主要先通过分析Glide的使用，对于glide的内存和硬盘缓存、加载策略、如何进行图片网络请求等方面，并将重点放在梳理整个Glide请求的流程，最后对于bitmap、性能优化OOM和三级缓存、Lrucache等Android面试题进行分析。</p>
+<p>4-1 glide框架流程分析<br>4-2 glide框架介绍-1<br>4-3 glide框架介绍-2<br>4-4 glide图片加载流程和源码分析-1：with方法（requestManager获取)<br>4-5 glide图片加载流程和源码分析-2：with方法（requestManagerRetriever的get方法)<br>4-6 glide图片加载流程和源码分析-3：load方法<br>4-7 glide图片加载流程和源码分析-4：into方法（buildTarget）<br>4-8 glide图片加载流程和源码分析-5：into方法（request建立和begin方法）<br>4-9 glide图片加载流程和源码分析-6：into方法（Loadprovider）<br>4-10 glide图片加载流程和源码分析-7：into方法（硬盘缓存／内存缓存)<br>4-11 glide图片加载流程和源码分析-8：into方法（内存缓存的读取）<br>4-12 glide图片加载流程和源码分析-9：into方法（内存缓存的写入）<br>4-13 Glide面试一：bitmap&amp;oom&amp;优化bitmap<br>4-14 Glide面试二：三级缓存&amp;lrucache</p>
+<blockquote>
+<p>第5章 LeakCanary内存泄漏框架解析和相关面试题分析</p>
+</blockquote>
+<p>本章主要先通过leakcanary使用，然后分析内存泄漏产生原因，并对于Leakcanary如何进行泄漏Activity收集策略、转换内存快照、定位内存泄漏位置等分析，最后对于现在业界比较关心的UI流畅度和性能数据上报等进行对应分析。</p>
+<p>5-1 leakcanary预备知识：android性能优化&amp;Gcroots<br>5-2 leakcanary内存框架：内存泄漏基础&amp;为什么需要leakcanary<br>5-3 android常见内存泄漏分析-1：单例VS非静态内部类<br>5-4 android常见内存泄漏分析-2：handler&amp;解决办法<br>5-5 android常见内存泄漏分析-3：线程&amp;WebView<br>5-6 leakcanary原理分析-1：Leakcanary原理概述和弱引用／引用队列<br>5-7 leakcanary原理分析-2：ActivityRefWatcher如何监视Activity<br>5-8 leakcanary原理分析-3：.hprof转换snapshot<br>5-9 leakcanary原理分析-4：查找内存泄漏引用和最短泄漏路径<br>5-10 leakcanary面试题：Application&amp;内存<br>5-11 leakcanary面试题：性能数据上报：网络流量和冷启动<br>5-12 leakcanary面试题：性能数据上报：UI卡顿和内存占用</p>
+<blockquote>
+<p>第6章 butterknife依赖注入框架源码解析</p>
+</blockquote>
+<p>本章从butterknife的基本使用讲起，首先会介绍框架相关注解和APT知识点，然后开始逐步分析butterknife源码，并逐步理清butterknife注入框架的原理，最后提炼butterknife中有关android面试相关问题。</p>
+<p>6-1 butterknife的引言和基本使用<br>6-2 butterknife原理必备知识点1：注解<br>6-3 butterknife原理必备知识点2：APT工作原理<br>6-4 butterknife原理必备知识点3：反射+运行时注解举例<br>6-5 butterknife原理分析-1：注解处理器如何处理注解和保存注解<br>6-6 butterknife原理分析-2：如何生成findviewByID代码</p>
+<blockquote>
+<p>第7章 blockcanary UI卡顿优化框架源码解析</p>
+</blockquote>
+<p>本章会从blockcanary基本使用讲起，首先会简单介绍ActivityThread／handler／looper相关框架知识点，然后通过分析blockcanary源码，逐步理清blockcanary如何解决UI卡顿的原理，最后会提炼blockcanary中有关android面试相关问题,并总结android性能优化相关问题。…</p>
+<p>7-1 blockcanary背景／UI卡顿原理／UI卡顿常见原因<br>7-2 blockcanary使用／阀值参数<br>7-3 blockcanary核心原理实现和流程图简述<br>7-4 blockcanary源码解析-1：框架初始化<br>7-5 blockcanary源码解析-2：stacksampler／cpusampler／start方法<br>7-6 blockcanary面试一：anr场景／原因／解决<br>7-7 blockcanary面试二：watchdog-anr 如何检测anr<br>7-8 blockcanary面试三：new Thread开启线程的4点弊端<br>7-9 blockcanary面试四：线程间通信：子线程–UI线程<br>7-10 blockcanary面试五：主线程–子线程(handlerThread-IntentService)<br>7-11 blockcanary面试六：多进程的4点好处与问题／voliate关键字<br>7-12 blockcanary面试七：voliate关键字和单例的写法</p>
+<blockquote>
+<p>第8章 eventbus异步框架源码解析</p>
+</blockquote>
+<p>本章会从eventbus的基本用法开始讲起，主要包括Event、Subscriber、Publisher、ThreadMode几大部分，并结合handler、组件间传递等消息知识点深入分析，然后对比分析eventbus3.0和2.0的区别，并结合eventbus在android面试中遇到的高频问题，对eventbus框架进行总结。…</p>
+<p>8-1 eventbus框架核心概念：事件传递／EventBus的优点／传统handler通信的两种方式<br>8-2 eventbus框架基本用法<br>8-3 eventbus框架源码解析-1：EventBus对象构建／如何进行线程调度<br>8-4 eventbus框架源码解析-2 subscribe注解／threadMode<br>8-5 eventbus框架源码解析-3：register订阅(上)<br>8-6 eventbus框架源码解析-4：register订阅（中）<br>8-7 eventbus框架源码解析-5：register订阅（下）<br>8-8 eventbus框架源码解析-6：subscribe方法完成订阅（上）<br>8-9 eventbus框架源码解析-7：subscribe方法完成订阅（下）<br>8-10 eventbus框架源码解析-8：发送事件post</p>
+<blockquote>
+<p>第9章 dagger2依赖注入框架源码解析</p>
+</blockquote>
+<p>本章从dagger2的基本使用讲起，首先会介绍框架相关依赖注入的知识点，然后逐步分析dagger2源码，并逐步理清dagger2注入框架原理，并对比分析dagger2与dagger的区别，最后会根据android面试相关问题，给大家总结dagger2的相关知识点。</p>
+<p>9-1 dagger2引言：依赖注入和使用场景<br>9-2 dagger2四种注入方式和依赖注入总结<br>9-3 dagger2的四种基本注解：@inject注解<br>9-4 dagger2的四种基本注解：@component注解<br>9-5 dagger2的inject和component注解实例和源码分析<br>9-6 dagger2的@Module和@Provides注解<br>9-7 dagger2的@Module和@Provides注解实例和代码分析</p>
+<blockquote>
+<p>第10章 rxjava异步框架源码解析</p>
+</blockquote>
+<p>本章会从rxjava的基本使用讲起：主要包括观察者模式、操作符、线程控制等，然后逐步分析rxjava中的响应式编程原理，最后会结合rxjava在android面试中遇到的高频面试问题，给大家总结rxjava相关知识。</p>
+<p>10-1 rxjava基本用法和观察者模式：01-传统观察者模式<br>10-2 rxjava观察者模式和基本用法<br>10-3 rxjava如何创建Observable&amp;observer／subscriber<br>10-4 rxjava如何创建subscriber以及如何完成订阅<br>10-5 rxjava操作符之map基本使用<br>10-6 rxjava操作符之map源码探究：lift<br>10-7 rxjava操作符之flatmap<br>10-8 rxjava线程控制：多线程编程准则&amp;Rxjava如何处理多线程&amp;&amp;Schedulers<br>10-9 rxjava线程控制：两个小例子&amp;observeOn和SubscribeOn<br>10-10 rxjava线程控制：SubscribeOn源码剖析<br>10-11 rxjava线程控制：ObserveOn源码剖析&amp;&amp;subscribeOn可以调用几次</p>
+<blockquote>
+<p>第11章 picasso图片框架源码解析</p>
+</blockquote>
+<p>本章从picasso基本用法和配置讲起，逐步分析picasso的源码，并从DownLoader，Dispatcher,service线程池等核心类进行分析，最后根据picasso流程图进行总结，并给大家提炼android面试中有关picasso框架的问题。</p>
+<p>11-1 picasso框架基本使用API<br>11-2 picasso源码with方法：内存缓存Lrucache和线程池的调度<br>11-3 piacsso源码with：dispatcher如何完成线程切换<br>11-4 picasso源码with：NetworkRequestHandler处理图片请求和回调<br>11-5 picasso源码load方法<br>11-6 picasso源码into方法：Action&amp;BitmapHunter<br>11-7 picasso源码into方法：线程池&amp;PicassoFutureTask<br>11-8 picasso源码into：线程开启如何执行图片加载请求？<br>11-9 picasso源码into：Okhttp和UrlConnectionDownloader下载图片<br>11-10 picasso源码into方法：完成加载</p>
+<blockquote>
+<p>第12章 课程总结</p>
+</blockquote>
+<p>本章将通过对Android面试技巧的梳理，帮助大家整体的认知和提高Android面试能力以及需要做的面试准备等，希望能对大家的面试有所帮助！最后非常感谢大家对课程的认可和支持，祝愿你们都能找到好工作。收到你们的Offer消息，是做好这门课程最大的动力。…</p>
+<p>12-1 Android面试技巧梳理</p>
+
+
+                <hr>
+
+                
+
+                <ul class="pager">
+                    
+                        <li class="previous">
+                            <a href="/2019/01/04/2018年Android技术总结-鸿洋推送两篇/" data-toggle="tooltip" data-placement="top" title="2018年Android技术总结-鸿洋推送两篇">&larr; Previous Post</a>
+                        </li>
+                    
+                    
+                        <li class="next">
+                            <a href="/2018/12/14/英语中倍数的表达方式/" data-toggle="tooltip" data-placement="top" title="英语中倍数的表达方式">Next Post &rarr;</a>
+                        </li>
+                    
+                </ul>
+
+                
+
+                
+
+            </div>
+    <!-- Side Catalog Container -->
+        
+
+    <!-- Sidebar Container -->
+
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                sidebar-container">
+
+                <!-- Featured Tags -->
+                
+                <section>
+                    <!-- no hr -->
+                    <h5><a href="/tags/">FEATURED TAGS</a></h5>
+                    <div class="tags">
+                       
+                          <a class="tag" href="/tags/#Android" title="Android">Android</a>
+                        
+                    </div>
+                </section>
+                
+
+                <!-- Friends Blog -->
+                
+                <hr>
+                <h5>FRIENDS</h5>
+                <ul class="list-inline">
+
+                    
+                        <li><a href="http://minus.wang" target="_blank">MinusWang&#39;s Diary</a></li>
+                    
+                        <li><a href="http://minus.wang" target="_blank">MinusWang</a></li>
+                    
+                        <li><a href="#" target="_blank">Foo</a></li>
+                    
+                        <li><a href="#" target="_blank">Bar</a></li>
+                    
+                        <li><a href="#" target="_blank">Example Friends</a></li>
+                    
+                        <li><a href="#" target="_blank">It helps SEO</a></li>
+                    
+                </ul>
+                
+            </div>
+
+        </div>
+    </div>
+</article>
+
+
+
+
+
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+<!-- anchor-js, Doc:http://bryanbraun.github.io/anchorjs/ -->
+<script>
+    async("https://cdn.bootcss.com/anchor-js/1.1.1/anchor.min.js",function(){
+        anchors.options = {
+          visible: 'always',
+          placement: 'right',
+          icon: '#'
+        };
+        anchors.add().remove('.intro-header h1').remove('.subheading').remove('.sidebar-container h5');
+    })
+</script>
+<style>
+    /* place left on bigger screen */
+    @media all and (min-width: 800px) {
+        .anchorjs-link{
+            position: absolute;
+            left: -0.75em;
+            font-size: 1.1em;
+            margin-top : -0.1em;
+        }
+    }
+</style>
+
+
+
+    <!-- Footer -->
+    <!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <ul class="list-inline text-center">
+                
+                
+                    <li>
+                        <a target="_blank" href="https://twitter.com/MinusWang">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+                
+                    <li>
+                        <a target="_blank" href="https://www.zhihu.com/people/MinusWang">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa  fa-stack-1x fa-inverse">知</i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+                    <li>
+                        <a target="_blank" href="http://weibo.com/MinusWang">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-weibo fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+                    <li>
+                        <a target="_blank" href="https://www.facebook.com/MinusWang">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-facebook fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+                    <li>
+                        <a target="_blank"  href="https://github.com/MinusWang">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+                    <li>
+                        <a target="_blank"  href="https://www.linkedin.com/in/MinusWang">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-linkedin fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                </ul>
+                <p class="copyright text-muted">
+				    <br>
+					<br>
+                    Copyright &copy; 2024 Minus Wang
+                </p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- jQuery -->
+
+<script src="/js/jquery.min.js"></script>
+
+
+<!-- Bootstrap Core JavaScript -->
+
+<script src="/js/bootstrap.min.js"></script>
+
+
+<!-- Custom Theme JavaScript -->
+
+<script src="/js/hux-blog.min.js"></script>
+
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+<!-- 
+     Because of the native support for backtick-style fenced code blocks 
+     right within the Markdown is landed in Github Pages, 
+     From V1.6, There is no need for Highlight.js, 
+     so Huxblog drops it officially.
+
+     - https://github.com/blog/2100-github-pages-now-faster-and-simpler-with-jekyll-3-0  
+     - https://help.github.com/articles/creating-and-highlighting-code-blocks/    
+-->
+<!--
+    <script>
+        async("http://cdn.bootcss.com/highlight.js/8.6/highlight.min.js", function(){
+            hljs.initHighlightingOnLoad();
+        })
+    </script>
+    <link href="http://cdn.bootcss.com/highlight.js/8.6/styles/github.min.css" rel="stylesheet">
+-->
+
+
+<!-- jquery.tagcloud.js -->
+<script>
+    // only load tagcloud.js in tag.html
+    if($('#tag_cloud').length !== 0){
+        async("http://minus.wang/js/jquery.tagcloud.js",function(){
+            $.fn.tagcloud.defaults = {
+                //size: {start: 1, end: 1, unit: 'em'},
+                color: {start: '#bbbbee', end: '#0085a1'},
+            };
+            $('#tag_cloud a').tagcloud();
+        })
+    }
+</script>
+
+<!--fastClick.js -->
+<script>
+    async("https://cdn.bootcss.com/fastclick/1.0.6/fastclick.min.js", function(){
+        var $nav = document.querySelector("nav");
+        if($nav) FastClick.attach($nav);
+    })
+</script>
+
+
+<!-- Google Analytics -->
+
+
+
+
+<!-- Baidu Tongji -->
+
+
+<!-- Side Catalog -->
+
+
+
+
+
+<!-- Image to hack wechat -->
+<img src="http://minus.wang/img/icon_wechat.png" width="0" height="0" />
+<!-- Migrate from head to bottom, no longer block render and still work -->
+
+</body>
+
+</html>

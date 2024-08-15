@@ -1,0 +1,568 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- Head tag -->
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Minus Wang - a life writer">
+    <meta name="keyword"  content="">
+    <link rel="shortcut icon" href="..//img/favicon.ico">
+
+    <title>
+        
+          git apply、git am打补丁.diff 和 .patch - MinusWang&#39;s Diary | MinusWangの日志
+        
+    </title>
+
+    <link rel="canonical" href="http://minus.wang/2017/11/15/git-apply、git-am打补丁-diff-和-patch/">
+
+    <!-- Bootstrap Core CSS -->
+    
+<link rel="stylesheet" href="/css/bootstrap.min.css">
+
+
+    <!-- Custom CSS -->
+    
+<link rel="stylesheet" href="/css/hux-blog.min.css">
+
+
+    <!-- Pygments Highlight CSS -->
+    
+<link rel="stylesheet" href="/css/highlight.css">
+
+
+    <!-- Custom Fonts -->
+    <!-- <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css"> -->
+    <!-- Hux change font-awesome CDN to qiniu -->
+    <link href="https://cdn.staticfile.org/font-awesome/4.5.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+
+    <!-- Hux Delete, sad but pending in China
+    <link href='http://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/
+    css'>
+    -->
+
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- ga & ba script hoook -->
+    <script></script>
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+
+<!-- hack iOS CSS :active style -->
+<body ontouchstart="">
+
+    <!-- Navigation -->
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">Minus Wang</a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <!-- Known Issue, found by Hux:
+            <nav>'s height woule be hold on by its content.
+            so, when navbar scale out, the <nav> will cover tags.
+            also mask any touch event of tags, unfortunately.
+        -->
+        <div id="huxblog_navbar">
+            <div class="navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="/">Home</a>
+                    </li>
+
+                    
+
+                        
+                    
+
+                        
+                        <li>
+                            <a href="/about/">About Me</a>
+                        </li>
+                        
+                    
+
+                        
+                        <li>
+                            <a href="/tags/">Tags</a>
+                        </li>
+                        
+                    
+
+                        
+                        <li>
+                            <a href="/archives/">Archives</a>
+                        </li>
+                        
+                    
+
+                        
+                        <li>
+                            <a href="/notes/">Notes</a>
+                        </li>
+                        
+                    
+
+                        
+                        <li>
+                            <a href="/Friends/">Friends</a>
+                        </li>
+                        
+                    
+                    
+                </ul>
+            </div>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container -->
+</nav>
+<script>
+    // Drop Bootstarp low-performance Navbar
+    // Use customize navbar with high-quality material design animation
+    // in high-perf jank-free CSS3 implementation
+    var $body   = document.body;
+    var $toggle = document.querySelector('.navbar-toggle');
+    var $navbar = document.querySelector('#huxblog_navbar');
+    var $collapse = document.querySelector('.navbar-collapse');
+
+    $toggle.addEventListener('click', handleMagic)
+    function handleMagic(e){
+        if ($navbar.className.indexOf('in') > 0) {
+        // CLOSE
+            $navbar.className = " ";
+            // wait until animation end.
+            setTimeout(function(){
+                // prevent frequently toggle
+                if($navbar.className.indexOf('in') < 0) {
+                    $collapse.style.height = "0px"
+                }
+            },400)
+        }else{
+        // OPEN
+            $collapse.style.height = "auto"
+            $navbar.className += " in";
+        }
+    }
+</script>
+
+
+    <!-- Main Content -->
+    
+<!-- Image to hack wechat -->
+<!-- <img src="http://minus.wang/img/icon_wechat.png" width="0" height="0"> -->
+<!-- <img src="{{ site.baseurl }}/{% if page.header-img %}{{ page.header-img }}{% else %}{{ site.header-img }}{% endif %}" width="0" height="0"> -->
+
+<!-- Post Header -->
+<style type="text/css">
+    header.intro-header{
+        background-image: url('/img/home-bg.jpg')
+    }
+</style>
+<header class="intro-header" >
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <div class="post-heading">
+                    <div class="tags">
+                        
+                    </div>
+                    <h1>git apply、git am打补丁.diff 和 .patch</h1>
+                    <h2 class="subheading"></h2>
+                    <span class="meta">
+                        Posted by MinusWang on
+                        2017-11-15
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+<!-- Post Content -->
+<article>
+    <div class="container">
+        <div class="row">
+
+    <!-- Post Container -->
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                post-container">
+
+                <blockquote>
+<p>生成patch：</p>
+</blockquote>
+<p>git format-patch -M master</p>
+<p>生成指定patch，0163bed3bf59ae74c36cc5138b4c24f1556d8304是commit id，-1是指从当前id开始，向下提交次数，包含此次且计数从1开始。<br>也就是说，我想要打出0163bed3bf59ae74c36cc5138b4c24f1556d8304当前的patch，则：<br>git format-patch 0163bed3bf59ae74c36cc5138b4c24f1556d8304 -1<br>想要打出0163bed3bf59ae74c36cc5138b4c24f1556d8304和它之前的一次提交的patch，则：<br>git format-patch 0163bed3bf59ae74c36cc5138b4c24f1556d8304 -2</p>
+<blockquote>
+<p>生成diff：</p>
+</blockquote>
+<p>git diff (id1) (id2) –binary –(path) &gt; 目标文件路径<br>比如要生成frameworks/base/下的diff，保存到~/gittest/下的f_b.diff：（注意：旧的id1在前）<br>git diff 206b47c132a80870c06d87c69a548bbfeebecd2d b5ce3e4ebe9503e370d734cecc12482bca023fdf –binary – frameworks/base/ &gt; ~/gittest/f_b.diff</p>
+<blockquote>
+<p>打入 patch / diff：</p>
+</blockquote>
+<p>git apply xxx.patch<br>git apply xxx.diff</p>
+<blockquote>
+<p>检查 patch / diff：</p>
+</blockquote>
+<p>git apply –check xxx.patch<br>git apply –check xxx.diff</p>
+<p>若git和需要打patch的文件不在一个目录：(git在framework下，patch要打入frameworks/base/下)<br>git apply –check –directory=base/ xxx.patch<br>git apply –directory=base/ xxx.patch<br>git am 后面会说到，以及生产patch和打入patch的一些命令参数</p>
+<p>我们创建一个文件夹，git init一下，模拟diff / patch源环境<br>$ mkdir gittest<br>$ git init<br>然后创建一个空文件 test，然后首次提交<br>$ touch test<br>$ git add .<br>$ git commit -m “test init”<br>在里面加入11111，add，commit（add 11111）一次；<br>在里面加入22222，add，commit（add 22222）一次；<br>…<br>在里面加入55555，add，commit（add 55555）一次；<br>一共提交5次，可以看到提交了5次。</p>
+<p>gitk<br>生成patch / diff 文件（我们单独建一个文件夹来存patch和diff –&gt; ~/patch/patch/）：</p>
+<p>在工作中，二者选一个就可以，看自己的需求。<br>patch相对于diff，多了提交记录，也就是说可以原封不动的把他人commit内容写上去，但是操作比diff麻烦一些</p>
+<p>生成patch：<br>我们记录一下最新的commit id ： 21ebfb1ef6a0a9b56d46036c036e8377b56b2da5，有5次提交。</p>
+<p>$ git format-patch 21ebfb1ef6a0a9b56d46036c036e8377b56b2da5 -5</p>
+<p>git patch</p>
+<p>生成了包含当前id和之前的4个id的patch，一共5个，命名也有规律000X+commit的内容.patch<br>我们把这5个移到~/patch/patch/中。</p>
+<p>生成diff：<br>我们记录要生成diff的区间，!!包上不包下!!，</p>
+<p>就是说我要生成 11111~55555的diff<br>id1 是 test init的id；1cf68afcf3e089a349c8ee534dc3ff44d11a6624<br>id2是add 55555的id。21ebfb1ef6a0a9b56d46036c036e8377b56b2da5<br>$ git diff 1cf68afcf3e089a349c8ee534dc3ff44d11a6624 21ebfb1ef6a0a9b56d46036c036e8377b56b2da5 –binary – . &gt; ~/patch/patch/test.diff</p>
+<p>diff 多次提交可以是一个文件，但是patch不行，因为它里面有commit记录！</p>
+<p>打 patch / diff 补丁（无冲突）：</p>
+<p>我们在当前目录创建一个需要打补丁的文件夹(gittest1)，里面也有一个空的test文件。<br>然后我们把patch/diff打入gittest1/test。<br>执行最开始的1、2即可，改一下文件夹名称就ok</p>
+<p>gittest1<br>打patch（不包含commit内容）<br>检查patch是否可用，没显示文字，就说明可用，且无冲突；<br>git apply –check ~/patch/patch/0001-add-11111.patch<br>一般检查一个就可以。<br>打入patch，可以批量，也可以单个。<br>git apply ~/patch/patch/*.patch<br>肯定会成功，因为没有冲突。我们查看一下<br>git diff</p>
+<p>git diff</p>
+<p>5个patch都打上去了，接着就可以 git add / commit提交了。但是这样没有commit记录。</p>
+<p>打patch（包含commit内容 git am） git checkout . 撤销一下<br>检查patch是否可用，没显示文字，就说明可用，且无冲突；<br>git apply –check ~/patch/patch/0001-add-11111.patch<br>打入patch，可以批量，也可以单个。<br> git am ~/patch/patch/*.patch<br>肯定会成功，因为没有冲突。我们查看一下</p>
+<p>gitk</p>
+<p>gitk</p>
+<p>我们发现已经自动commit，不用add、commit，可以直接push。</p>
+<p>打diff  git reset –hard 4c6eb312e94214a5f34fa3f119382ace647b1b3c 撤销一下<br>检查diff是否可用，没显示文字，就说明可用，且无冲突；<br>git apply –check ~/patch/patch/test.diff<br>打入diff;<br>git apply ~/patch/patch/test.diff<br>肯定会成功，因为没有冲突。我们查看一下<br>git diff</p>
+<p>git diff</p>
+<p>接着就可以 git add / commit提交了。但是这样没有commit记录。</p>
+<p>打 patch / diff 补丁（有冲突）：</p>
+<p>我们还原gittest1/test的初始状态，然后修改一下test文件，写入00000,，然后add、commit。</p>
+<p>add 00000<br>打patch</p>
+<p>检查patch是否可用，没显示文字，就说明可用，且无冲突；<br>git apply –check ~/patch/patch/0001-add-11111.patch<br>error: 打补丁失败：test:0<br>error: test：补丁未应用<br>说明是可以用，但是有冲突。<br>打入patch，可以批量，也可以单个。</p>
+<p>因为在check的时候知道已经有冲突了，就不好用apply来打patch，如果一定要用的话，建议一个一个apply，所以很麻烦，不如用diff。<br>在这里要用到 git am<br> git am ~/patch/patch/*.patch</p>
+<p>正应用：add 11111<br>error: 打补丁失败：test:0<br>error: test：补丁未应用<br>补丁失败于 0001 add 11111<br>失败的补丁文件副本位于：<br>/home/deshui/yudeshui/log/gittest1/.git/rebase-apply/patch<br>当您解决了此问题后，执行 “git am –continue”。<br>如果您想跳过此补丁，则执行 “git am –skip”。<br>要恢复原分支并停止打补丁，执行 “git am –abort”。<br>这行话告诉你，patch冲突了，但是有三个选项 git am –continue、git am –skip、git am –abort<br>这时候不要动！不要动！不要动！</p>
+<p>解决冲突。<br>我们 gedit test，在里面手动加入11111，因为我们加入了00000，导致错行，所以接下来的4个patch都会有冲突。<br>提交记录。<br>git add test<br>git am –continue<br>正应用：add 11111<br>正应用：add 22222<br>error: 打补丁失败：test:1<br>error: test：补丁未应用<br>补丁失败于 0002 add 22222<br>失败的补丁文件副本位于：<br>~/gittest1/.git/rebase-apply/patch<br>当您解决了此问题后，执行 “git am –continue”。<br>如果您想跳过此补丁，则执行 “git am –skip”。<br>要恢复原分支并停止打补丁，执行 “git am –abort”。<br>我们gitk一下，发现已经commit已经有add 11111的记录了！<br>同上操作，一直修改到44444<br>git add test<br>git am –continue<br>正应用：add 44444<br>正应用：add 55555<br>这样就完整的解决冲突，保留commit了。</p>
+<p>git am finish<br>打diff  git reset –hard 0050cda7f22df985d79b9b98da9bfc282ea10ef1 撤销到add 00000<br>检查diff是否可用，肯定有冲突。<br>git apply –check ~/patch/patch/test.diff<br>error: 打补丁失败：test:0<br>error: test：补丁未应用<br>打入diff;<br>git apply –reject –ignore-whitespace ~/patch/patch/test.diff 2&gt;&amp;1 | tee ~/patch/patch/testdiff.log<br>这里reject是生成一个.rej的文件，是一个差异文件。<br>ignore-whitespace是忽略多余的空格。<br>2&gt;&amp;1是值错误信息<br>tee 错误信息输出到控制台<br>~/patch/patch/testdiff.log 错误信息保存在这个文件里<br><strong>*****</strong>输出log<strong><strong>**</strong></strong><br>检查补丁 test…<br>error: 当查询：<br>error: 打补丁失败：test:0<br>应用 test 个补丁，其中 1 个被拒绝…<br>拒绝第 #1 个片段。<br><strong>*****</strong>输出log<strong><strong>**</strong></strong><br>这时候我们发现，文件夹多了一个test.rej的文件，打开它。<br>diff a/test b/test    (rejected hunks)<br>@@ -0,0 +1,5 @@<br>+11111<br>+22222<br>+33333<br>+44444<br>+55555<br>这个告诉我们，要在test中加入的信息，我们打开test补上就可以了。手动！<br>然后add / commit 就可以了。</p>
+<p>作者：yotods<br>链接：<a href="http://www.jianshu.com/p/e5d801b936b6">http://www.jianshu.com/p/e5d801b936b6</a><br>來源：简书<br>著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。</p>
+<p>有这样的 目录层次 x/xx/xxx/xxx/ttt.c<br>而 我的 当前位置 是在 x/下 ，执行git diff&gt; test.patch</p>
+<p>在test.patch补丁文件里的路径信息是这样的：<br>—a/xx/xxx/xxx<br>+++b/xx/xxx/xxx  </p>
+<p>如果 应用 test.patch 的时候的 位置 是在 x/ 下，<br>那么 执行 patch -p1 &lt; test.patch </p>
+<hr>
+<p>git diff&gt; test.patch，这是产生patch的方式。<br>注意，使用git diff产生的patch都应该在执行patch 命令时,指定-p1，当 位置是 【在哪里制作的patch，就在哪里 执行】<br>或者直接使用git apply test.patch 打补丁,执行 这个 命令的位置 也是&lt;在哪里制作的patch，就在哪里执行此命令&gt;。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">生成patch</span><br><span class="line">git diff &gt; file.patch</span><br><span class="line"></span><br><span class="line">打patch</span><br><span class="line">patch -p1 &lt; file.patch</span><br><span class="line">git apply file.patch</span><br></pre></td></tr></table></figure>
+
+<p>Git如何撤销所有本地修改</p>
+<p>git checkout . #本地所有修改的。没有的提交的，都返回到原来的状态<br>git stash  #把所有没有提交的修改暂存到stash里面。可用git stash pop回复。<br>git reset –hard HASH #返回到某个节点，不保留修改。<br>git reset –soft HASH#返回到某个节点。保留修改 </p>
+<hr>
+<p>git log –author=“author” 可以查找某一个作者所有的提交</p>
+<p>【Android】adb 查看所有程序包名</p>
+<ol>
+<li><p>列出所有的包名<br>$ adb shell pm list packages</p>
+</li>
+<li><p>可以加上grep查询词<br>$ adb shell pm list packages | grep ‘miui’</p>
+</li>
+</ol>
+<p>adb常用命令总结<br><a href="https://blog.csdn.net/wangjiang_qianmo/article/details/84104934">https://blog.csdn.net/wangjiang_qianmo/article/details/84104934</a></p>
+
+
+                <hr>
+
+                
+
+                <ul class="pager">
+                    
+                        <li class="previous">
+                            <a href="/2017/11/20/Android-android-signaturepad-issue-related/" data-toggle="tooltip" data-placement="top" title="Android android-signaturepad issue related">&larr; Previous Post</a>
+                        </li>
+                    
+                    
+                        <li class="next">
+                            <a href="/2017/11/15/转载-MD5算法原理/" data-toggle="tooltip" data-placement="top" title="转载-MD5算法原理">Next Post &rarr;</a>
+                        </li>
+                    
+                </ul>
+
+                
+
+                
+
+            </div>
+    <!-- Side Catalog Container -->
+        
+
+    <!-- Sidebar Container -->
+
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                sidebar-container">
+
+                <!-- Featured Tags -->
+                
+                <section>
+                    <!-- no hr -->
+                    <h5><a href="/tags/">FEATURED TAGS</a></h5>
+                    <div class="tags">
+                       
+                    </div>
+                </section>
+                
+
+                <!-- Friends Blog -->
+                
+                <hr>
+                <h5>FRIENDS</h5>
+                <ul class="list-inline">
+
+                    
+                        <li><a href="http://minus.wang" target="_blank">MinusWang&#39;s Diary</a></li>
+                    
+                        <li><a href="http://minus.wang" target="_blank">MinusWang</a></li>
+                    
+                        <li><a href="#" target="_blank">Foo</a></li>
+                    
+                        <li><a href="#" target="_blank">Bar</a></li>
+                    
+                        <li><a href="#" target="_blank">Example Friends</a></li>
+                    
+                        <li><a href="#" target="_blank">It helps SEO</a></li>
+                    
+                </ul>
+                
+            </div>
+
+        </div>
+    </div>
+</article>
+
+
+
+
+
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+<!-- anchor-js, Doc:http://bryanbraun.github.io/anchorjs/ -->
+<script>
+    async("https://cdn.bootcss.com/anchor-js/1.1.1/anchor.min.js",function(){
+        anchors.options = {
+          visible: 'always',
+          placement: 'right',
+          icon: '#'
+        };
+        anchors.add().remove('.intro-header h1').remove('.subheading').remove('.sidebar-container h5');
+    })
+</script>
+<style>
+    /* place left on bigger screen */
+    @media all and (min-width: 800px) {
+        .anchorjs-link{
+            position: absolute;
+            left: -0.75em;
+            font-size: 1.1em;
+            margin-top : -0.1em;
+        }
+    }
+</style>
+
+
+
+    <!-- Footer -->
+    <!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <ul class="list-inline text-center">
+                
+                
+                    <li>
+                        <a target="_blank" href="https://twitter.com/MinusWang">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+                
+                    <li>
+                        <a target="_blank" href="https://www.zhihu.com/people/MinusWang">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa  fa-stack-1x fa-inverse">知</i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+                    <li>
+                        <a target="_blank" href="http://weibo.com/MinusWang">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-weibo fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+                    <li>
+                        <a target="_blank" href="https://www.facebook.com/MinusWang">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-facebook fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+                    <li>
+                        <a target="_blank"  href="https://github.com/MinusWang">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+                    <li>
+                        <a target="_blank"  href="https://www.linkedin.com/in/MinusWang">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-linkedin fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                </ul>
+                <p class="copyright text-muted">
+				    <br>
+					<br>
+                    Copyright &copy; 2024 Minus Wang
+                </p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- jQuery -->
+
+<script src="/js/jquery.min.js"></script>
+
+
+<!-- Bootstrap Core JavaScript -->
+
+<script src="/js/bootstrap.min.js"></script>
+
+
+<!-- Custom Theme JavaScript -->
+
+<script src="/js/hux-blog.min.js"></script>
+
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+<!-- 
+     Because of the native support for backtick-style fenced code blocks 
+     right within the Markdown is landed in Github Pages, 
+     From V1.6, There is no need for Highlight.js, 
+     so Huxblog drops it officially.
+
+     - https://github.com/blog/2100-github-pages-now-faster-and-simpler-with-jekyll-3-0  
+     - https://help.github.com/articles/creating-and-highlighting-code-blocks/    
+-->
+<!--
+    <script>
+        async("http://cdn.bootcss.com/highlight.js/8.6/highlight.min.js", function(){
+            hljs.initHighlightingOnLoad();
+        })
+    </script>
+    <link href="http://cdn.bootcss.com/highlight.js/8.6/styles/github.min.css" rel="stylesheet">
+-->
+
+
+<!-- jquery.tagcloud.js -->
+<script>
+    // only load tagcloud.js in tag.html
+    if($('#tag_cloud').length !== 0){
+        async("http://minus.wang/js/jquery.tagcloud.js",function(){
+            $.fn.tagcloud.defaults = {
+                //size: {start: 1, end: 1, unit: 'em'},
+                color: {start: '#bbbbee', end: '#0085a1'},
+            };
+            $('#tag_cloud a').tagcloud();
+        })
+    }
+</script>
+
+<!--fastClick.js -->
+<script>
+    async("https://cdn.bootcss.com/fastclick/1.0.6/fastclick.min.js", function(){
+        var $nav = document.querySelector("nav");
+        if($nav) FastClick.attach($nav);
+    })
+</script>
+
+
+<!-- Google Analytics -->
+
+
+
+
+<!-- Baidu Tongji -->
+
+
+<!-- Side Catalog -->
+
+
+
+
+
+<!-- Image to hack wechat -->
+<img src="http://minus.wang/img/icon_wechat.png" width="0" height="0" />
+<!-- Migrate from head to bottom, no longer block render and still work -->
+
+</body>
+
+</html>
