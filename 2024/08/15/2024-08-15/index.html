@@ -17,7 +17,7 @@
         
     </title>
 
-    <link rel="canonical" href="http://minus.wang/2024/08/15/2024-08-15 NEW/">
+    <link rel="canonical" href="http://minus.wang/2024/08/15/2024-08-15/">
 
     <!-- Bootstrap Core CSS -->
     
@@ -92,25 +92,8 @@
                     
 
                         
-                    
-
-                        
                         <li>
                             <a href="/about/">About Me</a>
-                        </li>
-                        
-                    
-
-                        
-                        <li>
-                            <a href="/Friends/">Friends</a>
-                        </li>
-                        
-                    
-
-                        
-                        <li>
-                            <a href="/archives/">Archives</a>
                         </li>
                         
                     
@@ -124,7 +107,24 @@
 
                         
                         <li>
+                            <a href="/Friends/">Friends</a>
+                        </li>
+                        
+                    
+
+                        
+                        <li>
                             <a href="/notes/">Notes</a>
+                        </li>
+                        
+                    
+
+                        
+                    
+
+                        
+                        <li>
+                            <a href="/archives/">Archives</a>
                         </li>
                         
                     
@@ -211,13 +211,32 @@
                 col-md-10 col-md-offset-1
                 post-container">
 
-                <p>npm i</p>
+                <blockquote>
+<p>一、下载博客源码，安装并更新依赖<br>npm i<br>npm i hexo@latest<br>npm i hexo-deployer-git@latest</p>
+</blockquote>
+<blockquote>
+<p>二、GitHub分支情况介绍<br>执行deploy时将源码生成的文件自动提交到分支：master，GitHub pages依据此分支生成页面<br>BLOG的源码分支：hexosrc</p>
+</blockquote>
+<blockquote>
+<p>三、CRLF LF 部署时提示问题消除<br>可以将core.autocrlf设置为input，这样Git在提交时会将CRLF转换为LF，但检出时不会进行转换。这适用于希望仓库中的文件使用LF换行符，但可能在Windows系统上工作的场景<br><code>git config --global core.autocrlf input</code></p>
+</blockquote>
+<blockquote>
+<p>四、日常操作<br>博文的发布流程</p>
+</blockquote>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&quot;scripts&quot;: &#123;</span><br><span class="line">  &quot;clean&quot;: &quot;hexo clean&quot;,</span><br><span class="line">  &quot;build&quot;: &quot;hexo generate&quot;,</span><br><span class="line">  &quot;server&quot;: &quot;hexo server&quot;</span><br><span class="line">  &quot;deploy&quot;: &quot;hexo deploy&quot;,</span><br><span class="line">&#125;,</span><br></pre></td></tr></table></figure>
+<p>另外，本地博客源码提交与普通项目一样。执行git add commit等。 </p>
+<blockquote>
+<p>五、记录</p>
+</blockquote>
+<ol>
+<li>博文的url取自本地markdown的文件名字</li>
+<li>博文的标题取自博文markdown的头部声明<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">---</span><br><span class="line">title: 2024-08-15 ANOTHER 5 YEARS PAST</span><br><span class="line">date: 2024年8月15日11点02分</span><br><span class="line">tags: Note</span><br><span class="line">---</span><br></pre></td></tr></table></figure>
 
-<p>npm i hexo@latest<br>npm i hexo-deployer-git@latest</p>
-<p>github  发布分支：  master<br>        BLOG源码分支：  hexosrc</p>
-<p>可以将core.autocrlf设置为input，这样Git在提交时会将CRLF转换为LF，但检出时不会进行转换。这适用于希望仓库中的文件使用LF换行符，但可能在Windows系统上工作的场景</p>
-<p>git config –global core.autocrlf input</p>
+</li>
+</ol>
+<blockquote>
+<p>六、其它</p>
+</blockquote>
 
 
                 <hr>
@@ -271,14 +290,6 @@
                         <li><a href="http://minus.wang" target="_blank">MinusWang&#39;s Diary</a></li>
                     
                         <li><a href="http://minus.wang" target="_blank">MinusWang</a></li>
-                    
-                        <li><a href="#" target="_blank">Foo</a></li>
-                    
-                        <li><a href="#" target="_blank">Bar</a></li>
-                    
-                        <li><a href="#" target="_blank">Example Friends</a></li>
-                    
-                        <li><a href="#" target="_blank">It helps SEO</a></li>
                     
                 </ul>
                 
@@ -348,7 +359,7 @@
                         </a>
                     </li>
                 
-                
+                <!-- 
                     <li>
                         <a target="_blank" href="https://www.zhihu.com/people/MinusWang">
                             <span class="fa-stack fa-lg">
@@ -357,7 +368,7 @@
                             </span>
                         </a>
                     </li>
-                
+                 -->
 
                 
                     <li>
