@@ -216,6 +216,8 @@
 
 <p>npm i hexo@latest<br>npm i hexo-deployer-git@latest</p>
 <p>github  发布分支：  master<br>        BLOG源码分支：  hexosrc</p>
+<p>可以将core.autocrlf设置为input，这样Git在提交时会将CRLF转换为LF，但检出时不会进行转换。这适用于希望仓库中的文件使用LF换行符，但可能在Windows系统上工作的场景</p>
+<p>git config –global core.autocrlf input</p>
 
 
                 <hr>
